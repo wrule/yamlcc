@@ -1,0 +1,2 @@
+# yamlcc
+yamlcc like yacc
