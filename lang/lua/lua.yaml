@@ -1,0 +1,29 @@
+# 数字字面量
+$number: ^\d+
+# 标识符
+$identifier: ^[_a-zA-Z][_a-zA-Z\d]*
+$short_comment: ^--.*
+$long_comment: ^--\[\[\]\]
+# if语句
+$stmt_if:
+  if:
+    $exp:
+      then:
+        $block:
+          else:
+            $block:
+              end: end
+          elseif: -3
+          end: end
+# 表达式
+$exp:
+  (:
+    $exp:
+      $op:
+        $exp: -1
+      ): end
+  $number:
+    $op:
+      $exp: -1
+    "$other": end
+    "\"": end
