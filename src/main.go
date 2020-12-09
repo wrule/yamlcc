@@ -13,9 +13,10 @@ func main() {
 	if err != nil {
 		panic("读取文件出错")
 	}
-	m := make(map[string]interface{})
+	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	fmt.Println(m)
+	node := NewNode(m)
+	fmt.Println(node.Keys())
 
 	re := regexp.MustCompile(`^\d+/`)
 	fmt.Println(re.MatchString("21/"))
