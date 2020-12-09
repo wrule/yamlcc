@@ -17,6 +17,6 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	fmt.Println(m)
 
-	re := regexp.MustCompile(`^\d+`)
-	fmt.Println(re.MatchString("21.123"))
+	re := regexp.MustCompile(`^\d+/`)
+	fmt.Println(re.MatchString("21/"))
 }
