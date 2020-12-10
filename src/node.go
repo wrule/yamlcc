@@ -51,18 +51,51 @@ func (me *Node) GetRegexp(key string) *regexp.Regexp {
 
 // Run 运行
 func (me *Node) Run(text string) {
+	invalid := me.GetRegexp("invalid").FindString(text)
+	fmt.Printf("跳过%d个空白符\n", len(invalid))
+	text = text[len(invalid):]
+
 	fmt.Println(text)
+
 	for _, key := range me.keys {
 		fmt.Printf("%s\t", key)
 		if strings.HasPrefix(key, "$") {
-			next := me.Get(key[1:])
-			if re, ok := next.(*regexp.Regexp); ok {
-
-			} else if node, ok := next.(*Node); ok {
-
+			fmt.Printf("尝试匹配引用: %s\n", key)
+			yy := me.Get(key[1:])
+			if re, ok := yy.(*regexp.Regexp); ok {
+				fmt.Printf("引用是一个正则表达式: %v\n", re)
+				kkk := re.FindString(text)
+				if len(kkk) > 0 {
+					fmt.Printf("匹配成功，为: %s\n", kkk)
+					next := me.srcMap[key]
+					// fmt.Println(next)
+					text = text[len(kkk):]
+					if node, ok := next.(*Node); ok {
+						node.Run(text)
+					} else {
+						return
+					}
+				} else {
+					fmt.Printf("匹配失败\n")
+				}
+			} else if node, ok := yy.(*Node); ok {
+				fmt.Printf("引用是一个组合定义: %v\n", node)
 			}
 		} else {
-			fmt.Println(key)
+			fmt.Printf("尝试匹配字符串: %s\n", key)
+			if strings.HasPrefix(text, key) {
+				fmt.Printf("匹配成功\n")
+				next := me.srcMap[key]
+				// fmt.Println(next)
+				text = text[len(key):]
+				if node, ok := next.(*Node); ok {
+					node.Run(text)
+				} else {
+					return
+				}
+			} else {
+				fmt.Printf("匹配失败\n")
+			}
 		}
 	}
 }
