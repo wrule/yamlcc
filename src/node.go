@@ -10,41 +10,22 @@ import (
 type Node struct {
 	srcMap map[string]interface{}
 	prev   *Node
+	keys   []string
 }
 
-// Keys 子字段列表
-func (me *Node) Keys() []string {
-
-}
-
-// ChildStrings 子字符串列表
-func (me *Node) ChildStrings() []string {
-
-}
-
-// ChildRegexps 子正则表达式列表
-func (me *Node) ChildRegexps() []*regexp.Regexp {
-
-}
-
-// ChildNodes 子节点列表
-func (me *Node) ChildNodes() []*Node {
-
-}
-
-// Get 访问某字段（会向上查找）
+// Get 访问某定义（会向上查找）
 func (me *Node) Get(key string) interface{} {
 	curNode := me
 	for curNode != nil {
-		if rst, ok := curNode.srcMap[key]; ok {
+		if rst, ok := curNode.srcMap[":"+key]; ok {
 			return rst
 		}
 		curNode = curNode.prev
 	}
-	panic("Node Get: 字段没有访问到")
+	panic("Node Get: 定义没有访问到")
 }
 
-// GetNode 获取子节点Node
+// GetNode 获取子节点定义
 func (me *Node) GetNode(key string) *Node {
 	if node, ok := me.Get(key).(*Node); ok {
 		return node
@@ -70,8 +51,20 @@ func (me *Node) GetRegexp(key string) *regexp.Regexp {
 
 // Run 运行
 func (me *Node) Run(text string) {
-	istr := me.GetRegexp("$invalid").FindString(text)
-	fmt.Println(text, len(istr))
+	fmt.Println(text)
+	for _, key := range me.keys {
+		fmt.Printf("%s\t", key)
+		if strings.HasPrefix(key, "$") {
+			next := me.Get(key[1:])
+			if re, ok := next.(*regexp.Regexp); ok {
+
+			} else if node, ok := next.(*Node); ok {
+
+			}
+		} else {
+			fmt.Println(key)
+		}
+	}
 }
 
 // SetPrev s
@@ -83,14 +76,9 @@ func (me *Node) SetPrev(node *Node) {
 func compileValue(value interface{}, prev *Node) interface{} {
 	switch value.(type) {
 	case string:
-		text := value.(string)
-		if strings.HasPrefix(text, "^") {
-			return regexp.MustCompile(text)
-		}
-		return value
+		return regexp.MustCompile(value.(string))
 	case map[interface{}]interface{}:
-		childMap := value.(map[interface{}]interface{})
-		node := NewNode(childMap)
+		node := NewNode(value.(map[interface{}]interface{}))
 		node.SetPrev(prev)
 		return node
 	default:
@@ -111,5 +99,8 @@ func compileMap(srcMap map[interface{}]interface{}, prev *Node) map[string]inter
 func NewNode(srcMap map[interface{}]interface{}) *Node {
 	node := &Node{}
 	node.srcMap = compileMap(srcMap, node)
+	for key := range node.srcMap {
+		node.keys = append(node.keys, key)
+	}
 	return node
 }
