@@ -2,6 +2,8 @@
 $number: ^\d+
 # 运算符
 $opr: ^\+|-|\*|/
+# 无效文本
+$invalid: ^\s*
 # 表达式
 $exps:
   $number:
@@ -11,3 +13,36 @@ $exps:
   (:
     $exps:
       ): end
+# if控制语句定义
+$stmt_if:
+  if:
+    $exps:
+      then:
+        $block:
+          elseif: -3
+          else:
+            $block:
+              end: end
+          end: end
+
+
+
+# 形参列表
+$func_paramlist:
+  (:
+    $identifiy:
+      ',': -1
+      ): end
+    ): end
+
+# 函数体
+$func_body:
+  $block:
+    end: end
+
+# 函数定义语句
+$stmt_funcdef:
+  function:
+    $identifiy:
+      $func_paramlist:
+          $func_body: end
