@@ -12,22 +12,24 @@ type Node struct {
 	prev   *Node
 }
 
-// Keys s
+// Keys 子字段列表
 func (me *Node) Keys() []string {
-	rst := []string{}
-	for key := range me.srcMap {
-		rst = append(rst, key)
-	}
-	return rst
+
 }
 
-// Values s
-func (me *Node) Values() []interface{} {
-	rst := []interface{}{}
-	for _, value := range me.srcMap {
-		rst = append(rst, value)
-	}
-	return rst
+// ChildStrings 子字符串列表
+func (me *Node) ChildStrings() []string {
+
+}
+
+// ChildRegexps 子正则表达式列表
+func (me *Node) ChildRegexps() []*regexp.Regexp {
+
+}
+
+// ChildNodes 子节点列表
+func (me *Node) ChildNodes() []*Node {
+
 }
 
 // Get 访问某字段（会向上查找）
@@ -68,7 +70,8 @@ func (me *Node) GetRegexp(key string) *regexp.Regexp {
 
 // Run 运行
 func (me *Node) Run(text string) {
-	fmt.Println(text)
+	istr := me.GetRegexp("$invalid").FindString(text)
+	fmt.Println(text, len(istr))
 }
 
 // SetPrev s

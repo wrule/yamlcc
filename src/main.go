@@ -15,6 +15,7 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	node := NewNode(m)
-	node.Run(" (1 + 2) * 3")
+	node.Run(`    
+	(1 + 2) * 3`)
 	fmt.Println(node.GetNode("$exps").GetNode("$number").GetNode("$opr"))
 }
