@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 )
@@ -8,6 +9,7 @@ import (
 // Node s
 type Node struct {
 	srcMap map[string]interface{}
+	prev   *Node
 }
 
 // Keys s
@@ -28,40 +30,54 @@ func (me *Node) Values() []interface{} {
 	return rst
 }
 
-// Child 获取子节点
-func (me *Node) Child(key string) interface{} {
-	if value, found := me.srcMap[key]; found {
-		return value
+// Get 访问某字段（会向上查找）
+func (me *Node) Get(key string) interface{} {
+	curNode := me
+	for curNode != nil {
+		if rst, ok := curNode.srcMap[key]; ok {
+			return rst
+		}
+		curNode = curNode.prev
 	}
-	panic("Node Child: 无法获取子节点")
+	panic("Node Get: 字段没有访问到")
 }
 
-// ChildNode 获取子节点Node
-func (me *Node) ChildNode(key string) Node {
-	if node, ok := me.Child(key).(Node); ok {
+// GetNode 获取子节点Node
+func (me *Node) GetNode(key string) *Node {
+	if node, ok := me.Get(key).(*Node); ok {
 		return node
 	}
-	panic("Node ChildNode: 不是一个节点")
+	panic("Node GetNode: 不是一个节点")
 }
 
-// ChildString 获取子节点字符串
-func (me *Node) ChildString(key string) string {
-	if str, ok := me.Child(key).(string); ok {
+// GetString 获取子节点字符串
+func (me *Node) GetString(key string) string {
+	if str, ok := me.Get(key).(string); ok {
 		return str
 	}
-	panic("Node ChildString: 不是一个字符串")
+	panic("Node GetString: 不是一个字符串")
 }
 
-// ChildRegexp 获取子正则表达式
-func (me *Node) ChildRegexp(key string) *regexp.Regexp {
-	if re, ok := me.Child(key).(*regexp.Regexp); ok {
+// GetRegexp 获取子正则表达式
+func (me *Node) GetRegexp(key string) *regexp.Regexp {
+	if re, ok := me.Get(key).(*regexp.Regexp); ok {
 		return re
 	}
-	panic("Node ChildString: 不是一个正则表达式")
+	panic("Node GetRegexp: 不是一个正则表达式")
+}
+
+// Run 运行
+func (me *Node) Run(text string) {
+	fmt.Println(text)
+}
+
+// SetPrev s
+func (me *Node) SetPrev(node *Node) {
+	me.prev = node
 }
 
 // compileValue 编译Value
-func compileValue(value interface{}) interface{} {
+func compileValue(value interface{}, prev *Node) interface{} {
 	switch value.(type) {
 	case string:
 		text := value.(string)
@@ -71,24 +87,26 @@ func compileValue(value interface{}) interface{} {
 		return value
 	case map[interface{}]interface{}:
 		childMap := value.(map[interface{}]interface{})
-		return NewNode(childMap)
+		node := NewNode(childMap)
+		node.SetPrev(prev)
+		return node
 	default:
 		return value
 	}
 }
 
 // compileMap 编译Map
-func compileMap(srcMap map[interface{}]interface{}) map[string]interface{} {
+func compileMap(srcMap map[interface{}]interface{}, prev *Node) map[string]interface{} {
 	dstMap := map[string]interface{}{}
 	for key, value := range srcMap {
-		dstMap[key.(string)] = compileValue(value)
+		dstMap[key.(string)] = compileValue(value, prev)
 	}
 	return dstMap
 }
 
 // NewNode 构造函数
 func NewNode(srcMap map[interface{}]interface{}) *Node {
-	return &Node{
-		srcMap: compileMap(srcMap),
-	}
+	node := &Node{}
+	node.srcMap = compileMap(srcMap, node)
+	return node
 }

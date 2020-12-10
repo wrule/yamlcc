@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
-	"regexp"
 
 	"gopkg.in/yaml.v2"
 )
@@ -16,8 +15,6 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	node := NewNode(m)
-	fmt.Println(node.Keys())
-
-	re := regexp.MustCompile(`^\d+/`)
-	fmt.Println(re.MatchString("21/"))
+	node.Run(" (1 + 2) * 3")
+	fmt.Println(node.GetNode("$exps").GetNode("$number").GetNode("$opr"))
 }
