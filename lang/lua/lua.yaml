@@ -9,7 +9,7 @@
   $number:
     $opr:
       $exps: 1
-    $other: 0
+    .other: 0
   (:
     $exps:
       ): 0
