@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"gopkg.in/yaml.v2"
@@ -13,8 +14,5 @@ func main() {
 	}
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	node := NewNode(m)
-	node.GetNode("exps").Run(`
-		3 * (1 + 2)
-	`)
+	fmt.Println(m)
 }
