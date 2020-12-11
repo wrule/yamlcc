@@ -12,6 +12,15 @@ type Node struct {
 	childs map[string]interface{}
 }
 
+// PrevN 获取多级父节点
+func (me *Node) PrevN(n int) *Node {
+	curNode := me
+	for i := 0; curNode != nil && i < n; i++ {
+		curNode = curNode.prev
+	}
+	return curNode
+}
+
 // Test 验证文本
 func (me *Node) Test(text string) {
 	fmt.Println("->>进入新节点")
