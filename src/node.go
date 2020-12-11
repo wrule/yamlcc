@@ -22,13 +22,35 @@ func (me *Node) PrevN(n int) *Node {
 	return curNode
 }
 
+// Next s
+func (me *Node) Next(key, text string) {
+	next := me.childs[key]
+	if node, ok := next.(*Node); ok {
+		node.Test(text)
+	} else if num, ok := next.(int); ok {
+		if num > 0 {
+			me.PrevN(num).Test(text)
+		} else {
+			fmt.Println("\t\t\t此路径匹配结束")
+		}
+	}
+}
+
+func (me *Node) RegexpFind(re *regexp.Regexp, text string) (string, string) {
+	indexs := re.FindStringIndex(text)
+	if len(indexs) > 1 && indexs[0] == 0 {
+		dst := text[indexs[0]:indexs[1]]
+		return dst, text[len(dst):]
+	}
+	return "", text
+}
+
 // Test 验证文本
 func (me *Node) Test(text string) {
 	fmt.Printf(">> 进入新节点\n")
 	fmt.Printf(">> 待验证文本:%s\n", text)
 
-	ivdStr := me.GetDefRegexp("invalid").FindString(text)
-	text = text[len(ivdStr):]
+	ivdStr, text := me.RegexpFind(me.GetDefRegexp("invalid"), text)
 	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
 
 	fmt.Printf("\t2. 以下是本节点的分支:\n")
@@ -54,24 +76,11 @@ func (me *Node) Test(text string) {
 
 			if re, ok := def.(*regexp.Regexp); ok {
 				fmt.Printf("\t\t\t引用是正则表达式: %v\n", re)
-
-				reStr := re.FindString(text)
+				reStr, text := me.RegexpFind(re, text)
 				if len(reStr) > 0 {
 					fmt.Println("\t\t\t匹配成功")
-					text = text[len(reStr):]
 					fmt.Printf("\t\t\t匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
-
-					next := me.childs[key]
-					if nextNode, ok := next.(*Node); ok {
-						nextNode.Test(text)
-					} else if num, ok := next.(int); ok {
-						if num > 0 {
-							me.PrevN(num).Test(text)
-						} else {
-							fmt.Println("\t\t\t此路径匹配结束")
-						}
-					}
-
+					me.Next(key, text)
 				} else {
 					fmt.Println("\t\t\t匹配不成功")
 				}
@@ -93,16 +102,7 @@ func (me *Node) Test(text string) {
 				text = text[len(key):]
 				fmt.Printf("\t\t\t匹配了 %d 个字符，之后的样子为:%s\n", len(key), text)
 
-				next := me.childs[key]
-				if nextNode, ok := next.(*Node); ok {
-					nextNode.Test(text)
-				} else if num, ok := next.(int); ok {
-					if num > 0 {
-						me.PrevN(num).Test(text)
-					} else {
-						fmt.Println("\t\t\t此路径匹配结束")
-					}
-				}
+				me.Next(key, text)
 
 			} else {
 				fmt.Println("\t\t\t匹配不成功")
