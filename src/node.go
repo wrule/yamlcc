@@ -8,6 +8,7 @@ import (
 
 // Node 语法规则节点
 type Node struct {
+	name   string
 	prev   *Node
 	childs map[string]interface{}
 }
@@ -23,56 +24,88 @@ func (me *Node) PrevN(n int) *Node {
 
 // Test 验证文本
 func (me *Node) Test(text string) {
-	fmt.Println("->>进入新节点")
+	fmt.Printf(">> 进入新节点\n")
+	fmt.Printf(">> 待验证文本:%s\n", text)
+
+	ivdStr := me.GetDefRegexp("invalid").FindString(text)
+	text = text[len(ivdStr):]
+	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
+
+	fmt.Printf("\t2. 以下是本节点的分支:\n")
 	for key := range me.childs {
-		fmt.Printf("%s\t", key)
-	}
-	fmt.Println()
-	fmt.Println(text)
-	fmt.Println("--------------------")
-	fstr := me.GetDefRegexp("invalid").FindString(text)
-	fmt.Printf("无效字符 %d 个\n", len(fstr))
-	text = text[len(fstr):]
-	fmt.Println(text)
-	for key := range me.childs {
-		fmt.Printf("分支: %s ", key)
+		fmt.Printf("\t\t%s\t", key)
 		if strings.HasPrefix(key, "$") {
+			fmt.Println("引用")
+		} else if strings.HasPrefix(key, ".") {
+			fmt.Println("命令")
+		} else {
+			fmt.Println("字面")
+		}
+	}
+
+	fmt.Printf("\t3. 开始尝试分支匹配\n")
+	for key := range me.childs {
+		fmt.Printf("\t\t尝试匹配分支:%s\n", key)
+		if strings.HasPrefix(key, "$") {
+			fmt.Printf("\t\t\t%s 分支是引用\n", key)
+
 			defKey := key[1:]
 			def := me.GetDef(defKey)
+
 			if re, ok := def.(*regexp.Regexp); ok {
-				fmt.Println("是正则定义", re)
+				fmt.Printf("\t\t\t引用是正则表达式: %v\n", re)
+
 				reStr := re.FindString(text)
-				if reStr != "" {
-					fmt.Printf("正则匹配成功: %s %d个字符\n", reStr, len(reStr))
+				if len(reStr) > 0 {
+					fmt.Println("\t\t\t匹配成功")
 					text = text[len(reStr):]
-					fmt.Println(text)
+					fmt.Printf("\t\t\t匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
+
 					next := me.childs[key]
-					if node, ok := next.(*Node); ok {
-						node.Test(text)
-					} else {
-						panic("结束")
+					if nextNode, ok := next.(*Node); ok {
+						nextNode.Test(text)
+					} else if num, ok := next.(int); ok {
+						if num > 0 {
+							me.PrevN(num).Test(text)
+						} else {
+							fmt.Println("\t\t\t此路径匹配结束")
+						}
 					}
+
 				} else {
-					fmt.Println("正则匹配失败")
+					fmt.Println("\t\t\t匹配不成功")
 				}
+
 			} else if node, ok := def.(*Node); ok {
-				fmt.Println("是节点定义", node)
+				fmt.Printf("\t\t\t引用是节点: %v\n", node)
 				node.Test(text)
-			}
-		} else {
-			fmt.Println("是字面量")
-			if strings.HasPrefix(text, key) {
-				fmt.Println("匹配成功")
-				text = text[len(key):]
-				fmt.Println(text)
-				next := me.childs[key]
-				if node, ok := next.(*Node); ok {
-					node.Test(text)
-				} else {
-					panic("结束")
-				}
 			} else {
-				fmt.Println("不匹配")
+				fmt.Printf("\t\t\t引用啥也不是\n")
+			}
+
+		} else if strings.HasPrefix(key, ".") {
+			fmt.Printf("\t\t\t%s 分支是命令\n", key)
+
+		} else {
+			fmt.Printf("\t\t\t%s 分支是字面\n", key)
+			if strings.HasPrefix(text, key) {
+				fmt.Println("\t\t\t匹配成功")
+				text = text[len(key):]
+				fmt.Printf("\t\t\t匹配了 %d 个字符，之后的样子为:%s\n", len(key), text)
+
+				next := me.childs[key]
+				if nextNode, ok := next.(*Node); ok {
+					nextNode.Test(text)
+				} else if num, ok := next.(int); ok {
+					if num > 0 {
+						me.PrevN(num).Test(text)
+					} else {
+						fmt.Println("\t\t\t此路径匹配结束")
+					}
+				}
+
+			} else {
+				fmt.Println("\t\t\t匹配不成功")
 			}
 		}
 	}

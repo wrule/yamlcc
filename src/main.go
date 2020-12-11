@@ -14,5 +14,5 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	node := NewNode(m)
-	node.GetDefNode("exps").Test(` 2 * (3 + 1)`)
+	node.GetDefNode("exps").Test(`  	2 * (3 + 1)  `)
 }
