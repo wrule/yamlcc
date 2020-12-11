@@ -14,6 +14,13 @@ type Node struct {
 
 // Test 验证文本
 func (me *Node) Test(text string) {
+	fmt.Println("->>进入新节点")
+	for key := range me.childs {
+		fmt.Printf("%s\t", key)
+	}
+	fmt.Println()
+	fmt.Println(text)
+	fmt.Println("--------------------")
 	fstr := me.GetDefRegexp("invalid").FindString(text)
 	fmt.Printf("无效字符 %d 个\n", len(fstr))
 	text = text[len(fstr):]
@@ -41,9 +48,23 @@ func (me *Node) Test(text string) {
 				}
 			} else if node, ok := def.(*Node); ok {
 				fmt.Println("是节点定义", node)
+				node.Test(text)
 			}
 		} else {
 			fmt.Println("是字面量")
+			if strings.HasPrefix(text, key) {
+				fmt.Println("匹配成功")
+				text = text[len(key):]
+				fmt.Println(text)
+				next := me.childs[key]
+				if node, ok := next.(*Node); ok {
+					node.Test(text)
+				} else {
+					panic("结束")
+				}
+			} else {
+				fmt.Println("不匹配")
+			}
 		}
 	}
 }
