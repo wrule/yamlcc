@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
+	"regexp"
 
 	"gopkg.in/yaml.v2"
 )
@@ -13,8 +15,9 @@ func main() {
 	}
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	node := NewNode(m)
-	node.GetDefNode("exps").Test(`  	2 * (3 + 1)  `)
-	// re := regexp.MustCompile(`\d+`)
-	// fmt.Println(re.SubexpIndex("d1234 sdf12"))
+	// node := NewNode(m)
+	// node.GetDefNode("exps").Test(`  	2 * (3 + 1)  `)
+	re := regexp.MustCompile(`\d+`)
+	ss := RegexpEx{re}
+	fmt.Println(ss.StartsWith("123nimoh"))
 }
