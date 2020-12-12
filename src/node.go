@@ -36,34 +36,18 @@ func (me *Node) Next(key, text string) {
 	}
 }
 
-func (me *Node) RegexpFind(re *regexp.Regexp, text string) (string, string) {
-	indexs := re.FindStringIndex(text)
-	if len(indexs) > 1 && indexs[0] == 0 {
-		dst := text[indexs[0]:indexs[1]]
-		return dst, text[len(dst):]
-	}
-	return "", text
-}
-
 // Test 验证文本
 func (me *Node) Test(text string) {
 	fmt.Printf(">> 进入新节点\n")
 	fmt.Printf(">> 待验证文本:%s\n", text)
-
-	ivdStr, text := me.RegexpFind(me.GetDefRegexp("invalid"), text)
+	ivdStr, text := me.GetDefRegexp("invalid").StartsWith(text)
 	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
 
-	fmt.Printf("\t2. 以下是本节点的分支:\n")
+	fmt.Printf("\t2. 以下是本节点的分支:\n\t\t\t")
 	for key := range me.childs {
-		fmt.Printf("\t\t%s\t", key)
-		if strings.HasPrefix(key, "$") {
-			fmt.Println("引用")
-		} else if strings.HasPrefix(key, ".") {
-			fmt.Println("命令")
-		} else {
-			fmt.Println("字面")
-		}
+		fmt.Printf("%s\t", key)
 	}
+	fmt.Println()
 
 	fmt.Printf("\t3. 开始尝试分支匹配\n")
 	for key := range me.childs {
@@ -74,9 +58,9 @@ func (me *Node) Test(text string) {
 			defKey := key[1:]
 			def := me.GetDef(defKey)
 
-			if re, ok := def.(*regexp.Regexp); ok {
+			if re, ok := def.(*RegexpEx); ok {
 				fmt.Printf("\t\t\t引用是正则表达式: %v\n", re)
-				reStr, text := me.RegexpFind(re, text)
+				reStr, text := re.StartsWith(text)
 				if len(reStr) > 0 {
 					fmt.Println("\t\t\t匹配成功")
 					fmt.Printf("\t\t\t匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
@@ -124,8 +108,8 @@ func (me *Node) GetDef(key string) interface{} {
 }
 
 // GetDefRegexp 获取正则表达式定义
-func (me *Node) GetDefRegexp(key string) *regexp.Regexp {
-	if rst, ok := me.GetDef(key).(*regexp.Regexp); ok {
+func (me *Node) GetDefRegexp(key string) *RegexpEx {
+	if rst, ok := me.GetDef(key).(*RegexpEx); ok {
 		return rst
 	}
 	panic("Node GetDefRegexp: 不是正则表达式定义 " + key)
@@ -148,7 +132,7 @@ func (me *Node) SetPrev(node *Node) {
 func compileValue(value interface{}, prev *Node) interface{} {
 	switch value.(type) {
 	case string:
-		return regexp.MustCompile(value.(string))
+		return &RegexpEx{regexp.MustCompile(value.(string))}
 	case map[interface{}]interface{}:
 		node := NewNode(value.(map[interface{}]interface{}))
 		node.SetPrev(prev)
