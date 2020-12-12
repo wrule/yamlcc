@@ -38,8 +38,7 @@ func (me *Node) Next(key, text string) {
 
 // Test 验证文本
 func (me *Node) Test(text string) {
-	fmt.Printf(">> 进入新节点\n")
-	fmt.Printf(">> 待验证文本:%s\n", text)
+	fmt.Printf(">> 进入新节点，待验证文本:%s\n", text)
 	ivdStr, text := me.GetDefRegexp("invalid").StartsWith(text)
 	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
 
@@ -51,45 +50,35 @@ func (me *Node) Test(text string) {
 
 	fmt.Printf("\t3. 开始尝试分支匹配\n")
 	for key := range me.childs {
-		fmt.Printf("\t\t尝试匹配分支:%s\n", key)
 		if strings.HasPrefix(key, "$") {
-			fmt.Printf("\t\t\t%s 分支是引用\n", key)
-
 			defKey := key[1:]
 			def := me.GetDef(defKey)
-
 			if re, ok := def.(*RegexpEx); ok {
-				fmt.Printf("\t\t\t引用是正则表达式: %v\n", re)
+				fmt.Printf("\t\t%s 分支是正则表达式引用: %v\n", key, re)
 				reStr, text := re.StartsWith(text)
 				if len(reStr) > 0 {
-					fmt.Println("\t\t\t匹配成功")
-					fmt.Printf("\t\t\t匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
+					fmt.Printf("\t\t\t匹配成功: 匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
 					me.Next(key, text)
 				} else {
-					fmt.Println("\t\t\t匹配不成功")
+					fmt.Println("\t\t\t匹配失败")
 				}
-
 			} else if node, ok := def.(*Node); ok {
-				fmt.Printf("\t\t\t引用是节点: %v\n", node)
+				fmt.Printf("\t\t%s 分支是节点引用: %v\n", key, node)
 				node.Test(text)
 			} else {
-				fmt.Printf("\t\t\t引用啥也不是\n")
+				fmt.Printf("\t\t%s 分支啥也不是\n", key)
 			}
-
 		} else if strings.HasPrefix(key, ".") {
-			fmt.Printf("\t\t\t%s 分支是命令\n", key)
-
+			fmt.Printf("\t\t%s 分支是命令\n", key)
+			// 这里需要执行命令
 		} else {
-			fmt.Printf("\t\t\t%s 分支是字面\n", key)
+			fmt.Printf("\t\t%s 分支是字面\n", key)
 			if strings.HasPrefix(text, key) {
-				fmt.Println("\t\t\t匹配成功")
 				text = text[len(key):]
-				fmt.Printf("\t\t\t匹配了 %d 个字符，之后的样子为:%s\n", len(key), text)
-
+				fmt.Printf("\t\t\t匹配成功: 匹配了 %d 个字符，之后的样子为:%s\n", len(key), text)
 				me.Next(key, text)
-
 			} else {
-				fmt.Println("\t\t\t匹配不成功")
+				fmt.Println("\t\t\t匹配失败")
 			}
 		}
 	}
