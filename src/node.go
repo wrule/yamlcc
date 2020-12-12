@@ -42,9 +42,9 @@ func (me *Node) Test(text string) {
 	ivdStr, text := me.GetDefRegexp("invalid").StartsWith(text)
 	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
 
-	fmt.Printf("\t2. 以下是本节点的分支:\n\t\t\t")
+	fmt.Printf("\t2. 以下是本节点的分支:\n\t\t")
 	for key := range me.childs {
-		fmt.Printf("%s\t", key)
+		fmt.Printf("%s\t\t", key)
 	}
 	fmt.Println()
 
