@@ -16,5 +16,5 @@ func main() {
 	node := NewNode(m)
 	node.GetDefNode("exps").Test(`  	2 * (3 + 1)  `)
 	// re := regexp.MustCompile(`\d+`)
-	// fmt.Println(re.FindStringIndex(" 1234 787"))
+	// fmt.Println(re.SubexpIndex("d1234 sdf12"))
 }
