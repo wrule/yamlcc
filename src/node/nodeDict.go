@@ -21,6 +21,13 @@ func (me *Dict) BeginningOf(text string) (string, string) {
 
 // NewDict 构造函数
 func NewDict(value map[interface{}]interface{}, prev INode) *Dict {
+	nodeMap := make(map[INode]INode)
+	for _key, _value := range value {
+		var nodeValue INode
+		nodeKey := BuildNode(_key, prev, nodeValue)
+		nodeValue = BuildNode(_value, nodeKey, nil)
+		nodeMap[nodeKey] = nodeValue
+	}
 	return &Dict{
 		value: value,
 		prev:  prev,

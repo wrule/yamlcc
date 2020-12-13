@@ -10,7 +10,6 @@ func BuildNode(
 	value interface{},
 	prev INode,
 	next INode,
-	key bool,
 ) INode {
 	switch val := value.(type) {
 	case string:
