@@ -8,6 +8,7 @@ import (
 type Reg struct {
 	value string
 	re    *regexp.Regexp
+	prev  INode
 }
 
 // Type s
@@ -25,9 +26,10 @@ func (me *Reg) BeginningOf(text string) (string, string) {
 }
 
 // NewReg 构造函数
-func NewReg(text string) *Reg {
+func NewReg(text string, prev INode) *Reg {
 	return &Reg{
 		value: text,
 		re:    regexp.MustCompile(text),
+		prev:  prev,
 	}
 }

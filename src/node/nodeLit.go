@@ -5,6 +5,8 @@ import "strings"
 // Lit 字面文本节点
 type Lit struct {
 	value string
+	prev  INode
+	*Com
 }
 
 // Type s
@@ -21,8 +23,9 @@ func (me *Lit) BeginningOf(text string) (string, string) {
 }
 
 // NewLit 构造函数
-func NewLit(text string) *Lit {
+func NewLit(text string, prev INode) *Lit {
 	return &Lit{
 		value: text,
+		prev:  prev,
 	}
 }
