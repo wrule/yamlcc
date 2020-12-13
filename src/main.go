@@ -13,8 +13,8 @@ func main() {
 	}
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	node := NewNode(m)
-	node.BeginningOf(`  	2 * (3 + 1)  `)
+	// node := NewNode(m)
+	// node.BeginningOf(`  	2 * (3 + 1)  `)
 	// re := regexp.MustCompile(`\d+`)
 	// ss := RegexpEx{re}
 	// fmt.Println(ss.StartsWith("123nimoh"))
