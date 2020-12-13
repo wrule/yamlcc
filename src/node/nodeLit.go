@@ -22,6 +22,10 @@ func (me *Lit) BeginningOf(text string) (string, string) {
 	return "", text
 }
 
+func (me *Lit) Next() INode {
+	return NewEnd(me)
+}
+
 // NewLit 构造函数
 func NewLit(text string, prev INode) *Lit {
 	return &Lit{

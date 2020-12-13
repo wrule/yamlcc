@@ -16,6 +16,10 @@ func (me *End) BeginningOf(text string) (string, string) {
 	return "", text
 }
 
+func (me *End) Next() INode {
+	return nil
+}
+
 // NewEnd 构造函数
 func NewEnd(prev INode) *End {
 	return &End{

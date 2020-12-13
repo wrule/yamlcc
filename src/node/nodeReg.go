@@ -25,6 +25,10 @@ func (me *Reg) BeginningOf(text string) (string, string) {
 	return "", text
 }
 
+func (me *Reg) Next() INode {
+	return NewEnd(me)
+}
+
 // NewReg 构造函数
 func NewReg(text string, prev INode) *Reg {
 	return &Reg{
