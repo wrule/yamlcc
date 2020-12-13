@@ -5,10 +5,11 @@ type Def struct {
 	value   string
 	defName string
 	prev    INode
+	next    INode
 	*Com
 }
 
-// Type s
+// Type 类型
 func (me Def) Type() ENodeType {
 	return NodeTypeDef
 }
@@ -19,10 +20,11 @@ func (me *Def) BeginningOf(text string) (string, string) {
 }
 
 // NewDef 构造函数
-func NewDef(text string, prev INode) *Def {
+func NewDef(text string, prev, next INode) *Def {
 	return &Def{
 		value:   text,
 		defName: text[1:],
 		prev:    prev,
+		next:    next,
 	}
 }
