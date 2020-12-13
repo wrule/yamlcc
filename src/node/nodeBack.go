@@ -1,13 +1,14 @@
 package node
 
-// Back s
+// Back 回跳节点
 type Back struct {
 	value int
 	prev  INode
+	next  INode
 	*Com
 }
 
-// Type s
+// Type 类型
 func (me *Back) Type() ENodeType {
 	return NodeTypeBack
 }
@@ -18,9 +19,10 @@ func (me *Back) BeginningOf(text string) (string, string) {
 }
 
 // NewBack 构造函数
-func NewBack(num int, prev INode) *Back {
+func NewBack(num int, prev, next INode) *Back {
 	return &Back{
 		value: num,
 		prev:  prev,
+		next:  next,
 	}
 }

@@ -6,10 +6,11 @@ import "strings"
 type Lit struct {
 	value string
 	prev  INode
+	next  INode
 	*Com
 }
 
-// Type s
+// Type 类型
 func (me Lit) Type() ENodeType {
 	return NodeTypeLit
 }
@@ -22,14 +23,11 @@ func (me *Lit) BeginningOf(text string) (string, string) {
 	return "", text
 }
 
-func (me *Lit) Next() INode {
-	return NewEnd(me)
-}
-
 // NewLit 构造函数
-func NewLit(text string, prev INode) *Lit {
+func NewLit(text string, prev, next INode) *Lit {
 	return &Lit{
 		value: text,
 		prev:  prev,
+		next:  next,
 	}
 }

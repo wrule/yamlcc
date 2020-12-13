@@ -9,9 +9,11 @@ type Reg struct {
 	value string
 	re    *regexp.Regexp
 	prev  INode
+	next  INode
+	*Com
 }
 
-// Type s
+// Type 类型
 func (me Reg) Type() ENodeType {
 	return NodeTypeReg
 }
@@ -25,15 +27,12 @@ func (me *Reg) BeginningOf(text string) (string, string) {
 	return "", text
 }
 
-func (me *Reg) Next() INode {
-	return NewEnd(me)
-}
-
 // NewReg 构造函数
-func NewReg(text string, prev INode) *Reg {
+func NewReg(text string, prev, next INode) *Reg {
 	return &Reg{
 		value: text,
 		re:    regexp.MustCompile(text),
 		prev:  prev,
+		next:  next,
 	}
 }
