@@ -54,7 +54,9 @@ func (me *Node) BeginningOf(text string) (string, string) {
 
 	fmt.Printf("\t2. 以下是本节点的分支:\n\t\t")
 	for key := range me.childs {
-		fmt.Printf("%s\t\t", key)
+		if !strings.HasPrefix(key, ":") {
+			fmt.Printf("%s\t\t", key)
+		}
 	}
 	fmt.Println()
 
