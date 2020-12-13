@@ -26,18 +26,28 @@ func (me *Node) PrevN(n int) *Node {
 func (me *Node) Next(key, text string) {
 	next := me.childs[key]
 	if node, ok := next.(*Node); ok {
-		node.Test(text)
+		node.BeginningOf(text)
 	} else if num, ok := next.(int); ok {
 		if num > 0 {
-			me.PrevN(num).Test(text)
+			me.PrevN(num).BeginningOf(text)
 		} else {
 			fmt.Println("\t\t\t此路径匹配结束")
 		}
 	}
 }
 
-// Test 验证文本
-func (me *Node) Test(text string) {
+// TestSuccess 匹配成功提示
+func (me *Node) TestSuccess(sub, text string) {
+	fmt.Printf("\t\t\t匹配成功: 匹配了 %d 个字符，之后的样子为:%s\n", len(sub), text)
+}
+
+// TestFail 匹配失败提示
+func (me *Node) TestFail(key string) {
+	fmt.Printf("\t\t\t匹配失败: %s\n", key)
+}
+
+// BeginningOf 判断文本是否以节点定义为开始
+func (me *Node) BeginningOf(text string) (string, string) {
 	fmt.Printf(">> 进入新节点，待验证文本:%s\n", text)
 	ivdStr, text := me.GetDefRegexp("invalid").StartsWith(text)
 	fmt.Printf("\t1. 跳过了 %d 个无效字符，之后的样子为:%s\n", len(ivdStr), text)
@@ -57,14 +67,15 @@ func (me *Node) Test(text string) {
 				fmt.Printf("\t\t%s 分支是正则表达式引用: %v\n", key, re)
 				reStr, text := re.StartsWith(text)
 				if len(reStr) > 0 {
-					fmt.Printf("\t\t\t匹配成功: 匹配到 %s，共 %d 个字符，之后的样子为:%s\n", reStr, len(reStr), text)
+					me.TestSuccess(reStr, text)
 					me.Next(key, text)
 				} else {
-					fmt.Println("\t\t\t匹配失败")
+					me.TestFail(key)
 				}
 			} else if node, ok := def.(*Node); ok {
 				fmt.Printf("\t\t%s 分支是节点引用: %v\n", key, node)
-				node.Test(text)
+				node.BeginningOf(text)
+
 			} else {
 				fmt.Printf("\t\t%s 分支啥也不是\n", key)
 			}
@@ -75,13 +86,15 @@ func (me *Node) Test(text string) {
 			fmt.Printf("\t\t%s 分支是字面\n", key)
 			if strings.HasPrefix(text, key) {
 				text = text[len(key):]
-				fmt.Printf("\t\t\t匹配成功: 匹配了 %d 个字符，之后的样子为:%s\n", len(key), text)
+				me.TestSuccess(key, text)
 				me.Next(key, text)
 			} else {
-				fmt.Println("\t\t\t匹配失败")
+				me.TestFail(key)
+				return "", text
 			}
 		}
 	}
+	return "", ""
 }
 
 // GetDef 获取定义
