@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -17,7 +18,8 @@ func main() {
 	// fmt.Println(m)
 	// dict := node.NewDict(m)
 	// fmt.Println(dict)
-	reg := node.NewReg(`\d+`)
-	reg2 := node.NewReg(`\s+`)
-	reg.SetNext(reg2)
+	a := node.NewReg(`\d+`)
+	b := node.NewReg(`\s+`)
+	a.SetNext(b)
+	fmt.Printf("%v\n", a)
 }

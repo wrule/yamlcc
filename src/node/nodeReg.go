@@ -8,8 +8,6 @@ import (
 type Reg struct {
 	value  string
 	regexp *regexp.Regexp
-	prev   INode
-	next   INode
 	*Com
 }
 
@@ -37,5 +35,6 @@ func NewReg(text string) *Reg {
 	return &Reg{
 		value:  text,
 		regexp: regexp.MustCompile(text),
+		Com:    &Com{},
 	}
 }
