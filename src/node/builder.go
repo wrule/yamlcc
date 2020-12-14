@@ -21,16 +21,20 @@ func BuildLeafNode(
 	switch val := value.(type) {
 	case string:
 		if strings.HasPrefix(val, "$") {
-			return NewRef(val, prev, next)
+			return NewRef(val)
 		} else if strings.HasPrefix(val, ".") {
-			return NewCmd(val, prev, next)
+			return NewCmd(val)
 		} else {
-			return NewReg(val, prev, next)
+			end := NewCmdEnd()
+			reg := NewReg(val)
+			end.SetPrev(reg)
+			reg.SetNext(end)
+			return reg
 		}
 	case map[interface{}]interface{}:
-		return NewDict(val, prev)
+		return NewDict(val)
 	case int:
-		return NewBack(val, prev)
+		return NewBack(val)
 	}
 	log.Fatalf("%v 不能作为叶子节点\n", value)
 	panic("node.BuildLeafNode: 致命错误")

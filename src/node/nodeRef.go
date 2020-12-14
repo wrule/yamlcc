@@ -20,11 +20,9 @@ func (me *Ref) BeginningOf(text string) (string, string) {
 }
 
 // NewRef 构造函数
-func NewRef(text string, prev, next INode) *Ref {
+func NewRef(text string) *Ref {
 	return &Ref{
 		value:   text,
 		refName: text[1:],
-		prev:    prev,
-		next:    next,
 	}
 }

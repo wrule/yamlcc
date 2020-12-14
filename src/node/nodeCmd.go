@@ -35,21 +35,17 @@ func getCmd(text string) ENodeCmd {
 }
 
 // NewCmd 构造函数
-func NewCmd(text string, prev, next INode) *Cmd {
+func NewCmd(text string) *Cmd {
 	return &Cmd{
 		value: text,
 		cmd:   getCmd(text),
-		prev:  prev,
-		next:  next,
 	}
 }
 
 // NewCmdEnd s
-func NewCmdEnd(prev INode) *Cmd {
+func NewCmdEnd() *Cmd {
 	return &Cmd{
 		value: ".end",
 		cmd:   NodeCmdEnd,
-		prev:  prev,
-		next:  nil,
 	}
 }

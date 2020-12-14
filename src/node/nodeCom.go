@@ -25,7 +25,17 @@ func (me *Com) Next() INode {
 	return me.next
 }
 
+// SetPrev 设置上一个节点
+func (me *Com) SetPrev(prev INode) {
+	me.prev = prev
+}
+
+// SetNext 设置下一个节点
+func (me *Com) SetNext(next INode) {
+	me.next = next
+}
+
 // GetDef 获取定义
 func (me *Com) GetDef(key string) INode {
-	return NewReg("", nil, nil)
+	return NewReg("")
 }

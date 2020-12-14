@@ -6,8 +6,10 @@ type INode interface {
 	Type() ENodeType
 	// 上一个节点
 	Prev() INode
+	SetPrev(INode)
 	// 下一个节点
 	Next() INode
+	SetNext(INode)
 	// 字符串匹配
 	BeginningOf(string) (string, string)
 }

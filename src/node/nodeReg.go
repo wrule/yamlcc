@@ -33,11 +33,9 @@ func (me *Reg) BeginningOf(text string) (string, string) {
 }
 
 // NewReg 构造函数
-func NewReg(text string, prev, next INode) *Reg {
+func NewReg(text string) *Reg {
 	return &Reg{
 		value:  text,
 		regexp: regexp.MustCompile(text),
-		prev:   prev,
-		next:   next,
 	}
 }

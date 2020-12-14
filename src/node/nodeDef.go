@@ -20,11 +20,9 @@ func (me *Def) BeginningOf(text string) (string, string) {
 }
 
 // NewDef 构造函数
-func NewDef(text string, prev, next INode) *Def {
+func NewDef(text string) *Def {
 	return &Def{
 		value:   text,
 		defName: text[1:],
-		prev:    prev,
-		next:    next,
 	}
 }
