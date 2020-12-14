@@ -4,13 +4,14 @@
 :number: \d+
 # 运算符
 :opr: \+|-|\*|/
+:lp: \(
+:rp: \)
 # 表达式
 :exps:
   $number:
     $opr:
       $exps: 1
-    .other: 0
-  (:
-    $exps:
-      ): 0
-$exps: 0
+    .other: .end
+  $lp:
+    $exps: $rp
+$exps: .end
