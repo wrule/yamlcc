@@ -5,14 +5,6 @@ import (
 	"strings"
 )
 
-// BuildNode 构造非叶子节点
-func BuildNode(
-	value interface{},
-	prev INode,
-) INode {
-	return nil
-}
-
 // Link 连接两个节点
 func Link(prev, next INode) {
 	if prev != nil {
@@ -21,6 +13,35 @@ func Link(prev, next INode) {
 	if next != nil {
 		next.SetPrev(prev)
 	}
+}
+
+// BuildNode 构造非叶子节点
+func BuildNode(
+	value interface{},
+	prev INode,
+) INode {
+	var rst INode = nil
+	switch val := value.(type) {
+	case string:
+		if strings.HasPrefix(val, ":") {
+			rst = NewDef(val)
+		} else if strings.HasPrefix(val, "$") {
+			rst = NewRef(val)
+		} else if strings.HasPrefix(val, ".") {
+			cmd := NewCmd(val)
+			if cmd.Cmd() != NodeCmdEnd {
+				rst = cmd
+			}
+		} else {
+			rst = NewReg(val)
+		}
+	}
+	if rst == nil {
+		log.Fatalf("%v 不能为非叶子节点\n", value)
+		panic("node.BuildNode: 致命错误")
+	}
+	Link(prev, rst)
+	return rst
 }
 
 // BuildLeafNode 构造叶子节点
