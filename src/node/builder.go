@@ -19,7 +19,6 @@ func Link(prev, next INode) {
 // 定义，引用，非结束命令，正则可以作为非叶子节点
 func BuildNode(
 	value interface{},
-	prev INode,
 ) INode {
 	var rst INode = nil
 	switch val := value.(type) {
@@ -41,7 +40,6 @@ func BuildNode(
 		log.Fatalf("%v 不能为非叶子节点\n", value)
 		panic("node.BuildNode: 致命错误")
 	}
-	Link(prev, rst)
 	return rst
 }
 
@@ -49,7 +47,6 @@ func BuildNode(
 // 正则表达式，引用，字典，回跳，结束命令可以作为叶子节点
 func BuildLeafNode(
 	value interface{},
-	prev INode,
 ) INode {
 	var rst INode = nil
 	rstIsEnd := false
@@ -77,7 +74,6 @@ func BuildLeafNode(
 		log.Fatalf("%v 不能为叶子节点\n", value)
 		panic("node.BuildLeafNode: 致命错误")
 	}
-	Link(prev, rst)
 	if !rstIsEnd {
 		end := NewCmdEnd()
 		Link(rst, end)
