@@ -13,29 +13,49 @@ func BuildNode(
 	return nil
 }
 
+// Link 连接两个节点
+func Link(prev, next INode) {
+	if prev != nil {
+		prev.SetNext(next)
+	}
+	if next != nil {
+		next.SetPrev(prev)
+	}
+}
+
 // BuildLeafNode 构造叶子节点
 func BuildLeafNode(
 	value interface{},
 	prev INode,
 ) INode {
+	var rst INode = nil
+	isEnd := false
 	switch val := value.(type) {
 	case string:
 		if strings.HasPrefix(val, "$") {
-			return NewRef(val)
+			rst = NewRef(val)
 		} else if strings.HasPrefix(val, ".") {
-			return NewCmd(val)
+			cmd := NewCmd(val)
+			if cmd.Cmd() == NodeCmdEnd {
+				isEnd = true
+				rst = cmd
+			}
 		} else {
-			end := NewCmdEnd()
-			reg := NewReg(val)
-			end.SetPrev(reg)
-			reg.SetNext(end)
-			return reg
+			rst = NewReg(val)
 		}
 	case map[interface{}]interface{}:
-		return NewDict(val)
+		rst = NewDict(val)
 	case int:
-		return NewBack(val)
+		rst = NewBack(val)
 	}
-	log.Fatalf("%v 不能作为叶子节点\n", value)
-	panic("node.BuildLeafNode: 致命错误")
+	if rst == nil {
+		log.Fatalf("%v 不能为叶子节点\n", value)
+		panic("node.BuildLeafNode 致命错误")
+	}
+	Link(prev, rst)
+	if !isEnd {
+		end := NewCmdEnd()
+		Link(rst, end)
+	}
+	return rst
 }

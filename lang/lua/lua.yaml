@@ -4,13 +4,15 @@
 :number: \d+
 # 运算符
 :opr: \+|-|\*|/
+# 左括号
 :lp: \(
+# 右括号
 :rp: \)
 # 表达式
 :exps:
   $number:
     $opr:
-      $exps: 1
+      $exps: 2
     .other: .end
   $lp:
     $exps: $rp
