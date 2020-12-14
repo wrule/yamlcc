@@ -16,6 +16,7 @@ func Link(prev, next INode) {
 }
 
 // BuildNode 构造非叶子节点
+// 定义，引用，非结束命令，正则可以作为非叶子节点
 func BuildNode(
 	value interface{},
 	prev INode,
@@ -45,6 +46,7 @@ func BuildNode(
 }
 
 // BuildLeafNode 构造叶子节点
+// 正则表达式，引用，字典，回跳，结束命令可以作为叶子节点
 func BuildLeafNode(
 	value interface{},
 	prev INode,
@@ -53,7 +55,9 @@ func BuildLeafNode(
 	rstIsEnd := false
 	switch val := value.(type) {
 	case string:
-		if strings.HasPrefix(val, "$") {
+		if strings.HasPrefix(val, ":") {
+			// 报错预留
+		} else if strings.HasPrefix(val, "$") {
 			rst = NewRef(val)
 		} else if strings.HasPrefix(val, ".") {
 			cmd := NewCmd(val)
@@ -61,8 +65,6 @@ func BuildLeafNode(
 				rstIsEnd = true
 				rst = cmd
 			}
-		} else if strings.HasPrefix(val, ":") {
-			// 报错预留
 		} else {
 			rst = NewReg(val)
 		}
