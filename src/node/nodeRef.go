@@ -4,9 +4,7 @@ package node
 type Ref struct {
 	value   string
 	refName string
-	prev    INode
-	next    INode
-	*Com
+	Com
 }
 
 // Type 类型

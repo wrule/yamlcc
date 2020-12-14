@@ -8,9 +8,7 @@ import (
 type Reg struct {
 	value  string
 	regexp *regexp.Regexp
-	prev   INode
-	next   INode
-	*Com
+	Com
 }
 
 // Regexp 获取正则表达式

@@ -4,9 +4,7 @@ package node
 type Def struct {
 	value   string
 	defName string
-	prev    INode
-	next    INode
-	*Com
+	Com
 }
 
 // Type 类型

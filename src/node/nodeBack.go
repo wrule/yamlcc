@@ -3,9 +3,7 @@ package node
 // Back 回跳节点
 type Back struct {
 	value int
-	prev  INode
-	next  INode
-	*Com
+	Com
 }
 
 // Type 类型

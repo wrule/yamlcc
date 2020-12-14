@@ -4,9 +4,7 @@ package node
 type Cmd struct {
 	value string
 	cmd   ENodeCmd
-	prev  INode
-	next  INode
-	*Com
+	Com
 }
 
 // Cmd 命令字符串

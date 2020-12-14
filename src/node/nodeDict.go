@@ -4,9 +4,7 @@ package node
 type Dict struct {
 	value map[interface{}]interface{}
 	nodes []INode
-	prev  INode
-	next  INode
-	*Com
+	Com
 }
 
 // Nodes 获取子节点列表
@@ -44,9 +42,9 @@ func NewDict(value map[interface{}]interface{}) *Dict {
 		value: value,
 	}
 	nodes := getNodes(dict.value)
-	// for _, node := range nodes {
-	// 	node.SetPrev(dict)
-	// }
+	for _, node := range nodes {
+		node.SetPrev(dict)
+	}
 	dict.nodes = nodes
 	return dict
 }

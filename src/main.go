@@ -17,5 +17,5 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
 	dict := node.NewDict(m)
-	fmt.Println(dict)
+	fmt.Println(dict.Nodes())
 }
