@@ -19,10 +19,10 @@ func (me *Back) BeginningOf(text string) (string, string) {
 }
 
 // NewBack 构造函数
-func NewBack(num int, prev, next INode) *Back {
+func NewBack(num int, prev INode) *Back {
 	return &Back{
 		value: num,
 		prev:  prev,
-		next:  next,
+		next:  nil,
 	}
 }

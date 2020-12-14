@@ -1,37 +1,37 @@
 package node
 
 import (
-	"fmt"
+	"log"
 	"strings"
 )
 
-// BuildNode 构造节点的方法
+// BuildNode 构造非叶子节点
 func BuildNode(
 	value interface{},
 	prev INode,
-	next INode,
+) INode {
+	return nil
+}
+
+// BuildLeafNode 构造叶子节点
+func BuildLeafNode(
+	value interface{},
+	prev INode,
 ) INode {
 	switch val := value.(type) {
 	case string:
-		fmt.Println("字符串")
-		if strings.HasPrefix(val, ":") {
-			return NewDef(val, prev, next)
-		} else if strings.HasPrefix(val, "$") {
+		if strings.HasPrefix(val, "$") {
 			return NewRef(val, prev, next)
 		} else if strings.HasPrefix(val, ".") {
 			return NewCmd(val, prev, next)
 		} else {
-			return NewLit(val, prev, next)
+			return NewReg(val, prev, next)
 		}
 	case map[interface{}]interface{}:
-		fmt.Println("字典")
 		return NewDict(val, prev)
 	case int:
-		if val > 0 {
-			return NewBack(val, prev, nil)
-		}
-		return NewEnd(prev)
-	default:
-		panic("类型错误\n")
+		return NewBack(val, prev)
 	}
+	log.Fatalf("%v 不能作为叶子节点\n", value)
+	panic("node.BuildLeafNode: 致命错误")
 }

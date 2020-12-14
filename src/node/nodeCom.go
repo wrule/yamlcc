@@ -27,5 +27,5 @@ func (me *Com) Next() INode {
 
 // GetDef 获取定义
 func (me *Com) GetDef(key string) INode {
-	return NewLit("", nil, nil)
+	return NewReg("", nil, nil)
 }
