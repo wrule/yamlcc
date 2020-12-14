@@ -44,9 +44,9 @@ func NewDict(value map[interface{}]interface{}) *Dict {
 		value: value,
 	}
 	nodes := getNodes(dict.value)
-	for _, node := range nodes {
-		node.SetPrev(dict)
-	}
+	// for _, node := range nodes {
+	// 	node.SetPrev(dict)
+	// }
 	dict.nodes = nodes
 	return dict
 }

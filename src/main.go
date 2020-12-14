@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
+	"./node"
 	"gopkg.in/yaml.v2"
 )
 
@@ -14,10 +15,7 @@ func main() {
 	}
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	fmt.Println(m)
-	// node := NewNode(m)
-	// node.BeginningOf(`  	2 * (3 + 1)  `)
-	// re := regexp.MustCompile(`\d+`)
-	// ss := RegexpEx{re}
-	// fmt.Println(ss.StartsWith("123nimoh"))
+	// fmt.Println(m)
+	dict := node.NewDict(m)
+	fmt.Println(dict)
 }
