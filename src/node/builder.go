@@ -50,7 +50,7 @@ func BuildLeafNode(
 	}
 	if rst == nil {
 		log.Fatalf("%v 不能为叶子节点\n", value)
-		panic("node.BuildLeafNode 致命错误")
+		panic("node.BuildLeafNode: 致命错误")
 	}
 	Link(prev, rst)
 	if !isEnd {
