@@ -16,7 +16,7 @@ func Link(prev, next INode) {
 }
 
 // BuildNode 构造非叶子节点
-// 定义，引用，非结束命令，正则可以作为非叶子节点
+// 正则表达式，定义，引用，非结束命令，可以作为非叶子节点
 func BuildNode(
 	value interface{},
 ) INode {
