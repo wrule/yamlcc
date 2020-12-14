@@ -29,7 +29,7 @@ func BuildLeafNode(
 	prev INode,
 ) INode {
 	var rst INode = nil
-	isEnd := false
+	rstIsEnd := false
 	switch val := value.(type) {
 	case string:
 		if strings.HasPrefix(val, "$") {
@@ -37,9 +37,11 @@ func BuildLeafNode(
 		} else if strings.HasPrefix(val, ".") {
 			cmd := NewCmd(val)
 			if cmd.Cmd() == NodeCmdEnd {
-				isEnd = true
+				rstIsEnd = true
 				rst = cmd
 			}
+		} else if strings.HasPrefix(val, ":") {
+			// 报错预留
 		} else {
 			rst = NewReg(val)
 		}
@@ -53,7 +55,7 @@ func BuildLeafNode(
 		panic("node.BuildLeafNode: 致命错误")
 	}
 	Link(prev, rst)
-	if !isEnd {
+	if !rstIsEnd {
 		end := NewCmdEnd()
 		Link(rst, end)
 	}
