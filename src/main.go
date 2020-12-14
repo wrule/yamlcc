@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -16,6 +15,9 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
-	dict := node.NewDict(m)
-	fmt.Println(dict)
+	// dict := node.NewDict(m)
+	// fmt.Println(dict)
+	reg := node.NewReg(`\d+`)
+	reg2 := node.NewReg(`\s+`)
+	reg.SetNext(reg2)
 }
