@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Dict 字典节点
 type Dict struct {
 	srcMap     map[interface{}]interface{}
@@ -64,4 +66,16 @@ func NewDict(srcMap map[interface{}]interface{}) *Dict {
 	dict.nodeMap = getNodeMap(dict.srcMap, dict)
 	dict.defNodeMap = getDefNodeMap(dict.nodeMap)
 	return dict
+}
+
+// Print 打印字典信息
+func (me *Dict) Print() {
+	fmt.Println("定义节点:")
+	for key := range me.DefNodeMap() {
+		fmt.Printf("\t%s\n", key)
+	}
+	fmt.Println("逻辑节点:")
+	for key := range me.NodeMap() {
+		fmt.Printf("\t%v\n", key)
+	}
 }

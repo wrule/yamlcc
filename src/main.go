@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -17,5 +16,5 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
 	dict := node.NewDict(m)
-	fmt.Println(dict)
+	dict.Print()
 }
