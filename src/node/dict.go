@@ -10,14 +10,19 @@ type Dict struct {
 	Com
 }
 
-// NodeMap 节点映射
+// NodeMap 获取节点映射
 func (me *Dict) NodeMap() map[INode]INode {
 	return me.nodeMap
 }
 
-// DefNodeMap 定义节点映射
+// DefNodeMap 获取定义节点映射
 func (me *Dict) DefNodeMap() map[string]INode {
 	return me.defNodeMap
+}
+
+// LogNodeMap 获取逻辑节点映射
+func (me *Dict) LogNodeMap() map[INode]INode {
+	return me.logNodeMap
 }
 
 // Type 类型
@@ -49,9 +54,18 @@ func getNodeMap(
 func getDefNodeMap(nodeMap map[INode]INode) map[string]INode {
 	rst := map[string]INode{}
 	for key, value := range nodeMap {
-		if key.Type() == NodeTypeDef {
-			defNode := key.(*Def)
+		if defNode, ok := key.(*Def); ok {
 			rst[defNode.DefName()] = value
+		}
+	}
+	return rst
+}
+
+func getLogNodeMap(nodeMap map[INode]INode) map[INode]INode {
+	rst := map[INode]INode{}
+	for key, value := range nodeMap {
+		if _, ok := key.(*Def); !ok {
+			rst[key] = value
 		}
 	}
 	return rst
@@ -64,6 +78,7 @@ func NewDict(srcMap map[interface{}]interface{}) *Dict {
 	}
 	dict.nodeMap = getNodeMap(srcMap, dict)
 	dict.defNodeMap = getDefNodeMap(dict.nodeMap)
+	dict.logNodeMap = getLogNodeMap(dict.nodeMap)
 	return dict
 }
 
@@ -74,7 +89,7 @@ func (me *Dict) Print() {
 		fmt.Printf("\t%s\n", key)
 	}
 	fmt.Println("逻辑节点:")
-	for key := range me.NodeMap() {
-		fmt.Printf("\t%v\n", key)
+	for key := range me.LogNodeMap() {
+		fmt.Printf("\t%v\n", key.SrcValue())
 	}
 }
