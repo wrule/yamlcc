@@ -17,9 +17,9 @@ func (me *Dict) Type() ENodeType {
 	return NodeTypeDict
 }
 
-// BeginningOf s
-func (me *Dict) BeginningOf(text string) (string, string) {
-	return "", ""
+// BeginningOf 匹配
+func (me *Dict) BeginningOf(text string) (string, string, bool) {
+	return "", text, false
 }
 
 // getNodes 获取节点

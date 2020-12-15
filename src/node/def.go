@@ -7,14 +7,19 @@ type Def struct {
 	Com
 }
 
+// DefName 定义名称
+func (me *Def) DefName() string {
+	return me.defName
+}
+
 // Type 类型
-func (me Def) Type() ENodeType {
+func (me *Def) Type() ENodeType {
 	return NodeTypeDef
 }
 
-// BeginningOf s
-func (me *Def) BeginningOf(text string) (string, string) {
-	return me.GetDef(me.defName).BeginningOf(text)
+// BeginningOf 匹配
+func (me *Def) BeginningOf(text string) (string, string, bool) {
+	return "", text, false
 }
 
 // NewDef 构造函数
