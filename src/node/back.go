@@ -23,8 +23,9 @@ func (me *Back) BeginningOf(text string) (string, string, bool) {
 
 // NewBack 构造函数
 func NewBack(num int) *Back {
-	return &Back{
+	rst := &Back{
 		level: num,
-		Com:   Com{srcValue: num},
 	}
+	rst.Com = Com{me: rst, srcValue: num}
+	return rst
 }

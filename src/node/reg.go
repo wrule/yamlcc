@@ -31,8 +31,9 @@ func (me *Reg) BeginningOf(text string) (string, string, bool) {
 
 // NewReg 构造函数
 func NewReg(text string) *Reg {
-	return &Reg{
+	rst := &Reg{
 		regexp: regexp.MustCompile(text),
-		Com:    Com{srcValue: text},
 	}
+	rst.Com = Com{me: rst, srcValue: text}
+	return rst
 }

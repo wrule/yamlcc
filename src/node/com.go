@@ -5,6 +5,7 @@ type Com struct {
 	srcValue interface{}
 	prev     INode
 	next     INode
+	me       INode
 }
 
 // SrcValue 原始值
@@ -43,10 +44,9 @@ func (me *Com) SetNext(next INode) {
 
 // GetDef 根据名称获取定义
 func (me *Com) GetDef(key string) INode {
-	curNode := INode(me)
+	curNode := me.me
 	for curNode != nil {
-		if curNode.Type() == NodeTypeDict {
-			dict := curNode.(*Dict)
+		if dict, ok := curNode.(*Dict); ok {
 			if node, found := dict.DefNodeMap()[key]; found {
 				return node
 			}

@@ -23,8 +23,9 @@ func (me *Ref) BeginningOf(text string) (string, string, bool) {
 
 // NewRef 构造函数
 func NewRef(text string) *Ref {
-	return &Ref{
+	rst := &Ref{
 		defName: text[1:],
-		Com:     Com{srcValue: text},
 	}
+	rst.Com = Com{me: rst, srcValue: text}
+	return rst
 }

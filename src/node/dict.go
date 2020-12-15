@@ -73,13 +73,12 @@ func getLogNodeMap(nodeMap map[INode]INode) map[INode]INode {
 
 // NewDict 构造函数
 func NewDict(srcMap map[interface{}]interface{}) *Dict {
-	dict := &Dict{
-		Com: Com{srcValue: srcMap},
-	}
-	dict.nodeMap = getNodeMap(srcMap, dict)
-	dict.defNodeMap = getDefNodeMap(dict.nodeMap)
-	dict.logNodeMap = getLogNodeMap(dict.nodeMap)
-	return dict
+	rst := &Dict{}
+	rst.Com = Com{me: rst, srcValue: srcMap}
+	rst.nodeMap = getNodeMap(srcMap, rst)
+	rst.defNodeMap = getDefNodeMap(rst.nodeMap)
+	rst.logNodeMap = getLogNodeMap(rst.nodeMap)
+	return rst
 }
 
 // Print 打印字典信息

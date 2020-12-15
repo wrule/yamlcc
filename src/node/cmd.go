@@ -40,16 +40,14 @@ func getCmd(text string) ENodeCmd {
 
 // NewCmd 构造函数
 func NewCmd(text string) *Cmd {
-	return &Cmd{
+	rst := &Cmd{
 		cmd: getCmd(text),
-		Com: Com{srcValue: text},
 	}
+	rst.Com = Com{me: rst, srcValue: text}
+	return rst
 }
 
 // NewCmdEnd 构造结束节点
 func NewCmdEnd() *Cmd {
-	return &Cmd{
-		cmd: NodeCmdEnd,
-		Com: Com{srcValue: ".end"},
-	}
+	return NewCmd(".end")
 }
