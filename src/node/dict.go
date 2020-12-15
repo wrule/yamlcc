@@ -2,14 +2,9 @@ package node
 
 // Dict 字典节点
 type Dict struct {
-	value map[interface{}]interface{}
-	nodes []INode
+	srcMap  map[interface{}]interface{}
+	nodeMap map[INode]INode
 	Com
-}
-
-// Nodes 获取子节点列表
-func (me *Dict) Nodes() []INode {
-	return me.nodes
 }
 
 // Type 类型
@@ -22,29 +17,27 @@ func (me *Dict) BeginningOf(text string) (string, string, bool) {
 	return "", text, false
 }
 
-// getNodes 获取节点
-func getNodes(
+// getNodeMap 获取节点Map
+func getNodeMap(
 	srcMap map[interface{}]interface{},
-) []INode {
-	rst := []INode{}
+	prev INode,
+) map[INode]INode {
+	rst := map[INode]INode{}
 	for key, value := range srcMap {
 		node := BuildNode(key)
+		node.SetPrev(prev)
 		leafNode := BuildLeafNode(value)
 		Link(node, leafNode)
-		rst = append(rst, node)
+		rst[node] = leafNode
 	}
 	return rst
 }
 
 // NewDict 构造函数
-func NewDict(value map[interface{}]interface{}) *Dict {
+func NewDict(srcMap map[interface{}]interface{}) *Dict {
 	dict := &Dict{
-		value: value,
+		srcMap: srcMap,
 	}
-	nodes := getNodes(dict.value)
-	for _, node := range nodes {
-		node.SetPrev(dict)
-	}
-	dict.nodes = nodes
+	dict.nodeMap = getNodeMap(dict.srcMap, dict)
 	return dict
 }

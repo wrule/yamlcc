@@ -17,9 +17,9 @@ func (me *Cmd) Type() ENodeType {
 	return NodeTypeCmd
 }
 
-// BeginningOf s
-func (me *Cmd) BeginningOf(text string) (string, string) {
-	return "", text
+// BeginningOf 匹配
+func (me *Cmd) BeginningOf(text string) (string, string, bool) {
+	return "", text, true
 }
 
 func getCmd(text string) ENodeCmd {
