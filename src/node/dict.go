@@ -4,7 +4,6 @@ import "fmt"
 
 // Dict 字典节点
 type Dict struct {
-	srcMap     map[interface{}]interface{}
 	nodeMap    map[INode]INode
 	defNodeMap map[string]INode
 	logNodeMap map[INode]INode
@@ -61,9 +60,9 @@ func getDefNodeMap(nodeMap map[INode]INode) map[string]INode {
 // NewDict 构造函数
 func NewDict(srcMap map[interface{}]interface{}) *Dict {
 	dict := &Dict{
-		srcMap: srcMap,
+		Com: Com{srcValue: srcMap},
 	}
-	dict.nodeMap = getNodeMap(dict.srcMap, dict)
+	dict.nodeMap = getNodeMap(srcMap, dict)
 	dict.defNodeMap = getDefNodeMap(dict.nodeMap)
 	return dict
 }

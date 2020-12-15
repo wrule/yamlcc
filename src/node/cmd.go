@@ -2,8 +2,7 @@ package node
 
 // Cmd 命令节点
 type Cmd struct {
-	value string
-	cmd   ENodeCmd
+	cmd ENodeCmd
 	Com
 }
 
@@ -42,15 +41,15 @@ func getCmd(text string) ENodeCmd {
 // NewCmd 构造函数
 func NewCmd(text string) *Cmd {
 	return &Cmd{
-		value: text,
-		cmd:   getCmd(text),
+		cmd: getCmd(text),
+		Com: Com{srcValue: text},
 	}
 }
 
 // NewCmdEnd 构造结束节点
 func NewCmdEnd() *Cmd {
 	return &Cmd{
-		value: ".end",
-		cmd:   NodeCmdEnd,
+		cmd: NodeCmdEnd,
+		Com: Com{srcValue: ".end"},
 	}
 }

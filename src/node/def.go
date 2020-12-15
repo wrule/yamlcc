@@ -2,7 +2,6 @@ package node
 
 // Def 定义节点
 type Def struct {
-	value   string
 	defName string
 	Com
 }
@@ -25,7 +24,7 @@ func (me *Def) BeginningOf(text string) (string, string, bool) {
 // NewDef 构造函数
 func NewDef(text string) *Def {
 	return &Def{
-		value:   text,
 		defName: text[1:],
+		Com:     Com{srcValue: text},
 	}
 }

@@ -2,7 +2,6 @@ package node
 
 // Ref 引用节点
 type Ref struct {
-	value   string
 	defName string
 	Com
 }
@@ -25,7 +24,7 @@ func (me *Ref) BeginningOf(text string) (string, string, bool) {
 // NewRef 构造函数
 func NewRef(text string) *Ref {
 	return &Ref{
-		value:   text,
 		defName: text[1:],
+		Com:     Com{srcValue: text},
 	}
 }

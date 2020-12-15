@@ -2,7 +2,6 @@ package node
 
 // Back 回跳节点
 type Back struct {
-	value int
 	level int
 	Com
 }
@@ -25,7 +24,7 @@ func (me *Back) BeginningOf(text string) (string, string, bool) {
 // NewBack 构造函数
 func NewBack(num int) *Back {
 	return &Back{
-		value: num,
 		level: num,
+		Com:   Com{srcValue: num},
 	}
 }

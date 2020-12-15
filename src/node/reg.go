@@ -6,7 +6,6 @@ import (
 
 // Reg 正则表达式节点
 type Reg struct {
-	value  string
 	regexp *regexp.Regexp
 	Com
 }
@@ -33,7 +32,7 @@ func (me *Reg) BeginningOf(text string) (string, string, bool) {
 // NewReg 构造函数
 func NewReg(text string) *Reg {
 	return &Reg{
-		value:  text,
 		regexp: regexp.MustCompile(text),
+		Com:    Com{srcValue: text},
 	}
 }

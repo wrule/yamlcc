@@ -7,6 +7,8 @@ type INode interface {
 	// 字符串匹配
 	BeginningOf(string) (string, string, bool)
 
+	// 原始值
+	SrcValue() interface{}
 	// 上一个节点
 	Prev() INode
 	// 上n个节点
