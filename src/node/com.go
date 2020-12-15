@@ -35,7 +35,26 @@ func (me *Com) SetNext(next INode) {
 	me.next = next
 }
 
-// GetDef 获取定义
+// GetDef 根据名称获取定义
 func (me *Com) GetDef(key string) INode {
-	return NewReg("")
+	curNode := INode(me)
+	for curNode != nil {
+		if dict, ok := curNode.(*Dict); ok {
+			if node, found := dict.DefNodeMap()[key]; found {
+				return node
+			}
+		}
+		curNode = curNode.Prev()
+	}
+	panic("获取不到目标定义")
+}
+
+// Type 类型
+func (me *Com) Type() ENodeType {
+	panic("node.Com: 抽象类被调用")
+}
+
+// BeginningOf 匹配
+func (me *Com) BeginningOf(text string) (string, string, bool) {
+	panic("node.Com: 抽象类被调用")
 }
