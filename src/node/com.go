@@ -2,14 +2,8 @@ package node
 
 // Com 节点共用部分
 type Com struct {
-	srcValue interface{}
-	prev     INode
-	next     INode
-}
-
-// SrcValue 获取节点原始值
-func (me *Com) SrcValue() interface{} {
-	return me.srcValue
+	prev INode
+	next INode
 }
 
 // Prev 获取上一个节点
