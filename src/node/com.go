@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Com 节点共用部分
 type Com struct {
 	srcValue interface{}
@@ -44,8 +46,11 @@ func (me *Com) SetNext(next INode) {
 // GetDef 根据名称获取定义
 func (me *Com) GetDef(key string) INode {
 	curNode := INode(me)
+	// fmt.Printf("%v\n", curNode.SrcValue())
 	for curNode != nil {
+		fmt.Printf("%v\n", curNode.Type())
 		if dict, ok := curNode.(*Dict); ok {
+			dict.Print()
 			if node, found := dict.DefNodeMap()[key]; found {
 				return node
 			}

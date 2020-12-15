@@ -16,5 +16,6 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
 	dict := node.NewDict(m)
-	dict.Print()
+	a2 := dict.GetDef("exps").(*node.Dict)
+	a2.Print()
 }
