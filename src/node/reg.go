@@ -21,13 +21,13 @@ func (me *Reg) Type() ENodeType {
 	return NodeTypeReg
 }
 
-// BeginningOf s
-func (me *Reg) BeginningOf(text string) (string, string) {
+// BeginningOf 匹配
+func (me *Reg) BeginningOf(text string) (string, string, bool) {
 	indexs := me.regexp.FindStringIndex(text)
 	if len(indexs) > 1 && indexs[0] == 0 {
-		return text[:indexs[1]], text[indexs[1]:]
+		return text[:indexs[1]], text[indexs[1]:], true
 	}
-	return "", text
+	return "", text, false
 }
 
 // NewReg 构造函数

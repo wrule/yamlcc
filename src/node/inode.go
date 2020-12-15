@@ -5,7 +5,7 @@ type INode interface {
 	// 节点类型
 	Type() ENodeType
 	// 字符串匹配
-	BeginningOf(string) (string, string)
+	BeginningOf(string) (string, string, bool)
 
 	// 上一个节点
 	Prev() INode
