@@ -19,7 +19,14 @@ func (me *Cmd) Type() ENodeType {
 
 // BeginningOf 匹配
 func (me *Cmd) BeginningOf(text string) (string, string, bool) {
-	return "", text, true
+	switch me.cmd {
+	case NodeCmdOther:
+		return "", text, true
+	case NodeCmdEnd:
+		return "", text, true
+	default:
+		panic("未知的命令")
+	}
 }
 
 func getCmd(text string) ENodeCmd {
@@ -40,7 +47,7 @@ func NewCmd(text string) *Cmd {
 	}
 }
 
-// NewCmdEnd s
+// NewCmdEnd 构造结束节点
 func NewCmdEnd() *Cmd {
 	return &Cmd{
 		value: ".end",
