@@ -15,8 +15,6 @@ func (me *Back) Level() int {
 
 // BeginningOf 匹配
 func (me *Back) BeginningOf(text string) (string, string, bool) {
-	me.Print()
-	me.PrevN(me.level).Print()
 	return me.PrevDictN(me.level).BeginningOf(text)
 }
 

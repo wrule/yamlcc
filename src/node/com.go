@@ -82,7 +82,7 @@ func (me *Com) PrevDictN(n int) *Dict {
 	for i := 0; curNode != nil; {
 		if dict, ok := curNode.(*Dict); ok {
 			i++
-			if i >= n {
+			if i > n {
 				return dict
 			}
 		}
