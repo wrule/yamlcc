@@ -17,7 +17,7 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
 	dict := node.BuildLeafNode(m)
-	matchingText, nextText, success := dict.Test(`1+2`)
+	matchingText, nextText, success := dict.Test(`1+(2+3+4+5+199.1)`)
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
 	fmt.Println("结果:", success)

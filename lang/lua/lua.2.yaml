@@ -1,0 +1,10 @@
+# 无效文本
+:invalid: \s*
+# 数字
+:number: \d+
+# 运算符
+:opr: \+|-|\*|/
+
+$number:
+  $opr: $number
+$opr: .end

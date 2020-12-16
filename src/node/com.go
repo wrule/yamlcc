@@ -26,9 +26,7 @@ func (me *Com) Test(text string) (string, string, bool) {
 		}
 	}
 	if mySuccess {
-		fmt.Printf("%v\n", me.Next())
 		nextMatch, nextNext, nextSuccess := me.Next().Test(myNext)
-		fmt.Println("1111")
 		if nextSuccess {
 			return myMatch + " " + nextMatch, nextNext, true
 		}

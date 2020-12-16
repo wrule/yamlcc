@@ -4,7 +4,16 @@
 :number: \d+
 # 运算符
 :opr: \+|-|\*|/
-
-$number:
-  $opr: $number
-$opr: .end
+# 左括号
+:lp: \(
+# 右括号
+:rp: \)
+# 表达式
+:exps:
+  $number:
+    $opr:
+      $exps: 4
+    .other: .end
+  $lp:
+    $exps: $rp
+$exps: .end
