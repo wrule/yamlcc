@@ -15,7 +15,7 @@ func (me *Def) DefName() string {
 
 // BeginningOf 匹配
 func (me *Def) BeginningOf(text string) (string, string, bool) {
-	return "", text, false
+	panic("node.Def.BeginningOf: 定义节点无法调用BeginningOf")
 }
 
 // NewDef 构造函数

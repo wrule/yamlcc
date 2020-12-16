@@ -27,6 +27,22 @@ func (me *Dict) LogNodeMap() map[INode]INode {
 
 // BeginningOf 匹配
 func (me *Dict) BeginningOf(text string) (string, string, bool) {
+	success := false
+	var matchingText string = ""
+	var nextText string = ""
+	for key := range me.LogNodeMap() {
+		text, next, success := key.BeginningOf(text)
+		if success {
+			success = true
+			if len(text) >= len(matchingText) {
+				matchingText = text
+				nextText = next
+			}
+		}
+	}
+	if success {
+		return matchingText, nextText, true
+	}
 	return "", text, false
 }
 

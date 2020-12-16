@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -16,5 +17,8 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
 	dict := node.NewDict(m)
-	dict.GetDef("rp").Print()
+	matchingText, nextText, success := dict.BeginningOf(`1+2`)
+	fmt.Println("匹配到:", matchingText)
+	fmt.Println("剩下的:", nextText)
+	fmt.Println("结果:", success)
 }
