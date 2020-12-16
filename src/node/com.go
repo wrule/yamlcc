@@ -21,18 +21,18 @@ func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 	text = ivdNext
 	iMe := me.Me()
 	meMatch, meNext, meSuccess := iMe.BeginningOf(text)
+	meFullMatch := ivdMatch + meMatch
 	if me.IsEnd() {
-		return meMatch, meNext, meSuccess
+		return meFullMatch, meNext, meSuccess
 	}
 	if meSuccess {
-		meFullMatch := ivdMatch + meMatch
 		nextMatch, nextNext, nextSuccess := me.Next().BeginningTrimOf(meNext)
 		if nextSuccess {
 			return meFullMatch + nextMatch, nextNext, nextSuccess
 		}
 		return meFullMatch, meNext, nextSuccess
 	}
-	return meMatch, meNext, meSuccess
+	return meFullMatch, meNext, meSuccess
 }
 
 // SrcValue s
