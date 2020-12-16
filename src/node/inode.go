@@ -7,6 +7,8 @@ type INode interface {
 
 	// 原始值
 	SrcValue() interface{}
+	// 节点实例本身
+	Me() INode
 	// 上一个节点
 	Prev() INode
 	// 上n个节点

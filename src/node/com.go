@@ -8,9 +8,19 @@ type Com struct {
 	me       INode
 }
 
+// BeginningOf 匹配
+func (me *Com) BeginningOf(text string) (string, string, bool) {
+	panic("node.Com.BeginningOf: 抽象类被调用")
+}
+
 // SrcValue 原始值
 func (me *Com) SrcValue() interface{} {
 	return me.srcValue
+}
+
+// Me 节点实例（非抽象类）
+func (me *Com) Me() INode {
+	return me.me
 }
 
 // Prev 获取上一个节点
@@ -18,11 +28,14 @@ func (me *Com) Prev() INode {
 	return me.prev
 }
 
-// PrevN 获取上n个节点（n大于等于1）
+// PrevN 获取上n个节点
 func (me *Com) PrevN(n int) INode {
-	curNode := me.Prev()
-	for i := 1; i < n && curNode != nil; i++ {
+	curNode := me.Me()
+	for i := 0; i < n && curNode != nil; i++ {
 		curNode = curNode.Prev()
+	}
+	if curNode == nil {
+		panic("node.Com.PrevN: 目标上层为nil")
 	}
 	return curNode
 }
@@ -44,7 +57,7 @@ func (me *Com) SetNext(next INode) {
 
 // GetDef 根据名称获取定义
 func (me *Com) GetDef(key string) INode {
-	curNode := me.me
+	curNode := me.Me()
 	for curNode != nil {
 		if dict, ok := curNode.(*Dict); ok {
 			if node, found := dict.DefNodeMap()[key]; found {
@@ -53,10 +66,5 @@ func (me *Com) GetDef(key string) INode {
 		}
 		curNode = curNode.Prev()
 	}
-	panic("获取不到目标定义")
-}
-
-// BeginningOf 匹配
-func (me *Com) BeginningOf(text string) (string, string, bool) {
-	panic("node.Com: 抽象类被调用")
+	panic("node.Com.GetDef: 获取不到定义")
 }
