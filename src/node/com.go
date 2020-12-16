@@ -17,8 +17,14 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 
 // Test 递归测试
 func (me *Com) Test(text string) (string, string, bool) {
-	myMatch, myNext, mySuccess := me.Me().BeginningOf(text)
 	me.Me().Print()
+	myMatch, myNext, mySuccess := me.Me().BeginningOf(text)
+	if cmd, ok := me.Me().(*Cmd); ok {
+		if cmd.Cmd() == NodeCmdEnd {
+			fmt.Println("是结束")
+			return myMatch, myNext, mySuccess
+		}
+	}
 	if mySuccess {
 		fmt.Printf("%v\n", me.Next())
 		nextMatch, nextNext, nextSuccess := me.Next().Test(myNext)

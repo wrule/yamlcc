@@ -16,7 +16,7 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	// fmt.Println(m)
-	dict := node.NewDict(m)
+	dict := node.BuildLeafNode(m)
 	matchingText, nextText, success := dict.Test(`1+2`)
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
