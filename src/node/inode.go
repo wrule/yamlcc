@@ -21,4 +21,6 @@ type INode interface {
 	SetNext(INode)
 	// 根据名称获取节点定义
 	GetDef(string) INode
+	// 打印节点信息
+	Print()
 }

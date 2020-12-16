@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Ref 引用节点
 type Ref struct {
 	defName string
@@ -23,4 +25,9 @@ func NewRef(text string) *Ref {
 	}
 	rst.Com = Com{me: rst, srcValue: text}
 	return rst
+}
+
+// Print 打印节点信息
+func (me *Ref) Print() {
+	fmt.Printf("引用节点: %v\n", me.SrcValue())
 }

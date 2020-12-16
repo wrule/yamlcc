@@ -76,14 +76,15 @@ func NewDict(srcMap map[interface{}]interface{}) *Dict {
 	return rst
 }
 
-// Print 打印字典信息
+// Print 打印节点信息
 func (me *Dict) Print() {
-	fmt.Println("定义节点:")
+	fmt.Println("字典节点:")
+	fmt.Println("\t定义:")
 	for key := range me.DefNodeMap() {
-		fmt.Printf("\t%s\n", key)
+		fmt.Printf("\t\t%s\n", key)
 	}
-	fmt.Println("逻辑节点:")
+	fmt.Println("\t逻辑:")
 	for key := range me.LogNodeMap() {
-		fmt.Printf("\t%v\n", key.SrcValue())
+		fmt.Printf("\t\t%v\n", key.SrcValue())
 	}
 }

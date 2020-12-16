@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Def 定义节点
 type Def struct {
 	defName string
@@ -23,4 +25,9 @@ func NewDef(text string) *Def {
 	}
 	rst.Com = Com{me: rst, srcValue: text}
 	return rst
+}
+
+// Print 打印节点信息
+func (me *Def) Print() {
+	fmt.Printf("定义节点: %v\n", me.SrcValue())
 }

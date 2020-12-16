@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Cmd 命令节点
 type Cmd struct {
 	cmd ENodeCmd
@@ -45,4 +47,9 @@ func NewCmd(text string) *Cmd {
 // NewCmdEnd 构造结束节点
 func NewCmdEnd() *Cmd {
 	return NewCmd(".end")
+}
+
+// Print 打印节点信息
+func (me *Cmd) Print() {
+	fmt.Printf("命令节点: %v\n", me.SrcValue())
 }

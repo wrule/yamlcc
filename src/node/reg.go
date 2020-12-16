@@ -1,6 +1,7 @@
 package node
 
 import (
+	"fmt"
 	"regexp"
 )
 
@@ -31,4 +32,9 @@ func NewReg(text string) *Reg {
 	}
 	rst.Com = Com{me: rst, srcValue: text}
 	return rst
+}
+
+// Print 打印节点信息
+func (me *Reg) Print() {
+	fmt.Printf("正则节点: %v\n", me.SrcValue())
 }

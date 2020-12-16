@@ -68,3 +68,8 @@ func (me *Com) GetDef(key string) INode {
 	}
 	panic("node.Com.GetDef: 获取不到定义")
 }
+
+// Print 打印信息
+func (me *Com) Print() {
+	panic("node.Com.Print: 抽象类被调用")
+}
