@@ -17,7 +17,7 @@ func (me *Cmd) Cmd() ENodeCmd {
 func (me *Cmd) BeginningOf(text string) (string, string, bool) {
 	switch me.cmd {
 	case NodeCmdOther:
-		return "", text, true
+		return me.Next().BeginningOf(text)
 	case NodeCmdEnd:
 		return "", text, true
 	default:
