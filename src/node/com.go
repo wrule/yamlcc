@@ -56,11 +56,6 @@ func (me *Com) GetDef(key string) INode {
 	panic("获取不到目标定义")
 }
 
-// Type 类型
-func (me *Com) Type() ENodeType {
-	panic("node.Com: 抽象类被调用")
-}
-
 // BeginningOf 匹配
 func (me *Com) BeginningOf(text string) (string, string, bool) {
 	panic("node.Com: 抽象类被调用")

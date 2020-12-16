@@ -11,11 +11,6 @@ func (me *Cmd) Cmd() ENodeCmd {
 	return me.cmd
 }
 
-// Type 节点类型
-func (me *Cmd) Type() ENodeType {
-	return NodeTypeCmd
-}
-
 // BeginningOf 匹配
 func (me *Cmd) BeginningOf(text string) (string, string, bool) {
 	switch me.cmd {

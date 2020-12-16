@@ -11,11 +11,6 @@ func (me *Back) Level() int {
 	return me.level
 }
 
-// Type 类型
-func (me *Back) Type() ENodeType {
-	return NodeTypeBack
-}
-
 // BeginningOf 匹配
 func (me *Back) BeginningOf(text string) (string, string, bool) {
 	return me.PrevN(me.level).BeginningOf(text)

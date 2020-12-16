@@ -2,8 +2,6 @@ package node
 
 // INode 节点接口
 type INode interface {
-	// 节点类型
-	Type() ENodeType
 	// 字符串匹配
 	BeginningOf(string) (string, string, bool)
 

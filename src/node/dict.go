@@ -25,11 +25,6 @@ func (me *Dict) LogNodeMap() map[INode]INode {
 	return me.logNodeMap
 }
 
-// Type 类型
-func (me *Dict) Type() ENodeType {
-	return NodeTypeDict
-}
-
 // BeginningOf 匹配
 func (me *Dict) BeginningOf(text string) (string, string, bool) {
 	return "", text, false

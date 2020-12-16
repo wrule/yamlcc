@@ -15,11 +15,6 @@ func (me *Reg) Regexp() *regexp.Regexp {
 	return me.regexp
 }
 
-// Type 类型
-func (me *Reg) Type() ENodeType {
-	return NodeTypeReg
-}
-
 // BeginningOf 匹配
 func (me *Reg) BeginningOf(text string) (string, string, bool) {
 	indexs := me.regexp.FindStringIndex(text)

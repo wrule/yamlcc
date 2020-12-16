@@ -11,11 +11,6 @@ func (me *Ref) DefName() string {
 	return me.defName
 }
 
-// Type 类型
-func (me *Ref) Type() ENodeType {
-	return NodeTypeRef
-}
-
 // BeginningOf 匹配
 func (me *Ref) BeginningOf(text string) (string, string, bool) {
 	return me.GetDef(me.defName).BeginningOf(text)
