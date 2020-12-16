@@ -8,16 +8,6 @@
 :lp: \(
 # 右括号
 :rp: \)
-# 表达式
-:exps:
-  $number:
-    $opr:
-      $exps: 1
-    .other: .end
-  $lp:
-    $exps: $rp
-$exps: .end
-$if: .end
 :block: \d+
 :if:
   if:
@@ -29,3 +19,47 @@ $if: .end
             $block:
               end: .end
           end: .end
+# 表达式
+:exps:
+  $number:
+    $opr:
+      $exps: 1
+    .other: .end
+  $lp:
+    $exps: $rp
+
+:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
+:string: "('.*?')|(\".*?\")"
+
+:comma: ","
+:kwd_end: end
+:kwd_func: func
+
+:func_params:
+  $lp:
+    $identifier:
+      $comma:
+        $identifier: 1
+        $rp: .end
+      $rp: .end
+    $rp: .end
+
+:func_def:
+  $kwd_func:
+    $identifier:
+      $func_params:
+        $block:
+          $kwd_end: .end
+
+
+
+# $exps: .end
+# $if: .end
+# $identifier: .end
+$string: .end
+$func_def: .end
+# $func_params: .end
+
+
+
+

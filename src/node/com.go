@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Com 节点共用部分（抽象类）
 type Com struct {
 	srcValue interface{}
@@ -117,6 +119,7 @@ func (me *Com) GetDef(key string) INode {
 		}
 		curNode = curNode.Prev()
 	}
+	fmt.Println(key)
 	panic("node.Com.GetDef: 获取不到定义")
 }
 
