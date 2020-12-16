@@ -53,6 +53,12 @@ func (me *Com) IsEnd() bool {
 	return false
 }
 
+// IsDict s
+func (me *Com) IsDict() bool {
+	_, ok := me.Me().(*Dict)
+	return ok
+}
+
 // Prev s
 func (me *Com) Prev() INode {
 	return me.prev
@@ -68,6 +74,21 @@ func (me *Com) PrevN(n int) INode {
 		panic("node.Com.PrevN: 目标上层为nil")
 	}
 	return curNode
+}
+
+// PrevDictN s
+func (me *Com) PrevDictN(n int) *Dict {
+	curNode := me.Me()
+	for i := 0; curNode != nil; {
+		if dict, ok := curNode.(*Dict); ok {
+			i++
+			if i >= n {
+				return dict
+			}
+		}
+		curNode = curNode.Prev()
+	}
+	panic("node.Com.PrevDictN: 目标上层为nil")
 }
 
 // SetPrev s

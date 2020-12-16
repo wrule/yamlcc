@@ -13,10 +13,14 @@ type INode interface {
 	Me() INode
 	// IsEnd 判断节点是否是结束命令节点
 	IsEnd() bool
+	// IsEnd 判断节点是否是字典节点
+	IsDict() bool
 	// 上一个节点
 	Prev() INode
 	// 上n个节点
 	PrevN(int) INode
+	// 上n个字典节点
+	PrevDictN(int) *Dict
 	// 设置上一个节点
 	SetPrev(INode)
 	// 下一个节点
