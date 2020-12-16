@@ -17,4 +17,4 @@
   $lp:
     $exps: $rp
 $exps: .end
-\d: .end
+\d\+\d: .end

@@ -27,21 +27,21 @@ func (me *Dict) LogNodeMap() map[INode]INode {
 
 // BeginningOf 匹配
 func (me *Dict) BeginningOf(text string) (string, string, bool) {
-	success := false
-	var matchingText string = ""
+	var matchText string = ""
 	var nextText string = ""
+	var matchSuccess = false
 	for key := range me.LogNodeMap() {
-		text, next, success := key.BeginningOf(text)
+		match, next, success := key.BeginningOf(text)
 		if success {
-			success = true
-			if len(text) >= len(matchingText) {
-				matchingText = text
+			matchSuccess = true
+			if len(match) >= len(matchText) {
+				matchText = match
 				nextText = next
 			}
 		}
 	}
-	if success {
-		return matchingText, nextText, true
+	if matchSuccess {
+		return matchText, nextText, true
 	}
 	return "", text, false
 }
