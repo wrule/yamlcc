@@ -4,6 +4,7 @@ package node
 type INode interface {
 	// 字符串匹配
 	BeginningOf(string) (string, string, bool)
+	Test(string) (string, string, bool)
 
 	// 原始值
 	SrcValue() interface{}

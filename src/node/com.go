@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Com 节点共用部分
 type Com struct {
 	srcValue interface{}
@@ -11,6 +13,22 @@ type Com struct {
 // BeginningOf 匹配
 func (me *Com) BeginningOf(text string) (string, string, bool) {
 	panic("node.Com.BeginningOf: 抽象类被调用")
+}
+
+// Test 递归测试
+func (me *Com) Test(text string) (string, string, bool) {
+	myMatch, myNext, mySuccess := me.Me().BeginningOf(text)
+	me.Me().Print()
+	if mySuccess {
+		fmt.Printf("%v\n", me.Next())
+		nextMatch, nextNext, nextSuccess := me.Next().Test(myNext)
+		fmt.Println("1111")
+		if nextSuccess {
+			return myMatch + " " + nextMatch, nextNext, true
+		}
+		return myMatch, myNext, false
+	}
+	return "", text, false
 }
 
 // SrcValue 原始值
