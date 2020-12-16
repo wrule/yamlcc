@@ -1,7 +1,5 @@
 package node
 
-import "fmt"
-
 // Com 节点共用部分
 type Com struct {
 	srcValue interface{}
@@ -15,22 +13,37 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 	panic("node.Com.BeginningOf: 抽象类被调用")
 }
 
-// Test 递归测试
-func (me *Com) Test(text string) (string, string, bool) {
-	me.Me().Print()
-	myMatch, myNext, mySuccess := me.Me().BeginningOf(text)
+// IsEnd 判断节点是否是结束命令节点
+func (me *Com) IsEnd() bool {
 	if cmd, ok := me.Me().(*Cmd); ok {
 		if cmd.Cmd() == NodeCmdEnd {
-			fmt.Println("是结束")
-			return myMatch, myNext, mySuccess
+			return true
 		}
 	}
-	if mySuccess {
-		nextMatch, nextNext, nextSuccess := me.Next().Test(myNext)
+	return false
+}
+
+// GetDefReg s
+func (me *Com) GetDefReg(key string) *Reg {
+	return me.GetDef(key).(*Reg)
+}
+
+// BeginningTrimOf 字符串匹配（忽略无效字符）
+func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
+	ivdMatch, ivdNext, _ := me.GetDefReg("invalid").BeginningOf(text)
+	text = ivdNext
+	iMe := me.Me()
+	meMatch, meNext, meSuccess := iMe.BeginningOf(text)
+	if me.IsEnd() {
+		return meMatch, meNext, meSuccess
+	}
+	meFullMatch := ivdMatch + meMatch
+	if meSuccess {
+		nextMatch, nextNext, nextSuccess := me.Next().BeginningTrimOf(meNext)
 		if nextSuccess {
-			return myMatch + " " + nextMatch, nextNext, true
+			return meFullMatch + nextMatch, nextNext, true
 		}
-		return myMatch, myNext, false
+		return meFullMatch, meNext, false
 	}
 	return "", text, false
 }

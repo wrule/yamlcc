@@ -31,7 +31,7 @@ func (me *Dict) BeginningOf(text string) (string, string, bool) {
 	var nextText string = ""
 	var matchSuccess = false
 	for key := range me.LogNodeMap() {
-		match, next, success := key.Test(text)
+		match, next, success := key.BeginningTrimOf(text)
 		if success {
 			matchSuccess = true
 			if len(match) >= len(matchText) {

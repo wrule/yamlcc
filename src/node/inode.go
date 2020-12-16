@@ -4,8 +4,9 @@ package node
 type INode interface {
 	// 字符串匹配
 	BeginningOf(string) (string, string, bool)
-	Test(string) (string, string, bool)
 
+	// 字符串匹配（忽略无效字符）
+	BeginningTrimOf(string) (string, string, bool)
 	// 原始值
 	SrcValue() interface{}
 	// 节点实例本身
