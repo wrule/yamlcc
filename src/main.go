@@ -19,9 +19,9 @@ func main() {
 	dict := node.BuildLeafNode(m)
 	// matchingText, nextText, success := dict.BeginningTrimOf(`1+(2*3 / (4 / 5 ) + 1991)`)
 	matchingText, nextText, success := dict.BeginningTrimOf(`
-		func add(a, b)
-			123
-		end
+		func add(a,    b)
+			8123
+		end           789
 	`)
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
