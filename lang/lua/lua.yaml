@@ -12,7 +12,7 @@
 :exps:
   $number:
     $opr:
-      $exps: 4
+      $exps: 2
     .other: .end
   $lp:
     $exps: $rp
@@ -24,7 +24,7 @@ $if: .end
     $exps:
       then:
         $block:
-          elseif: 8
+          elseif: 4
           else:
             $block:
               end: .end
