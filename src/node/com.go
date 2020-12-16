@@ -23,11 +23,6 @@ func (me *Com) IsEnd() bool {
 	return false
 }
 
-// GetDefReg s
-func (me *Com) GetDefReg(key string) *Reg {
-	return me.GetDef(key).(*Reg)
-}
-
 // BeginningTrimOf 字符串匹配（忽略无效字符）
 func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 	ivdMatch, ivdNext, _ := me.GetDefReg("invalid").BeginningOf(text)
@@ -90,7 +85,7 @@ func (me *Com) SetNext(next INode) {
 	me.next = next
 }
 
-// GetDef 根据名称获取定义
+// GetDef 根据名称获取定义节点
 func (me *Com) GetDef(key string) INode {
 	curNode := me.Me()
 	for curNode != nil {
@@ -102,6 +97,11 @@ func (me *Com) GetDef(key string) INode {
 		curNode = curNode.Prev()
 	}
 	panic("node.Com.GetDef: 获取不到定义")
+}
+
+// GetDefReg 根据名称获取正则节点
+func (me *Com) GetDefReg(key string) *Reg {
+	return me.GetDef(key).(*Reg)
 }
 
 // Print 打印信息

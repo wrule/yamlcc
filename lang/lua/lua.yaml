@@ -17,3 +17,15 @@
   $lp:
     $exps: $rp
 $exps: .end
+$if: .end
+:block: \d+
+:if:
+  if:
+    $exps:
+      then:
+        $block:
+          elseif: 8
+          else:
+            $block:
+              end: .end
+          end: .end
