@@ -8,17 +8,25 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-func main() {
-	bytes, err := ioutil.ReadFile("lang/lua/lua.yaml")
+func readBytes(filePath string) []byte {
+	bytes, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		panic("读取语法定义文件出错")
 	}
+	return bytes
+}
+
+func readString(filePath string) string {
+	return string(readBytes(filePath))
+}
+
+func main() {
+	bytes := readBytes("lang/lua/lua.yaml")
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	dict := node.BuildLeafNode(m)
-	matchingText, nextText, success := dict.BeginningTrimOf(`
-		3 * (1 + 1992) <= (1 + 2 + 4) * 5 / 123
-	`)
+	code := readString("test/lua/1.lua")
+	matchingText, nextText, success := dict.BeginningTrimOf(code)
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
 	fmt.Println("结果:", success)

@@ -1,3 +1,4 @@
+
 # 无效文本
 :invalid: \s*
 # 数字
@@ -6,18 +7,13 @@
 :lp: \(
 # 右括号
 :rp: \)
-# 块
-:block: \d+
 # 标识符
 :identifier: '[_a-zA-Z][_a-zA-Z\d]*'
 # 字符串
 :string: "('.*?')|(\".*?\")"
 # 逗号
 :comma: ","
-
-
-
-
+# 关键字
 :kwd_if: if
 :kwd_then: then
 :kwd_elseif: elseif
@@ -25,6 +21,11 @@
 :kwd_end: end
 :kwd_function: function
 :kwd_return: return
+
+
+
+
+
 
 # 运算符
 :op:
@@ -45,24 +46,16 @@
   $op_lt: .end
   $op_le: .end
 
-:cmd:
-  $cmd_if: .end
 
-# if语句
-:cmd_if:
-  $kwd_if:
-    $exps:
-      $kwd_then:
-        $block:
-          $kwd_elseif: 3
-          $kwd_else:
-            $block:
-              $kwd_end: .end
-          $kwd_end: .end
+# 表达式基本元素
+:exps_item:
+  $number: .end
+  $string: .end
+  $identifier: .end
 
 # 表达式
 :exps:
-  $number:
+  $exps_item:
     $op:
       $exps: 1
     .other: .end
@@ -92,6 +85,7 @@
       $rp: .end
     $rp: .end
 
+
 # 函数定义语句
 :cmd_func_def:
   $kwd_function:
@@ -99,16 +93,36 @@
       $func_params_form:
         $block:
           $kwd_end: .end
+# 函数调用语句
+:cmd_func_call:
+  $identifier: $func_params_real
 # 函数返回语句
 :cmd_return:
   $kwd_return:
     $exps: .end
     .other: .end
-# 函数调用语句
-:cmd_func_call:
-  $identifier: $func_params_real
+# if语句
+:cmd_if:
+  $kwd_if:
+    $exps:
+      $kwd_then:
+        $block: .end
+        #   $kwd_elseif: 3
+        #   $kwd_else:
+        #     $block:
+        #       $kwd_end: .end
+        #   $kwd_end: .end
+:cmd:
+  $cmd_func_def: .end
+  $cmd_func_call: .end
+  $cmd_return: .end
+  $cmd_if: .end
 
-$exps: .end
+:block:
+  $cmd: 0
+  .other: .end
+
+$cmd_if: .end
 
 
 
