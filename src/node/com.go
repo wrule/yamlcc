@@ -17,13 +17,13 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 
 // BeginningTrimOf s
 func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
-	ivdMatch, ivdNext, _ := me.GetDefReg("invalid").BeginningOf(text)
-	text = ivdNext
-	iMe := me.Me()
-	meMatch, meNext, meSuccess := iMe.BeginningOf(text)
+	// 修剪文本头部无效字符
+	ivdMatch, textTrimmed, _ := me.GetDefReg("invalid").BeginningOf(text)
+	// 进行非Trim匹配
+	meMatch, meNext, meSuccess := me.Me().BeginningOf(textTrimmed)
 	meFullMatch := ivdMatch + meMatch
 	if me.IsEnd() {
-		return meFullMatch, meNext, meSuccess
+		return meMatch, text, meSuccess
 	}
 	if meSuccess {
 		nextMatch, nextNext, nextSuccess := me.Next().BeginningTrimOf(meNext)
@@ -32,7 +32,7 @@ func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 		}
 		return meFullMatch, meNext, nextSuccess
 	}
-	return meFullMatch, meNext, meSuccess
+	return meMatch, text, meSuccess
 }
 
 // SrcValue s
