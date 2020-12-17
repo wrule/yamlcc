@@ -24,6 +24,14 @@
 :kwd_function: function
 :kwd_return: return
 
+:kwd:
+  $kwd_if: .end
+  $kwd_then: .end
+  $kwd_elseif: .end
+  $kwd_else: .end
+  $kwd_end: .end
+  $kwd_function: .end
+  $kwd_return: .end
 
 
 
