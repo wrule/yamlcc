@@ -104,6 +104,16 @@ func (me *Com) SetNext(next INode) {
 	me.next = next
 }
 
+// Link s
+func (me *Com) Link(next INode) {
+	if me != nil {
+		me.SetNext(next)
+	}
+	if next != nil {
+		next.SetPrev(me.Me())
+	}
+}
+
 // GetDef s
 func (me *Com) GetDef(key string) INode {
 	curNode := me.Me()

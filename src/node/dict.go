@@ -56,7 +56,7 @@ func getNodeMap(
 		node := BuildNode(key)
 		node.SetPrev(prev)
 		leafNode := BuildLeafNode(value)
-		Link(node, leafNode)
+		node.Link(leafNode)
 		rst[node] = leafNode
 	}
 	return rst

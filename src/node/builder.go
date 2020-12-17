@@ -5,16 +5,6 @@ import (
 	"strings"
 )
 
-// Link 连接两个节点
-func Link(prev, next INode) {
-	if prev != nil {
-		prev.SetNext(next)
-	}
-	if next != nil {
-		next.SetPrev(prev)
-	}
-}
-
 // BuildNode 构造非叶子节点
 // 正则表达式，定义，引用，非结束命令，可以作为非叶子节点
 func BuildNode(
@@ -80,7 +70,7 @@ func BuildLeafNode(
 	}
 	if !rstIsEnd {
 		end := NewEnd()
-		Link(rst, end)
+		rst.Link(end)
 	}
 	return rst
 }

@@ -27,6 +27,8 @@ type INode interface {
 	Next() INode
 	// 设置下一个节点
 	SetNext(INode)
+	// 连接节点
+	Link(INode)
 	// 根据名称获取定义的节点
 	GetDef(string) INode
 	// 根据名称获取定义的正则节点
