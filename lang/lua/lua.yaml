@@ -35,7 +35,7 @@
 
 # 运算符
 :op:
-  :op_add: \+
+  :$op_add: \+
   :op_sub: "-"
   :op_mul: \*
   :op_div: "/"
