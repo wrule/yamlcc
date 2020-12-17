@@ -8,7 +8,9 @@
 # 右括号
 :rp: \)
 # 标识符
-:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
+:identifier:
+  '[_a-zA-Z][_a-zA-Z\d]*': .end
+  .not: $kwd
 # 字符串
 :string: "('.*?')|(\".*?\")"
 # 逗号
@@ -22,18 +24,14 @@
 :kwd_function: function
 :kwd_return: return
 
-# :kwd:
-  # - $kwd_if
-  # - $kwd_then
-  # - $kwd_elseif
-  # - $kwd_else
-  # - $kwd_end
-  # - $kwd_function
-  # - $kwd_return
-
-
-
-
+:kwd:
+  - $kwd_if
+  - $kwd_then
+  - $kwd_elseif
+  - $kwd_else
+  - $kwd_end
+  - $kwd_function
+  - $kwd_return
 
 # 运算符
 :op:
