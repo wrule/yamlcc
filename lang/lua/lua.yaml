@@ -8,9 +8,7 @@
 # 右括号
 :rp: \)
 # 标识符
-:identifier:
-  '[_a-zA-Z][_a-zA-Z\d]*': .end
-  .not: $kwd
+:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
 # 字符串
 :string: "('.*?')|(\".*?\")"
 # 逗号

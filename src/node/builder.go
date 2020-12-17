@@ -71,7 +71,7 @@ func BuildLeafNode(
 		rst = NewBack(val)
 	}
 	if rst == nil {
-		log.Fatalf("%v 不能为叶子节点\n", value)
+		log.Fatalf("%v %T 不能为叶子节点\n", value, value)
 		panic("node.BuildLeafNode: 致命错误")
 	}
 	if !rstIsEnd {
