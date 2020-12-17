@@ -28,9 +28,11 @@ func BuildNode(
 		} else if strings.HasPrefix(val, "$") {
 			rst = NewRef(val)
 		} else if strings.HasPrefix(val, ".") {
-			cmd := NewCmd(val)
-			if cmd.Cmd() != NodeCmdEnd {
-				rst = cmd
+			switch val {
+			case ".other":
+				rst = NewOther()
+			case ".not":
+				rst = NewNot()
 			}
 		} else {
 			rst = NewReg(val)
@@ -57,10 +59,10 @@ func BuildLeafNode(
 		} else if strings.HasPrefix(val, "$") {
 			rst = NewRef(val)
 		} else if strings.HasPrefix(val, ".") {
-			cmd := NewCmd(val)
-			if cmd.Cmd() == NodeCmdEnd {
+			switch val {
+			case ".end":
 				rstIsEnd = true
-				rst = cmd
+				rst = NewEnd()
 			}
 		} else {
 			rst = NewReg(val)
