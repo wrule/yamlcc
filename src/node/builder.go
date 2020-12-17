@@ -79,7 +79,7 @@ func BuildLeafNode(
 		panic("node.BuildLeafNode: 致命错误")
 	}
 	if !rstIsEnd {
-		end := NewCmdEnd()
+		end := NewEnd()
 		Link(rst, end)
 	}
 	return rst

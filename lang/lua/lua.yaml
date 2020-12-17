@@ -22,12 +22,7 @@
 :kwd_function: function
 :kwd_return: return
 
-:kwd:
-  - $kwd_if
-  - $kwd_then
-  -
-    a: 1
-    b: 2
+# :kwd:
   # - $kwd_if
   # - $kwd_then
   # - $kwd_elseif

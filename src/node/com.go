@@ -47,12 +47,8 @@ func (me *Com) Me() INode {
 
 // IsEnd s
 func (me *Com) IsEnd() bool {
-	if cmd, ok := me.Me().(*Cmd); ok {
-		if cmd.Cmd() == NodeCmdEnd {
-			return true
-		}
-	}
-	return false
+	_, ok := me.Me().(*End)
+	return ok
 }
 
 // IsDict s
