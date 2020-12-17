@@ -67,6 +67,8 @@ func BuildLeafNode(
 		}
 	case map[interface{}]interface{}:
 		rst = NewDict(val)
+	case []interface{}:
+		rst = NewSet(val)
 	case int:
 		rst = NewBack(val)
 	}
