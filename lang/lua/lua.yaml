@@ -2,40 +2,78 @@
 :invalid: \s*
 # 数字
 :number: \d+
-# 运算符
-:opr: \+|-|\*|/
 # 左括号
 :lp: \(
 # 右括号
 :rp: \)
+# 块
 :block: \d+
-:if:
-  if:
+# 标识符
+:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
+# 字符串
+:string: "('.*?')|(\".*?\")"
+# 逗号
+:comma: ","
+
+
+
+
+:kwd_if: if
+:kwd_then: then
+:kwd_elseif: elseif
+:kwd_else: else
+:kwd_end: end
+:kwd_function: function
+:kwd_return: return
+
+# 运算符
+:op:
+  :op_add: \+
+  :op_sub: "-"
+  :op_mul: \*
+  :op_div: "/"
+  :op_gt: ">"
+  :op_ge: ">="
+  :op_lt: "<"
+  :op_le: "<="
+  $op_add: .end
+  $op_sub: .end
+  $op_mul: .end
+  $op_div: .end
+  $op_gt: .end
+  $op_ge: .end
+  $op_lt: .end
+  $op_le: .end
+
+:cmd:
+  $cmd_if: .end
+
+# if语句
+:cmd_if:
+  $kwd_if:
     $exps:
-      then:
+      $kwd_then:
         $block:
-          elseif: 3
-          else:
+          $kwd_elseif: 3
+          $kwd_else:
             $block:
-              end: .end
-          end: .end
+              $kwd_end: .end
+          $kwd_end: .end
+
 # 表达式
 :exps:
   $number:
-    $opr:
+    $op:
       $exps: 1
     .other: .end
   $lp:
     $exps: $rp
 
-:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
-:string: "('.*?')|(\".*?\")"
 
-:comma: ","
-:kwd_end: end
-:kwd_func: func
 
-:func_params:
+
+# 函数形参列表
+:func_params_form:
   $lp:
     $identifier:
       $comma:
@@ -44,21 +82,33 @@
       $rp: .end
     $rp: .end
 
-:func_def:
-  $kwd_func:
+# 函数实参列表
+:func_params_real:
+  $lp:
+    $exps:
+      $comma:
+        $exps: 1
+        $rp: .end
+      $rp: .end
+    $rp: .end
+
+# 函数定义语句
+:cmd_func_def:
+  $kwd_function:
     $identifier:
-      $func_params:
+      $func_params_form:
         $block:
           $kwd_end: .end
+# 函数返回语句
+:cmd_return:
+  $kwd_return:
+    $exps: .end
+    .other: .end
+# 函数调用语句
+:cmd_func_call:
+  $identifier: $func_params_real
 
-
-
-# $exps: .end
-# $if: .end
-# $identifier: .end
-$string: .end
-$func_def: .end
-# $func_params: .end
+$exps: .end
 
 
 

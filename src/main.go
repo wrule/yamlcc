@@ -11,17 +11,13 @@ import (
 func main() {
 	bytes, err := ioutil.ReadFile("lang/lua/lua.yaml")
 	if err != nil {
-		panic("读取文件出错")
+		panic("读取语法定义文件出错")
 	}
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	// fmt.Println(m)
 	dict := node.BuildLeafNode(m)
-	// matchingText, nextText, success := dict.BeginningTrimOf(`1+(2*3 / (4 / 5 ) + 1991)`)
 	matchingText, nextText, success := dict.BeginningTrimOf(`
-		func add(a,    b)
-			8123
-		end           789
+		3 * (1 + 1992) <= (1 + 2 + 4) * 5 / 123
 	`)
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
