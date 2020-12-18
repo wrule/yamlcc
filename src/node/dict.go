@@ -53,7 +53,7 @@ func getNodeMap(
 ) map[INode]INode {
 	rst := map[INode]INode{}
 	for key, value := range srcMap {
-		node := BuildNode(key)
+		node := BuildNodes(key)
 		node.SetPrev(prev)
 		leafNode := BuildLeafNode(value)
 		node.Link(leafNode)
