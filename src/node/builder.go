@@ -5,30 +5,34 @@ import (
 	"strings"
 )
 
-// BuildNode 构造非叶子节点
+// BuildNodes 构造非叶子节点
 // 正则表达式，定义，引用，非结束命令，可以作为非叶子节点
-func BuildNode(
+func BuildNodes(
 	value interface{},
-) INode {
-	var rst INode = nil
+) []INode {
+	rst := []INode{}
 	switch val := value.(type) {
 	case string:
-		if strings.HasPrefix(val, ":") {
-			rst = NewDef(val)
+		if strings.HasPrefix(val, ":$") {
+			valTrimmed := val[2:]
+			rst = append(rst, NewDef(":"+valTrimmed))
+			rst = append(rst, NewRef("$"+valTrimmed))
+		} else if strings.HasPrefix(val, ":") {
+			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
-			rst = NewRef(val)
+			rst = append(rst, NewRef(val))
 		} else if strings.HasPrefix(val, ".") {
 			switch val {
 			case ".other":
-				rst = NewOther()
+				rst = append(rst, NewOther())
 			case ".not":
-				rst = NewNot()
+				rst = append(rst, NewNot())
 			}
 		} else {
-			rst = NewReg(val)
+			rst = append(rst, NewReg(val))
 		}
 	}
-	if rst == nil {
+	if len(rst) < 1 {
 		log.Fatalf("%v 不能为非叶子节点\n", value)
 		panic("node.BuildNode: 致命错误")
 	}
