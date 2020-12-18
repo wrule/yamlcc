@@ -9,11 +9,15 @@ import (
 // 正则表达式，定义，引用，非结束命令，可以作为非叶子节点
 func BuildNodes(
 	value interface{},
-) INode {
+) []INode {
 	rst := []INode{}
 	switch val := value.(type) {
 	case string:
-		if strings.HasPrefix(val, ":") {
+		if strings.HasPrefix(val, ":$") {
+			valTrimmed := val[2:]
+			rst = append(rst, NewDef(":"+valTrimmed))
+			rst = append(rst, NewRef("$"+valTrimmed))
+		} else if strings.HasPrefix(val, ":") {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
 			rst = append(rst, NewRef(val))
@@ -32,7 +36,7 @@ func BuildNodes(
 		log.Fatalf("%v 不能为非叶子节点\n", value)
 		panic("node.BuildNodes: 致命错误")
 	}
-	return rst[0]
+	return rst
 }
 
 // BuildLeafNode 构造叶子节点
