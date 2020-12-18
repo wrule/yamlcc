@@ -35,22 +35,14 @@
 
 # 运算符
 :op:
-  :op_add: \+
-  :op_sub: "-"
-  :op_mul: \*
-  :op_div: "/"
-  :op_gt: ">"
-  :op_ge: ">="
-  :op_lt: "<"
-  :op_le: "<="
-  $op_add: .end
-  $op_sub: .end
-  $op_mul: .end
-  $op_div: .end
-  $op_gt: .end
-  $op_ge: .end
-  $op_lt: .end
-  $op_le: .end
+  :$op_add: \+
+  :$op_sub: "-"
+  :$op_mul: \*
+  :$op_div: "/"
+  :$op_gt: ">"
+  :$op_ge: ">="
+  :$op_lt: "<"
+  :$op_le: "<="
 
 
 # 表达式基本元素

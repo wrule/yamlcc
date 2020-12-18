@@ -16,7 +16,10 @@ func BuildNodes(
 		if strings.HasPrefix(val, ":$") {
 			valTrimmed := val[2:]
 			rst = append(rst, NewDef(":"+valTrimmed))
-			rst = append(rst, NewRef("$"+valTrimmed))
+			ref := NewRef("$" + valTrimmed)
+			end := NewEnd()
+			ref.Link(end)
+			rst = append(rst, ref)
 		} else if strings.HasPrefix(val, ":") {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {

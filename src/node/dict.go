@@ -56,9 +56,13 @@ func getNodeMap(
 		nodes := BuildNodes(key)
 		for _, node := range nodes {
 			node.SetPrev(prev)
-			leafNode := BuildLeafNode(value)
-			node.Link(leafNode)
-			rst[node] = leafNode
+			if node.Next() == nil {
+				leafNode := BuildLeafNode(value)
+				node.Link(leafNode)
+				rst[node] = leafNode
+			} else {
+				rst[node] = node.Next()
+			}
 		}
 	}
 	return rst
