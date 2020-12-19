@@ -30,4 +30,5 @@ func main() {
 	fmt.Println("匹配到:", matchingText)
 	fmt.Println("剩下的:", nextText)
 	fmt.Println("结果:", success)
+	fmt.Println("你好")
 }
