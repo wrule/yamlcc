@@ -5,6 +5,11 @@ type End struct {
 	Com
 }
 
+// BeginningOf 匹配
+func (me *End) BeginningOf(text string) (string, string, bool) {
+	return "", text, true
+}
+
 // NewEnd 构造函数
 func NewEnd() *End {
 	rst := &End{}
