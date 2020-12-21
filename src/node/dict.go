@@ -53,8 +53,10 @@ func getNodeMap(
 ) map[INode]INode {
 	rst := map[INode]INode{}
 	for key, value := range srcMap {
+		// 得到key产生的非叶子节点
 		nodes := BuildNodes(key)
 		for _, node := range nodes {
+			// key上连接
 			node.SetPrev(prev)
 			if node.Next() == nil {
 				leafNode := BuildLeafNode(value)
