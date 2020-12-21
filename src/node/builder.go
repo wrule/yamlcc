@@ -39,3 +39,7 @@ func BuildNodes(value interface{}) []INode {
 	}
 	return rst
 }
+
+func CompileNode(value map[interface{}]interface{}) INode {
+
+}
