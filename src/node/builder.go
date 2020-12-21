@@ -6,7 +6,8 @@ import (
 )
 
 // BuildNodes 构造非叶子节点
-// 正则表达式，定义，引用，非结束命令，可以作为非叶子节点
+// 定义引用，定义，引用，命令（.other，.not），正则，可以作为非叶子节点
+// 定义引用节点会产生两个非叶子节点，一个为定义一个为引用（后跟.end节点）
 func BuildNodes(
 	value interface{},
 ) []INode {
@@ -15,11 +16,11 @@ func BuildNodes(
 	case string:
 		if strings.HasPrefix(val, ":$") {
 			valTrimmed := val[2:]
-			rst = append(rst, NewDef(":"+valTrimmed))
+			def := NewDef(":" + valTrimmed)
 			ref := NewRef("$" + valTrimmed)
 			end := NewEnd()
 			ref.Link(end)
-			rst = append(rst, ref)
+			rst = append(rst, def, ref)
 		} else if strings.HasPrefix(val, ":") {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
@@ -36,14 +37,14 @@ func BuildNodes(
 		}
 	}
 	if len(rst) < 1 {
-		log.Fatalf("%v 不能为非叶子节点\n", value)
+		log.Fatalf("%v %T 不能为非叶子节点\n", value, value)
 		panic("node.BuildNodes: 致命错误")
 	}
 	return rst
 }
 
 // BuildLeafNode 构造叶子节点
-// 正则表达式，引用，字典，回跳，结束命令可以作为叶子节点
+// 引用，命令（.end），正则，字典，集合，回跳，可以作为叶子节点
 func BuildLeafNode(
 	value interface{},
 ) INode {
