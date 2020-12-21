@@ -45,7 +45,14 @@ func (me *Com) SrcValue() interface{} {
 
 // IsEnd s
 func (me *Com) IsEnd() bool {
-	return false
+	_, ok := me.Me().(*End)
+	return ok
+}
+
+// IsNot s
+func (me *Com) IsNot() bool {
+	_, ok := me.Me().(*Not)
+	return ok
 }
 
 // BeginningOf s

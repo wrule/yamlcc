@@ -11,5 +11,6 @@ type INode interface {
 
 	SrcValue() interface{}
 	IsEnd() bool
+	IsNot() bool
 	BeginningOf(string) (string, string, bool)
 }
