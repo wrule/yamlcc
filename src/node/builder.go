@@ -33,7 +33,14 @@ func BuildNodes(value interface{}) []INode {
 	case int:
 		rst = append(rst, NewBack(val))
 	case map[interface{}]interface{}:
+		for key, value := range val {
+			keyNodes := BuildNodes(key)
+			valueNodes := BuildNodes(value)
+		}
 	case []interface{}:
+		for _, item := range val {
+			rst = append(rst, BuildNodes(item)...)
+		}
 	}
 	if len(rst) < 1 {
 		log.Fatalf("%v %T 不能为非叶子节点\n", value, value)
