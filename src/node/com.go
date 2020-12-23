@@ -2,13 +2,13 @@ package node
 
 // Com 公共逻辑
 type Com struct {
+	srcValue interface{}
 	me       INode
 	prev     INode
 	nexts    []INode
 	nextDefs map[string]INode
 	nextLogs []INode
 	nextCmds []INode
-	srcValue interface{}
 }
 
 // Me s
@@ -37,17 +37,12 @@ func (me *Com) SetPrev(prev INode) {
 
 // Nexts s
 func (me *Com) Nexts() []INode {
-	return me.nexts
+	return me.nextLogs
 }
 
 // NextDefs s
 func (me *Com) NextDefs() map[string]INode {
 	return me.nextDefs
-}
-
-// NextLogs s
-func (me *Com) NextLogs() []INode {
-	return me.nextLogs
 }
 
 // NextCmds s
@@ -129,33 +124,37 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 	panic("node.Com.BeginningOf: 抽象类方法被调用")
 }
 
+// updateNextDefs 同步更新nextDefs
 func (me *Com) updateNextDefs() {
 	me.nextDefs = map[string]INode{}
-	for _, node := range me.Nexts() {
+	for _, node := range me.nexts {
 		if def, ok := node.(*Def); ok {
 			me.nextDefs[def.DefName()] = def
 		}
 	}
 }
 
+// updateNextLogs 同步更新nextLogs
 func (me *Com) updateNextLogs() {
 	me.nextLogs = []INode{}
-	for _, node := range me.Nexts() {
+	for _, node := range me.nexts {
 		if node.IsLog() {
 			me.nextLogs = append(me.nextLogs, node)
 		}
 	}
 }
 
+// updateNextCmds 同步更新nextCmds
 func (me *Com) updateNextCmds() {
 	me.nextCmds = []INode{}
-	for _, node := range me.Nexts() {
+	for _, node := range me.nexts {
 		if node.IsCmd() {
 			me.nextCmds = append(me.nextCmds, node)
 		}
 	}
 }
 
+// updateNexts 同步更新其他的nexts相关数据结构
 func (me *Com) updateNexts() {
 	me.updateNextDefs()
 	me.updateNextLogs()
