@@ -35,7 +35,14 @@ func BuildNodes(value interface{}) []INode {
 	case map[interface{}]interface{}:
 		for key, value := range val {
 			keyNodes := BuildNodes(key)
-			valueNodes := BuildNodes(value)
+			for _, keyNode := range keyNodes {
+				valueNodes := BuildNodes(value)
+				for _, valueNode := range valueNodes {
+					valueNode.SetPrev(keyNode)
+				}
+				keyNode.SetNexts(valueNodes)
+				rst = append(rst, keyNode)
+			}
 		}
 	case []interface{}:
 		for _, item := range val {
@@ -43,12 +50,8 @@ func BuildNodes(value interface{}) []INode {
 		}
 	}
 	if len(rst) < 1 {
-		log.Fatalf("%v %T 不能为非叶子节点\n", value, value)
+		log.Fatalf("%v %T 不能为节点\n", value, value)
 		panic("node.BuildNodes: 致命错误")
 	}
 	return rst
-}
-
-func CompileNode(value map[interface{}]interface{}) INode {
-
 }
