@@ -39,8 +39,11 @@ func BuildNodes(value interface{}) []INode {
 		for key, value := range val {
 			keyNodes := BuildNodes(key)
 			for _, keyNode := range keyNodes {
-				valueNodes := BuildNodes(value)
-				keyNode.Links(valueNodes)
+				// 排除引用定义节点展开后的定义节点（next为end）
+				if keyNode.IsNextsEmpty() {
+					valueNodes := BuildNodes(value)
+					keyNode.Links(valueNodes)
+				}
 				rst = append(rst, keyNode)
 			}
 		}

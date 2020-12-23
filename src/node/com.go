@@ -68,6 +68,11 @@ func (me *Com) IsNot() bool {
 	return ok
 }
 
+// IsNextsEmpty s
+func (me *Com) IsNextsEmpty() bool {
+	return len(me.Nexts()) < 1
+}
+
 // BeginningOf s
 func (me *Com) BeginningOf(text string) (string, string, bool) {
 	panic("node.Com.BeginningOf: 抽象类方法被调用")
