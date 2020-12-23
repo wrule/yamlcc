@@ -4,6 +4,7 @@ package node
 type INode interface {
 	Me() INode
 	Prev() INode
+	PrevN(n int) INode
 	SetPrev(INode)
 	Nexts() []INode
 	SetNexts([]INode)

@@ -18,6 +18,15 @@ func (me *Com) Prev() INode {
 	return me.prev
 }
 
+// PrevN s
+func (me *Com) PrevN(n int) INode {
+	rst := me.Me()
+	for i := 0; rst != nil && i < n; i++ {
+		rst = rst.Prev()
+	}
+	return rst
+}
+
 // SetPrev s
 func (me *Com) SetPrev(prev INode) {
 	me.prev = prev

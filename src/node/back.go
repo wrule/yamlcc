@@ -11,6 +11,11 @@ func (me *Back) Hops() int {
 	return me.hops
 }
 
+// BeginningOf s
+func (me *Back) BeginningOf(text string) (string, string, bool) {
+	return me.PrevN(me.Hops()).BeginningOf(text)
+}
+
 // NewBack 构造函数
 func NewBack(num int) *Back {
 	rst := &Back{
