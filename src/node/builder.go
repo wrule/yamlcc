@@ -50,7 +50,7 @@ func BuildNodes(value interface{}) []INode {
 		}
 	}
 	if len(rst) < 1 {
-		log.Fatalf("%v %T 不能为节点\n", value, value)
+		log.Fatalf("%v %T 不能作为节点\n", value, value)
 		panic("node.BuildNodes: 致命错误")
 	}
 	return rst
