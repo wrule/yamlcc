@@ -38,6 +38,19 @@ func (me *Com) AppendNexts(next INode) {
 	me.nexts = append(me.nexts, next)
 }
 
+// Link s
+func (me *Com) Link(next INode) {
+	me.AppendNexts(next)
+	next.SetPrev(me.Me())
+}
+
+// Links s
+func (me *Com) Links(nexts []INode) {
+	for _, next := range nexts {
+		me.Link(next)
+	}
+}
+
 // SrcValue s
 func (me *Com) SrcValue() interface{} {
 	return me.srcValue

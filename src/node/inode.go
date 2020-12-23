@@ -8,6 +8,8 @@ type INode interface {
 	Nexts() []INode
 	SetNexts([]INode)
 	AppendNexts(INode)
+	Link(INode)
+	Links([]INode)
 
 	SrcValue() interface{}
 	IsEnd() bool

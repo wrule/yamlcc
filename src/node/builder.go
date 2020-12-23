@@ -12,8 +12,11 @@ func BuildNodes(value interface{}) []INode {
 	case string:
 		if strings.HasPrefix(val, ":$") {
 			valTrimmed := val[2:]
-			rst = append(rst, NewDef(":"+valTrimmed))
-			rst = append(rst, NewRef("$"+valTrimmed))
+			def := NewDef(":" + valTrimmed)
+			ref := NewRef("$" + valTrimmed)
+			end := NewEnd()
+			ref.Link(end)
+			rst = append(rst, def, ref)
 		} else if strings.HasPrefix(val, ":") {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
@@ -37,10 +40,7 @@ func BuildNodes(value interface{}) []INode {
 			keyNodes := BuildNodes(key)
 			for _, keyNode := range keyNodes {
 				valueNodes := BuildNodes(value)
-				for _, valueNode := range valueNodes {
-					valueNode.SetPrev(keyNode)
-				}
-				keyNode.SetNexts(valueNodes)
+				keyNode.Links(valueNodes)
 				rst = append(rst, keyNode)
 			}
 		}
