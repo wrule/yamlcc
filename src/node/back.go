@@ -13,7 +13,7 @@ func (me *Back) Hops() int {
 
 // BeginningOf s
 func (me *Back) BeginningOf(text string) (string, string, bool) {
-	return me.PrevN(me.Hops()).BeginningOf(text)
+	return me.PrevN(me.hops).BeginningOf(text)
 }
 
 // NewBack 构造函数
