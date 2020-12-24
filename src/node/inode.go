@@ -7,6 +7,8 @@ type INode interface {
 	PrevN(n int) INode
 	SetPrev(INode)
 	Nexts() []INode
+	NextDefs() map[string]*Def
+	NextCmds() []INode
 	SetNexts([]INode)
 	AppendNexts(INode)
 	Link(INode)

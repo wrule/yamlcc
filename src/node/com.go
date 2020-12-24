@@ -6,7 +6,7 @@ type Com struct {
 	me       INode
 	prev     INode
 	nexts    []INode
-	nextDefs map[string]INode
+	nextDefs map[string]*Def
 	nextLogs []INode
 	nextCmds []INode
 }
@@ -30,6 +30,18 @@ func (me *Com) PrevN(n int) INode {
 	return rst
 }
 
+// GetDef s
+func (me *Com) GetDef(name string) *Def {
+	curNode := me.Prev()
+	for curNode != nil {
+		if def, found := curNode.NextDefs()[name]; found {
+			return def
+		}
+		curNode = curNode.Prev()
+	}
+	panic("node.Com.GetDef: 找不到定义节点 " + name)
+}
+
 // SetPrev s
 func (me *Com) SetPrev(prev INode) {
 	me.prev = prev
@@ -41,7 +53,7 @@ func (me *Com) Nexts() []INode {
 }
 
 // NextDefs s
-func (me *Com) NextDefs() map[string]INode {
+func (me *Com) NextDefs() map[string]*Def {
 	return me.nextDefs
 }
 
@@ -126,7 +138,7 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 
 // updateNextDefs 同步更新nextDefs
 func (me *Com) updateNextDefs() {
-	me.nextDefs = map[string]INode{}
+	me.nextDefs = map[string]*Def{}
 	for _, node := range me.nexts {
 		if def, ok := node.(*Def); ok {
 			me.nextDefs[def.DefName()] = def
