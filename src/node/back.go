@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Back 回跳节点
 type Back struct {
 	hops int
@@ -23,4 +25,9 @@ func NewBack(num int) *Back {
 	}
 	rst.Com = NewCom(rst, num)
 	return rst
+}
+
+// Print s
+func (me *Back) Print() {
+	fmt.Printf("回跳命令节点: %v\n", me.Hops())
 }

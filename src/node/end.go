@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // End 结束命令节点
 type End struct {
 	Com
@@ -15,4 +17,9 @@ func NewEnd() *End {
 	rst := &End{}
 	rst.Com = NewCom(rst, ".end")
 	return rst
+}
+
+// Print s
+func (me *End) Print() {
+	fmt.Printf("结束命令节点\n")
 }

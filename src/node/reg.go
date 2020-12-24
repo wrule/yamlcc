@@ -1,6 +1,9 @@
 package node
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 // Reg 正则节点
 type Reg struct {
@@ -29,4 +32,9 @@ func NewReg(text string) *Reg {
 	}
 	rst.Com = NewCom(rst, text)
 	return rst
+}
+
+// Print s
+func (me *Reg) Print() {
+	fmt.Printf("正则节点: %v\n", me.Regexp())
 }

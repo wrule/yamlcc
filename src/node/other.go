@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Other 其他命令节点
 type Other struct {
 	Com
@@ -15,4 +17,9 @@ func NewOther() *Other {
 	rst := &Other{}
 	rst.Com = NewCom(rst, ".other")
 	return rst
+}
+
+// Print s
+func (me *Other) Print() {
+	fmt.Printf("其他命令节点\n")
 }

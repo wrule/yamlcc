@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Root 根节点
 type Root struct {
 	Com
@@ -15,4 +17,9 @@ func NewRoot() *Root {
 	rst := &Root{}
 	rst.Com = NewCom(rst, nil)
 	return rst
+}
+
+// Print s
+func (me *Root) Print() {
+	fmt.Printf("根节点\n")
 }
