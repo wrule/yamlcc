@@ -1,6 +1,6 @@
 package node
 
-// Com 公共逻辑
+// Com 公共逻辑（此结构相当于抽象类）
 type Com struct {
 	srcValue interface{}
 	me       INode
@@ -24,8 +24,11 @@ func (me *Com) Prev() INode {
 // PrevN s
 func (me *Com) PrevN(n int) INode {
 	rst := me.Me()
-	for i := 0; rst != nil && i < n; i++ {
+	for i := 0; i < n && rst != nil; i++ {
 		rst = rst.Prev()
+	}
+	if rst == nil {
+		panic("node.Com.PrevN: 节点回跳越界")
 	}
 	return rst
 }
@@ -140,7 +143,8 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 func (me *Com) updateNextDefs() {
 	me.nextDefs = map[string]*Def{}
 	for _, node := range me.nexts {
-		if def, ok := node.(*Def); ok {
+		if node.IsDef() {
+			def := node.(*Def)
 			me.nextDefs[def.DefName()] = def
 		}
 	}

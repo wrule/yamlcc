@@ -7,7 +7,9 @@ type INode interface {
 	// 获取上一个节点
 	Prev() INode
 	// 获取上n个节点
-	PrevN(n int) INode
+	PrevN(int) INode
+	// 获取定义节点
+	GetDef(string) *Def
 	// 设置上一个节点
 	SetPrev(INode)
 	// 获取下逻辑节点列表
