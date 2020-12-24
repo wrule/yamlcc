@@ -24,8 +24,11 @@ func main() {
 	bytes := readBytes("/home/gu/桌面/yamlcc/lang/lua/lua.yaml")
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	dict := node.BuildNodes(m)
-	fmt.Println(dict)
+	root := node.Compile(m)
+	fmt.Println(root.Nexts()[0].Nexts())
+	// for _, node := range nodes {
+	// 	node.Print()
+	// }
 	// code := readString("test/lua/1.lua")
 	// matchingText, nextText, success := dict.BeginningTrimOf(code)
 	// fmt.Println("匹配到:", matchingText)

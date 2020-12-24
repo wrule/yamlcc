@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Com 公共逻辑（此结构相当于抽象类）
 type Com struct {
 	srcValue interface{}
@@ -36,6 +38,9 @@ func (me *Com) PrevN(n int) INode {
 // GetDef s
 func (me *Com) GetDef(name string) *Def {
 	curNode := me.Prev()
+	fmt.Print(">> ")
+	curNode.Print()
+	fmt.Println(curNode.NextDefs())
 	for curNode != nil {
 		if def, found := curNode.NextDefs()[name]; found {
 			return def

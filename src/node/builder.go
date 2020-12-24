@@ -58,3 +58,11 @@ func BuildNodes(value interface{}) []INode {
 	}
 	return rst
 }
+
+// Compile 编译
+func Compile(value interface{}) *Root {
+	root := NewRoot()
+	nodes := BuildNodes(value)
+	root.Links(nodes)
+	return root
+}

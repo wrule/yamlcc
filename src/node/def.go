@@ -29,5 +29,5 @@ func NewDef(text string) *Def {
 
 // Print s
 func (me *Def) Print() {
-	fmt.Printf("定义命令节点: %v\n", me.DefName())
+	fmt.Printf("定义节点: %v\n", me.DefName())
 }
