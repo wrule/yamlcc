@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -25,7 +24,8 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := node.Compile(m)
-	fmt.Println(root.Nexts()[0].Nexts())
+	root.Nexts()[0].NextCmds()[0].Print()
+	// fmt.Println(root.Nexts()[0].Nexts())
 	// for _, node := range nodes {
 	// 	node.Print()
 	// }
