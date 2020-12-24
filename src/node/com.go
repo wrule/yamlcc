@@ -35,7 +35,7 @@ func (me *Com) PrevN(n int) INode {
 
 // GetDef s
 func (me *Com) GetDef(name string) *Def {
-	curNode := me.Prev()
+	curNode := me.Me()
 	for curNode != nil {
 		if def, found := curNode.NextDefs()[name]; found {
 			return def
@@ -136,6 +136,11 @@ func (me *Com) IsNextsEmpty() bool {
 
 // BeginningOf s
 func (me *Com) BeginningOf(text string) (string, string, bool) {
+	panic("node.Com.BeginningOf: 抽象类方法被调用")
+}
+
+// BeginningTrimOf s
+func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 	panic("node.Com.BeginningOf: 抽象类方法被调用")
 }
 
