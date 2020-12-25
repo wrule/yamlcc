@@ -45,6 +45,8 @@ type INode interface {
 	IsNextsEmpty() bool
 	// 本节点字符串头部匹配
 	BeginningOf(string) (string, string, bool)
+	// 节点字符串头部匹配（可跳过头部无效字符）
+	BeginningTrimOf(string) (string, string, bool)
 
 	// 打印节点调试信息
 	Print()
