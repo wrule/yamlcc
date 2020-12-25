@@ -147,6 +147,13 @@ func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 	return ivdMatch, ivdNext, ivdSuccess
 }
 
+func (me *Com) nextBeginningTrimOf(text string) (string, string, bool) {
+	for _, node := range me.nextLogs {
+		curMatch, curNext, curSuccess := node.BeginningTrimOf(text)
+	}
+	return "", "", true
+}
+
 // updateNextDefs 同步更新nextDefs
 func (me *Com) updateNextDefs() {
 	me.nextDefs = map[string]*Def{}
