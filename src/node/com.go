@@ -141,6 +141,10 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 
 // BeginningTrimOf s
 func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
+	invalid := me.GetDef("invalid")
+	ivdMatch, ivdNext, ivdSuccess := invalid.BeginningOf(text)
+	meMatch, meNext, meSuccess := me.Me().BeginningOf(ivdNext)
+
 	panic("node.Com.BeginningOf: 抽象类方法被调用")
 }
 
