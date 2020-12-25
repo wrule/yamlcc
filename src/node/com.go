@@ -9,6 +9,7 @@ type Com struct {
 	nextDefs map[string]*Def
 	nextLogs []INode
 	nextCmds []INode
+	nextNots []*Not
 }
 
 // Me s
@@ -63,6 +64,11 @@ func (me *Com) NextDefs() map[string]*Def {
 // NextCmds s
 func (me *Com) NextCmds() []INode {
 	return me.nextCmds
+}
+
+// NextNots s
+func (me *Com) NextNots() []*Not {
+	return me.nextNots
 }
 
 // SetNexts s
@@ -147,10 +153,10 @@ func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
 	return ivdMatch, ivdNext, ivdSuccess
 }
 
-func (me *Com) nextBeginningTrimOf(text string) (string, string, bool) {
-	for _, node := range me.nextLogs {
-		curMatch, curNext, curSuccess := node.BeginningTrimOf(text)
-	}
+func (me *Com) NextBeginningTrimOf(text string) (string, string, bool) {
+	// for _, node := range me.nextLogs {
+	// curMatch, curNext, curSuccess := node.BeginningTrimOf(text)
+	// }
 	return "", "", true
 }
 
@@ -185,11 +191,23 @@ func (me *Com) updateNextCmds() {
 	}
 }
 
+// updateNextNots 同步更新nextNots
+func (me *Com) updateNextNots() {
+	me.nextNots = []*Not{}
+	for _, node := range me.nexts {
+		if node.IsNot() {
+			not := node.(*Not)
+			me.nextNots = append(me.nextNots, not)
+		}
+	}
+}
+
 // updateNexts 同步更新其他的nexts相关数据结构
 func (me *Com) updateNexts() {
 	me.updateNextDefs()
 	me.updateNextLogs()
 	me.updateNextCmds()
+	me.updateNextNots()
 }
 
 // NewCom 构造函数
