@@ -18,6 +18,8 @@ type INode interface {
 	NextDefs() map[string]*Def
 	// 获取下节点命令列表
 	NextCmds() []INode
+	// 获取下节点非命令列表
+	NextNots() []*Not
 	// 设置下节点
 	SetNexts([]INode)
 	// 追加下节点

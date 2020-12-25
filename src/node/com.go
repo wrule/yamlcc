@@ -160,6 +160,15 @@ func (me *Com) NextBeginningTrimOf(text string) (string, string, bool) {
 	return "", "", true
 }
 
+func (me *Com) notsCheck(text string) bool {
+	for _, not := range me.nextNots {
+		if _, _, success := not.BeginningTrimOf(text); success {
+			return false
+		}
+	}
+	return true
+}
+
 // updateNextDefs 同步更新nextDefs
 func (me *Com) updateNextDefs() {
 	me.nextDefs = map[string]*Def{}
