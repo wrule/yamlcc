@@ -152,15 +152,25 @@ func (me *Com) BeginningTrimOf(text string) *Rst {
 	return invalid.BeginningOf(text)
 }
 
+// NextBeginningTrimOf s
 func (me *Com) NextBeginningTrimOf(text string) *Rst {
-	// for _, node := range me.nextLogs {
-	// curMatch, curNext, curSuccess := node.BeginningTrimOf(text)
-	// }
+	// 成功匹配结果列表
+	successList := []*Rst{}
+	// 失败匹配结果列表
+	failureList := []*Rst{}
+	for _, node := range me.nextLogs {
+		if rst := node.BeginningTrimOf(text); rst.Success() && me.NotsCheck(text) {
+			successList = append(successList, rst)
+		} else {
+			failureList = append(failureList, rst)
+		}
+	}
+	// sort.Slice()
 	return NewRst("", "", true)
 }
 
-// notsCheck 非逻辑检查
-func (me *Com) notsCheck(text string) bool {
+// NotsCheck 非逻辑检查
+func (me *Com) NotsCheck(text string) bool {
 	for _, not := range me.nextNots {
 		if rst := not.BeginningTrimOf(text); rst.Success() {
 			return false

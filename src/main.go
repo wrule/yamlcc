@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"sort"
 
-	"./node"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,8 +24,13 @@ func main() {
 	bytes := readBytes("/home/gu/桌面/yamlcc/lang/lua/lua.yaml")
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
-	root := node.Compile(m)
-	fmt.Println(root.BeginningTrimOf(` 	你好，世界`))
+	nums := []int{3, 2, 1, 5, 4}
+	sort.Slice(nums, func(a, b int) bool {
+		return nums[a] < nums[b]
+	})
+	fmt.Println(nums)
+	// root := node.Compile(m)
+	// fmt.Println(root.BeginningTrimOf(` 	你好，世界`))
 	// fmt.Println(root.Nexts()[0].Nexts())
 	// for _, node := range nodes {
 	// 	node.Print()
