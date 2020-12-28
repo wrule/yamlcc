@@ -160,6 +160,7 @@ func (me *Com) NextBeginningTrimOf(text string) (string, string, bool) {
 	return "", "", true
 }
 
+// notsCheck 非逻辑检查
 func (me *Com) notsCheck(text string) bool {
 	for _, not := range me.nextNots {
 		if _, _, success := not.BeginningTrimOf(text); success {
