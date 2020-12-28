@@ -14,7 +14,7 @@ func (me *Back) Hops() int {
 }
 
 // BeginningOf s
-func (me *Back) BeginningOf(text string) (string, string, bool) {
+func (me *Back) BeginningOf(text string) *Rst {
 	return me.PrevN(me.hops).BeginningOf(text)
 }
 

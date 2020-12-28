@@ -14,7 +14,7 @@ func (me *Ref) DefName() string {
 }
 
 // BeginningOf 匹配
-func (me *Ref) BeginningOf(text string) (string, string, bool) {
+func (me *Ref) BeginningOf(text string) *Rst {
 	return me.GetDef(me.defName).BeginningOf(text)
 }
 

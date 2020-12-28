@@ -46,9 +46,9 @@ type INode interface {
 	// 下逻辑节点列表是否为空（相当于下逻辑节点只有一个结束命令节点）
 	IsNextsEmpty() bool
 	// 本节点字符串头部匹配
-	BeginningOf(string) (string, string, bool)
+	BeginningOf(string) *Rst
 	// 节点字符串头部匹配（可跳过头部无效字符）
-	BeginningTrimOf(string) (string, string, bool)
+	BeginningTrimOf(string) *Rst
 
 	// 打印节点调试信息
 	Print()

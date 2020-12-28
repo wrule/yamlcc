@@ -8,8 +8,8 @@ type Not struct {
 }
 
 // BeginningOf 匹配
-func (me *Not) BeginningOf(text string) (string, string, bool) {
-	return "", text, true
+func (me *Not) BeginningOf(text string) *Rst {
+	return NewRst("", text, true)
 }
 
 // NewNot 构造函数

@@ -17,12 +17,12 @@ func (me *Reg) Regexp() *regexp.Regexp {
 }
 
 // BeginningOf s
-func (me *Reg) BeginningOf(text string) (string, string, bool) {
+func (me *Reg) BeginningOf(text string) *Rst {
 	indexs := me.Regexp().FindStringIndex(text)
 	if len(indexs) > 1 && indexs[0] == 0 {
-		return text[:indexs[1]], text[indexs[1]:], true
+		return NewRst(text[:indexs[1]], text[indexs[1]:], true)
 	}
-	return "", text, false
+	return NewRst("", text, false)
 }
 
 // NewReg 构造函数

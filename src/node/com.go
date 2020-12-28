@@ -146,24 +146,23 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 }
 
 // BeginningTrimOf s
-func (me *Com) BeginningTrimOf(text string) (string, string, bool) {
+func (me *Com) BeginningTrimOf(text string) *Rst {
 	invalid := me.GetDef("invalid")
-	ivdMatch, ivdNext, ivdSuccess := invalid.BeginningOf(text)
 	// meMatch, meNext, meSuccess := me.Me().BeginningOf(ivdNext)
-	return ivdMatch, ivdNext, ivdSuccess
+	return invalid.BeginningOf(text)
 }
 
-func (me *Com) NextBeginningTrimOf(text string) (string, string, bool) {
+func (me *Com) NextBeginningTrimOf(text string) *Rst {
 	// for _, node := range me.nextLogs {
 	// curMatch, curNext, curSuccess := node.BeginningTrimOf(text)
 	// }
-	return "", "", true
+	return NewRst("", "", true)
 }
 
 // notsCheck 非逻辑检查
 func (me *Com) notsCheck(text string) bool {
 	for _, not := range me.nextNots {
-		if _, _, success := not.BeginningTrimOf(text); success {
+		if rst := not.BeginningTrimOf(text); rst.Success() {
 			return false
 		}
 	}

@@ -8,8 +8,8 @@ type Other struct {
 }
 
 // BeginningOf 匹配
-func (me *Other) BeginningOf(text string) (string, string, bool) {
-	return "", text, true
+func (me *Other) BeginningOf(text string) *Rst {
+	return NewRst("", text, true)
 }
 
 // NewOther 构造函数

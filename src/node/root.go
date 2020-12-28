@@ -8,8 +8,8 @@ type Root struct {
 }
 
 // BeginningOf 匹配
-func (me *Root) BeginningOf(text string) (string, string, bool) {
-	return "", text, true
+func (me *Root) BeginningOf(text string) *Rst {
+	return NewRst("", text, true)
 }
 
 // NewRoot 构造函数
