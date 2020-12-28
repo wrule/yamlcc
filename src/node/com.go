@@ -1,5 +1,7 @@
 package node
 
+import "sort"
+
 // Com 公共逻辑（此结构相当于抽象类）
 type Com struct {
 	srcValue interface{}
@@ -165,8 +167,19 @@ func (me *Com) NextBeginningTrimOf(text string) *Rst {
 			failureList = append(failureList, rst)
 		}
 	}
-	// sort.Slice()
-	return NewRst("", "", true)
+	sort.Slice(successList, func(a, b int) bool {
+		return len(successList[a].Match()) > len(successList[b].Match())
+	})
+	sort.Slice(failureList, func(a, b int) bool {
+		return len(failureList[a].Match()) > len(failureList[b].Match())
+	})
+	rstList := []*Rst{}
+	rstList = append(rstList, successList...)
+	rstList = append(rstList, failureList...)
+	if len(rstList) > 0 {
+		return rstList[0]
+	}
+	return NewRst("", text, true)
 }
 
 // NotsCheck 非逻辑检查

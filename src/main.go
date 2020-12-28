@@ -26,7 +26,7 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	nums := []int{3, 2, 1, 5, 4}
 	sort.Slice(nums, func(a, b int) bool {
-		return nums[a] < nums[b]
+		return nums[a] > nums[b]
 	})
 	fmt.Println(nums)
 	// root := node.Compile(m)
