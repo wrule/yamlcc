@@ -40,7 +40,7 @@ func BuildNodes(value interface{}) []INode {
 			keyNodes := BuildNodes(key)
 			for _, keyNode := range keyNodes {
 				// 排除引用定义节点展开后的定义节点（next为end）
-				if keyNode.IsNextsEmpty() {
+				if keyNode.IsNextLogsEmpty() {
 					valueNodes := BuildNodes(value)
 					keyNode.Links(valueNodes)
 				}

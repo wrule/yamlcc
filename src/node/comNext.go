@@ -14,7 +14,7 @@ func (me *Com) AppendNexts(next INode) {
 
 // Nexts s
 func (me *Com) Nexts() []INode {
-	return me.nextLogs
+	return me.nexts
 }
 
 // NextDefs s
@@ -22,9 +22,9 @@ func (me *Com) NextDefs() map[string]*Def {
 	return me.nextDefs
 }
 
-// NextCmds s
-func (me *Com) NextCmds() []INode {
-	return me.nextCmds
+// NextLogs s
+func (me *Com) NextLogs() []INode {
+	return me.nextLogs
 }
 
 // NextNots s
@@ -37,7 +37,7 @@ func (me *Com) NextOther() *Other {
 	return me.nextOther
 }
 
-// updateNextDefs 同步更新下节点的定义节点列表
+// updateNextDefs 同步更新下节点的定义节点映射
 func (me *Com) updateNextDefs() {
 	me.nextDefs = map[string]*Def{}
 	for _, node := range me.nexts {
@@ -54,16 +54,6 @@ func (me *Com) updateNextLogs() {
 	for _, node := range me.nexts {
 		if node.IsLog() {
 			me.nextLogs = append(me.nextLogs, node)
-		}
-	}
-}
-
-// updateNextCmds 同步更新下节点的命令节点列表
-func (me *Com) updateNextCmds() {
-	me.nextCmds = []INode{}
-	for _, node := range me.nexts {
-		if node.IsCmd() {
-			me.nextCmds = append(me.nextCmds, node)
 		}
 	}
 }
@@ -94,7 +84,6 @@ func (me *Com) updateNextOther() {
 func (me *Com) updateNexts() {
 	me.updateNextDefs()
 	me.updateNextLogs()
-	me.updateNextCmds()
 	me.updateNextNots()
 	me.updateNextOther()
 }

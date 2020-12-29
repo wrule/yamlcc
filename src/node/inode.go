@@ -16,8 +16,8 @@ type INode interface {
 	Nexts() []INode
 	// 获取下节点定义映射
 	NextDefs() map[string]*Def
-	// 获取下节点命令列表
-	NextCmds() []INode
+	// 获取下节点逻辑列表
+	NextLogs() []INode
 	// 获取下节点非命令列表
 	NextNots() []*Not
 	// 获取下节点其他命令
@@ -46,7 +46,7 @@ type INode interface {
 	// 是否是逻辑节点
 	IsLog() bool
 	// 下逻辑节点列表是否为空（相当于下逻辑节点只有一个结束命令节点）
-	IsNextsEmpty() bool
+	IsNextLogsEmpty() bool
 	// 本节点字符串头部匹配
 	BeginningOf(string) *Rst
 	// 节点字符串头部匹配（可跳过头部无效字符）
