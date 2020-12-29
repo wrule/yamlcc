@@ -51,6 +51,8 @@ type INode interface {
 	BeginningOf(string) *Rst
 	// 节点字符串头部匹配（可跳过头部无效字符）
 	BeginningTrimOf(string) *Rst
+	// 节点Nexts的头部修正匹配
+	NextsBeginningTrimOf(string) *Rst
 
 	// 打印节点调试信息
 	Print()

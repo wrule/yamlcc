@@ -12,6 +12,11 @@ func (me *Not) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+// BeginningTrimOf s
+func (me *Not) BeginningTrimOf(text string) *Rst {
+	return me.NextsBeginningTrimOf(text)
+}
+
 // NewNot 构造函数
 func NewNot() *Not {
 	rst := &Not{}

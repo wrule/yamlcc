@@ -18,6 +18,11 @@ func (me *Def) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+// BeginningTrimOf s
+func (me *Def) BeginningTrimOf(text string) *Rst {
+	return me.NextsBeginningTrimOf(text)
+}
+
 // NewDef 构造函数
 func NewDef(text string) *Def {
 	rst := &Def{
