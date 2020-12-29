@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -26,5 +25,5 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	root := node.Compile(m)
 	rst := root.BeginningTrimOf(`  1234`)
-	fmt.Printf("match: %s\nnext: %s\nsuccess: %v\n", rst.Match(), rst.Next(), rst.Success())
+	rst.Print()
 }

@@ -1,5 +1,7 @@
 package node
 
+import "fmt"
+
 // Rst 匹配结果
 type Rst struct {
 	success bool
@@ -20,6 +22,13 @@ func (me *Rst) Match() string {
 // Next 匹配剩余文本
 func (me *Rst) Next() string {
 	return me.next
+}
+
+// Print s
+func (me *Rst) Print() {
+	fmt.Printf("success: %v\n", me.Success())
+	fmt.Printf("match:\n%s\n", me.Match())
+	fmt.Printf("next:\n%s\n", me.Next())
 }
 
 // NewRst 构造函数

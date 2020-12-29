@@ -1,6 +1,9 @@
 package node
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 // BeginningOf 节点头部匹配
 func (me *Com) BeginningOf(text string) (string, string, bool) {
@@ -13,6 +16,10 @@ func (me *Com) BeginningTrimOf(text string) *Rst {
 	ivd := me.GetDef("invalid")
 	// 进行头部无效字符匹配
 	ivdRst := ivd.BeginningOf(text)
+
+	fmt.Println("1111")
+	ivdRst.Print()
+
 	// 进行自身节点匹配
 	meRst := me.Me().BeginningOf(ivdRst.Next())
 	if meRst.Success() {
