@@ -22,13 +22,22 @@ func (me *Com) NextsBeginningTrimOf(text string) *Rst {
 	failureList := []*Rst{}
 	// 遍历nextLogs匹配
 	for _, node := range me.nextLogs {
-		if rst := node.BeginningTrimOf(text); rst.Success() && me.NotsCheck(text) {
+		if rst := node.BeginningTrimOf(text); rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		} else {
 			failureList = append(failureList, rst)
 		}
 	}
-	// 这里还要考虑.other命令
+
+	// TODO: 另外这里也存在歧义逻辑需要后续开发处理
+
+	// 如果成功结果数量为0，尝试执行.other逻辑
+	if len(successList) < 1 && me.NextOther() != nil {
+		if rst := me.NextOther().BeginningTrimOf(text); rst.Success() && me.NotsCheck(rst.Match()) {
+			successList = append(successList, rst)
+		}
+	}
+
 	// 对两个列表进行排序
 	sort.Slice(successList, func(a, b int) bool {
 		return len(successList[a].Match()) > len(successList[b].Match())
@@ -40,10 +49,11 @@ func (me *Com) NextsBeginningTrimOf(text string) *Rst {
 	rstList := []*Rst{}
 	rstList = append(rstList, successList...)
 	rstList = append(rstList, failureList...)
+	// 取贪心匹配最优结果返回
 	if len(rstList) > 0 {
 		return rstList[0]
 	}
-	return NewRst("", text, true)
+	return NewRst("", text, false)
 }
 
 // NotsCheck 非逻辑检查
