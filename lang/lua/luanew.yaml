@@ -1,0 +1,10 @@
+# 无效文本
+:invalid: \s*
+# 数字
+:number: \d+
+# 左括号
+:lp: \(
+# 右括号
+:rp: \)
+
+$number: .end
