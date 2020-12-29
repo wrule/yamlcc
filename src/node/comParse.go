@@ -9,9 +9,20 @@ func (me *Com) BeginningOf(text string) (string, string, bool) {
 
 // BeginningTrimOf 节点头部修正匹配
 func (me *Com) BeginningTrimOf(text string) *Rst {
-	invalid := me.GetDef("invalid")
-	// meMatch, meNext, meSuccess := me.Me().BeginningOf(ivdNext)
-	return invalid.BeginningOf(text)
+	// 获取无效字符定义
+	ivd := me.GetDef("invalid")
+	// 进行头部无效字符匹配
+	ivdRst := ivd.BeginningOf(text)
+	// 进行自身节点匹配
+	meRst := me.Me().BeginningOf(ivdRst.Next())
+	if meRst.Success() {
+		nextRst := me.NextsBeginningTrimOf(meRst.Next())
+		if nextRst.Success() {
+			return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), true)
+		}
+		return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), false)
+	}
+	return NewRst(ivdRst.Match(), ivdRst.Next(), false)
 }
 
 // NextsBeginningTrimOf 节点Nexts的头部修正匹配
