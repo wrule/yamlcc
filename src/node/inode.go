@@ -20,6 +20,8 @@ type INode interface {
 	NextCmds() []INode
 	// 获取下节点非命令列表
 	NextNots() []*Not
+	// 获取下节点其他命令
+	NextOther() *Other
 	// 设置下节点
 	SetNexts([]INode)
 	// 追加下节点
