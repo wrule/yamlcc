@@ -21,15 +21,12 @@ func BuildNodes(value interface{}) []INode {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
 			rst = append(rst, NewRef(val))
-		} else if strings.HasPrefix(val, ".") {
-			switch val {
-			case ".not":
-				rst = append(rst, NewNot())
-			case ".other":
-				rst = append(rst, NewOther())
-			case ".end":
-				rst = append(rst, NewEnd())
-			}
+		} else if strings.HasPrefix(val, ".not") {
+			rst = append(rst, NewNot())
+		} else if strings.HasPrefix(val, ".other") {
+			rst = append(rst, NewOther())
+		} else if strings.HasPrefix(val, ".end") {
+			rst = append(rst, NewEnd())
 		} else {
 			rst = append(rst, NewReg(val))
 		}
@@ -39,7 +36,7 @@ func BuildNodes(value interface{}) []INode {
 		for key, value := range val {
 			keyNodes := BuildNodes(key)
 			for _, keyNode := range keyNodes {
-				// 排除引用定义节点展开后的定义节点（next为end）
+				// 排除定义引用节点展开后的引用节点（next为.end）
 				if keyNode.IsNextsEmpty() {
 					valueNodes := BuildNodes(value)
 					keyNode.Links(valueNodes)
@@ -51,8 +48,7 @@ func BuildNodes(value interface{}) []INode {
 		for _, item := range val {
 			rst = append(rst, BuildNodes(item)...)
 		}
-	}
-	if len(rst) < 1 {
+	default:
 		log.Fatalf("%v %T 不能作为节点\n", value, value)
 		panic("node.BuildNodes: 致命错误")
 	}
