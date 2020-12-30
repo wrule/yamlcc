@@ -24,6 +24,6 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := node.Compile(m)
-	rst := root.GetDef("invalid").NextsBeginningOfX(`  1234`, false)
+	rst := root.GetDef("invalid").BeginningOf(` 	鸡毛金`)
 	rst.Print()
 }

@@ -9,7 +9,7 @@ type Other struct {
 
 // BeginningOf 匹配
 func (me *Other) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.NextsBeginningOfX(text, false)
 }
 
 // NewOther 构造函数

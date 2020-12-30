@@ -9,7 +9,7 @@ type Not struct {
 
 // BeginningOf 匹配
 func (me *Not) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.NextsBeginningOfX(text, false)
 }
 
 // NewNot 构造函数

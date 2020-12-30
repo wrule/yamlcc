@@ -15,7 +15,7 @@ func (me *Def) DefName() string {
 
 // BeginningOf 匹配
 func (me *Def) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.NextsBeginningOfX(text, false)
 }
 
 // NewDef 构造函数
