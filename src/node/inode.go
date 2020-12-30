@@ -49,10 +49,14 @@ type INode interface {
 	IsNextLogsEmpty() bool
 	// 本节点字符串头部匹配
 	BeginningOf(string) *Rst
-	// 节点字符串头部匹配（可跳过头部无效字符）
+	// 本节点字符串头部下推匹配
+	BeginningOfX(string) *Rst
+	// 本节点字符串头部修整匹配
 	BeginningTrimOf(string) *Rst
+	// 本节点字符串头部修整下推匹配
+	BeginningTrimOfX(string) *Rst
 	// 节点Nexts的头部修正匹配
-	NextsBeginningTrimOf(string) *Rst
+	NextsBeginningTrimOfX(string) *Rst
 
 	// 打印节点调试信息
 	Print()

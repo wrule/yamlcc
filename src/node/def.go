@@ -20,7 +20,7 @@ func (me *Def) BeginningOf(text string) *Rst {
 
 // BeginningTrimOf s
 func (me *Def) BeginningTrimOf(text string) *Rst {
-	return me.NextsBeginningTrimOf(text)
+	return me.NextsBeginningTrimOfX(text)
 }
 
 // NewDef 构造函数

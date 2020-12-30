@@ -14,7 +14,7 @@ func (me *Not) BeginningOf(text string) *Rst {
 
 // BeginningTrimOf s
 func (me *Not) BeginningTrimOf(text string) *Rst {
-	return me.NextsBeginningTrimOf(text)
+	return me.NextsBeginningTrimOfX(text)
 }
 
 // NewNot 构造函数

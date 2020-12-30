@@ -1,15 +1,19 @@
 package node
 
 import (
-	"fmt"
 	"sort"
 )
+
+// BeginningOf s
+func (me *Com) BeginningOf(text string) *Rst {
+	panic("")
+}
 
 // BeginningOfX 节点头部下推匹配
 func (me *Com) BeginningOfX(text string) *Rst {
 	meRst := me.Me().BeginningOf(text)
 	if meRst.Success() {
-		nextRst := me.NextsBeginningTrimOf(meRst.Next())
+		nextRst := me.NextsBeginningTrimOfX(meRst.Next())
 		if nextRst.Success() {
 			return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), true)
 		}
@@ -18,30 +22,28 @@ func (me *Com) BeginningOfX(text string) *Rst {
 	return NewRst("", text, false)
 }
 
-// BeginningTrimOf 节点头部修正匹配
+// BeginningTrimOf s
 func (me *Com) BeginningTrimOf(text string) *Rst {
 	// 获取无效字符定义
 	ivd := me.GetDef("invalid")
 	// 进行头部无效字符匹配
 	ivdRst := ivd.BeginningOf(text)
-
-	fmt.Println("1111")
-	ivdRst.Print()
-
-	// 进行自身节点匹配
-	meRst := me.Me().BeginningOf(ivdRst.Next())
-	if meRst.Success() {
-		nextRst := me.NextsBeginningTrimOf(meRst.Next())
-		if nextRst.Success() {
-			return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), true)
-		}
-		return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), false)
-	}
-	return NewRst(ivdRst.Match(), ivdRst.Next(), false)
+	nodeRst := me.BeginningOfX(ivdRst.Next())
+	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
 }
 
-// NextsBeginningTrimOf 节点Nexts的头部修正匹配
-func (me *Com) NextsBeginningTrimOf(text string) *Rst {
+// BeginningTrimOfX s
+func (me *Com) BeginningTrimOfX(text string) *Rst {
+	// 获取无效字符定义
+	ivd := me.GetDef("invalid")
+	// 进行头部无效字符匹配
+	ivdRst := ivd.BeginningOf(text)
+	nodeRst := me.BeginningOfX(ivdRst.Next())
+	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
+}
+
+// NextsBeginningTrimOfX 节点Nexts的头部修正匹配
+func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
 	// 成功匹配结果列表
 	successList := []*Rst{}
 	// 失败匹配结果列表
