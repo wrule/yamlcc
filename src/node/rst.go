@@ -27,8 +27,8 @@ func (me *Rst) Next() string {
 // Print s
 func (me *Rst) Print() {
 	fmt.Printf("success: %v\n", me.Success())
-	fmt.Printf("match:\n%s\n", me.Match())
-	fmt.Printf("next:\n%s\n", me.Next())
+	fmt.Printf("match(%d):\n[%s]\n", len(me.Match()), me.Match())
+	fmt.Printf("next(%d):\n[%s]\n", len(me.Next()), me.Next())
 }
 
 // NewRst 构造函数
