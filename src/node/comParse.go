@@ -6,10 +6,10 @@ import (
 
 // BeginningOf s
 func (me *Com) BeginningOf(text string) *Rst {
-	panic("")
+	return me.Me().BeginningOf(text)
 }
 
-// BeginningOfX 节点头部下推匹配
+// BeginningOfX s
 func (me *Com) BeginningOfX(text string) *Rst {
 	meRst := me.Me().BeginningOf(text)
 	if meRst.Success() {
@@ -25,6 +25,7 @@ func (me *Com) BeginningOfX(text string) *Rst {
 // BeginningTrimOf s
 func (me *Com) BeginningTrimOf(text string) *Rst {
 	ivd := me.GetDef("invalid")
+	// TODO
 	ivdRst := ivd.BeginningOf(text)
 	nodeRst := me.Me().BeginningOf(ivdRst.Next())
 	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
@@ -46,7 +47,7 @@ func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
 	failureList := []*Rst{}
 	// 遍历nextLogs匹配
 	for _, node := range me.nextLogs {
-		if rst := node.BeginningTrimOf(text); rst.Success() && me.NotsCheck(rst.Match()) {
+		if rst := node.BeginningTrimOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		} else {
 			failureList = append(failureList, rst)
@@ -57,7 +58,7 @@ func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
 
 	// 如果成功结果数量为0，尝试执行.other逻辑
 	if len(successList) < 1 && me.NextOther() != nil {
-		if rst := me.NextOther().BeginningTrimOf(text); rst.Success() && me.NotsCheck(rst.Match()) {
+		if rst := me.NextOther().BeginningTrimOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		}
 	}
@@ -83,7 +84,7 @@ func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
 // NotsCheck 非逻辑检查
 func (me *Com) NotsCheck(text string) bool {
 	for _, not := range me.nextNots {
-		if rst := not.BeginningTrimOf(text); rst.Success() {
+		if rst := not.BeginningTrimOfX(text); rst.Success() {
 			return false
 		}
 	}
