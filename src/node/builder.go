@@ -5,6 +5,21 @@ import (
 	"strings"
 )
 
+// BuildCmd 创建命令节点
+func BuildCmd(value string) INode {
+	switch value {
+	case ".not":
+		return NewNot()
+	case ".other":
+		return NewOther()
+	case ".end":
+		return NewEnd()
+	default:
+		log.Fatalf("%v %T 不是正确的命令\n", value, value)
+		panic("node.BuildNodes: 致命错误")
+	}
+}
+
 // BuildNodes 根据传入值创建节点
 func BuildNodes(value interface{}) []INode {
 	rst := []INode{}
@@ -21,12 +36,8 @@ func BuildNodes(value interface{}) []INode {
 			rst = append(rst, NewDef(val))
 		} else if strings.HasPrefix(val, "$") {
 			rst = append(rst, NewRef(val))
-		} else if strings.HasPrefix(val, ".not") {
-			rst = append(rst, NewNot())
-		} else if strings.HasPrefix(val, ".other") {
-			rst = append(rst, NewOther())
-		} else if strings.HasPrefix(val, ".end") {
-			rst = append(rst, NewEnd())
+		} else if strings.HasPrefix(val, ".") {
+			rst = append(rst, BuildCmd(val))
 		} else {
 			rst = append(rst, NewReg(val))
 		}
