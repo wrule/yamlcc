@@ -78,7 +78,24 @@ func Compile(value interface{}) *Root {
 	return root
 }
 
+// Print 打印
+func Print(node INode) {
+	node.Print()
+	for _, child := range node.Nexts() {
+		Print(child)
+	}
+}
+
 // Link 链接语法定义
-func Link(root *Root) *Root {
-	return nil
+// 替换Back和Ref节点，设置Next的End节点
+func Link(node INode) {
+	for _, child := range node.Nexts() {
+		Link(child)
+	}
+	if back, ok := node.(*Back); ok {
+		back.Prev().SetNexts(back.BackNode().Nexts())
+	}
+	if _, ok := node.(*End); !ok && len(node.Nexts()) < 1 {
+		node.AppendNexts(NewEnd())
+	}
 }

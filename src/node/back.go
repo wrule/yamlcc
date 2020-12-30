@@ -13,6 +13,11 @@ func (me *Back) Hops() int {
 	return me.hops
 }
 
+// BackNode s
+func (me *Back) BackNode() INode {
+	return me.PrevN(me.Hops())
+}
+
 // BeginningOf s
 func (me *Back) BeginningOf(text string) *Rst {
 	return me.PrevN(me.hops).BeginningOf(text)
