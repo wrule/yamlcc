@@ -42,15 +42,15 @@ func (me *Com) BeginningTrimOfX(text string) *Rst {
 	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
 }
 
-// NextsBeginningTrimOfX 节点Nexts的头部修正匹配
-func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
+// NextsBeginningOfX 节点Nexts的头部修正匹配
+func (me *Com) NextsBeginningOfX(text string) *Rst {
 	// 成功匹配结果列表
 	successList := []*Rst{}
 	// 失败匹配结果列表
 	failureList := []*Rst{}
 	// 遍历nextLogs匹配
 	for _, node := range me.nextLogs {
-		if rst := node.BeginningTrimOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
+		if rst := node.BeginningOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		} else {
 			failureList = append(failureList, rst)
@@ -61,7 +61,7 @@ func (me *Com) NextsBeginningTrimOfX(text string) *Rst {
 
 	// 如果成功结果数量为0，尝试执行.other逻辑
 	if len(successList) < 1 && me.NextOther() != nil {
-		if rst := me.NextOther().BeginningTrimOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
+		if rst := me.NextOther().BeginningOfX(text); rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		}
 	}
