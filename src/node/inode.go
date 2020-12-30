@@ -55,7 +55,9 @@ type INode interface {
 	BeginningTrimOf(string) *Rst
 	// 本节点字符串头部修整下推匹配
 	BeginningTrimOfX(string) *Rst
-	// 节点Nexts的头部修正匹配
+	// 节点Nexts的头部下推匹配
+	NextsBeginningOfX(string) *Rst
+	// 节点Nexts的头部修正下推匹配
 	NextsBeginningTrimOfX(string) *Rst
 
 	// 打印节点调试信息
