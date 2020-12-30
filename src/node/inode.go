@@ -47,14 +47,12 @@ type INode interface {
 	IsLog() bool
 	// 下逻辑节点列表是否为空（相当于下逻辑节点只有一个结束命令节点）
 	IsNextLogsEmpty() bool
-	// 本节点字符串头部匹配
+	// 本节点头部匹配
 	BeginningOf(string) *Rst
-	// 本节点字符串头部下推匹配（支持修整）
+	// 本节点头部下推匹配（支持修整）
 	BeginningOfX(string, bool) *Rst
-	// 节点Nexts的头部下推匹配
-	NextsBeginningOfX(string) *Rst
-	// 节点Nexts的头部修正下推匹配
-	NextsBeginningTrimOfX(string) *Rst
+	// 子节点头部下推匹配（支持修整）
+	NextsBeginningOfX(string, bool) *Rst
 
 	// 打印节点调试信息
 	Print()
