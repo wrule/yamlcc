@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"./node"
@@ -25,8 +24,9 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := node.Compile(m)
-	// rst := root.GetDef("invalid").BeginningOfX(`  123 `, false)
-	rst := root.GetDef("number").BeginningOfX(`  123  ass`, true)
-	fmt.Println("##################")
-	rst.Print()
+	root.Print()
+	// // rst := root.GetDef("invalid").BeginningOfX(`  123 `, false)
+	// rst := root.GetDef("number").BeginningOfX(`  123  ass`, true)
+	// fmt.Println("##################")
+	// rst.Print()
 }

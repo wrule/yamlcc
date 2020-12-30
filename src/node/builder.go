@@ -70,10 +70,15 @@ func BuildNodes(value interface{}) []INode {
 	return rst
 }
 
-// Compile 编译
+// Compile 编译语法定义
 func Compile(value interface{}) *Root {
 	root := NewRoot()
 	nodes := BuildNodes(value)
 	root.Links(nodes)
 	return root
+}
+
+// Link 链接语法定义
+func Link(root *Root) *Root {
+	return nil
 }
