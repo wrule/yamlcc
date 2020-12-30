@@ -24,7 +24,7 @@ func (me *Rst) Next() string {
 	return me.next
 }
 
-// Print s
+// Print 打印输出
 func (me *Rst) Print() {
 	fmt.Printf("success: %v\n", me.Success())
 	fmt.Printf("match(%d):\n[%s]\n", len(me.Match()), me.Match())
