@@ -1,7 +1,6 @@
 package node
 
 import (
-	"fmt"
 	"sort"
 )
 
@@ -15,13 +14,29 @@ func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
 	ivdRst := NewRst("", text, true)
 	// 按需进行头部无效字符修整匹配
 	if trimHead {
-		ivdRst = me.GetDef("invalid").NextsBeginningOfX(text, false)
+		ivdRst = me.GetDef("invalid").BeginningOf(text)
 	}
+
+	if me.SrcValue() == ":number" {
+		ivdRst.Print()
+	}
+
 	// 进行本节点匹配
 	meRst := me.Me().BeginningOf(ivdRst.Next())
+
+	if me.SrcValue() == ":number" {
+		meRst.Print()
+	}
+
 	if meRst.Success() {
 		// 进行子节点下推匹配
 		nextRst := me.NextsBeginningOfX(meRst.Next(), true)
+
+		if me.SrcValue() == ":number" {
+			me.nextLogs[0].Print()
+			nextRst.Print()
+		}
+
 		if nextRst.Success() {
 			return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), true)
 		}
@@ -39,9 +54,6 @@ func (me *Com) NextsBeginningOfX(text string, trimHead bool) *Rst {
 	successList := []*Rst{}
 	// 失败匹配结果列表
 	failureList := []*Rst{}
-
-	fmt.Println(len(me.nextLogs))
-
 	// 遍历nextLogs匹配
 	for _, node := range me.nextLogs {
 		if rst := node.BeginningOfX(text, trimHead); rst.Success() {
