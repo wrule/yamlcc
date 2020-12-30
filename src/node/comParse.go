@@ -5,9 +5,17 @@ import (
 	"sort"
 )
 
-// BeginningOf 节点头部匹配
-func (me *Com) BeginningOf(text string) (string, string, bool) {
-	panic("node.Com.BeginningOf: 抽象类方法被调用")
+// BeginningOfX 节点头部下推匹配
+func (me *Com) BeginningOfX(text string) *Rst {
+	meRst := me.Me().BeginningOf(text)
+	if meRst.Success() {
+		nextRst := me.NextsBeginningTrimOf(meRst.Next())
+		if nextRst.Success() {
+			return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), true)
+		}
+		return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), false)
+	}
+	return NewRst("", text, false)
 }
 
 // BeginningTrimOf 节点头部修正匹配
