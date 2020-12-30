@@ -69,6 +69,11 @@ func (me *Com) IsLog() bool {
 	return !me.IsCmd() && !me.IsDef()
 }
 
+// IsNextsEmpty s
+func (me *Com) IsNextsEmpty() bool {
+	return len(me.Nexts()) < 1
+}
+
 // IsNextLogsEmpty s
 func (me *Com) IsNextLogsEmpty() bool {
 	return len(me.NextLogs()) < 1

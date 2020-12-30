@@ -45,6 +45,8 @@ type INode interface {
 	IsDef() bool
 	// 是否是逻辑节点
 	IsLog() bool
+	// 子节点列表是否为空
+	IsNextsEmpty() bool
 	// 下逻辑节点列表是否为空（相当于下逻辑节点只有一个结束命令节点）
 	IsNextLogsEmpty() bool
 	// 本节点头部匹配
