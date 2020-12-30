@@ -45,6 +45,10 @@ func BuildNodes(value interface{}) []INode {
 		rst = append(rst, NewBack(val))
 	case map[interface{}]interface{}:
 		for key, value := range val {
+			if _, ok := key.(string); !ok {
+				log.Fatalf("%v %T Key只能为字符串类型\n", key, key)
+				panic("node.BuildNodes: 致命错误")
+			}
 			keyNodes := BuildNodes(key)
 			for _, keyNode := range keyNodes {
 				// 排除定义引用节点展开后的引用节点（next为.end）
