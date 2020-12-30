@@ -49,12 +49,8 @@ type INode interface {
 	IsNextLogsEmpty() bool
 	// 本节点字符串头部匹配
 	BeginningOf(string) *Rst
-	// 本节点字符串头部下推匹配
-	BeginningOfX(string) *Rst
-	// 本节点字符串头部修整匹配
-	BeginningTrimOf(string) *Rst
-	// 本节点字符串头部修整下推匹配
-	BeginningTrimOfX(string) *Rst
+	// 本节点字符串头部下推匹配（支持修整）
+	BeginningOfX(string, bool) *Rst
 	// 节点Nexts的头部下推匹配
 	NextsBeginningOfX(string) *Rst
 	// 节点Nexts的头部修正下推匹配

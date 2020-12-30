@@ -11,16 +11,23 @@ func (me *Com) BeginningOf(text string) *Rst {
 }
 
 // BeginningOfX s
-func (me *Com) BeginningOfX(text string) *Rst {
-	meRst := me.Me().BeginningOf(text)
+func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
+	ivdRst := NewRst("", text, true)
+	// 按需进行头部无效字符修整匹配
+	if trimHead {
+		ivdRst = me.GetDef("invalid").BeginningOfX(text, false)
+	}
+	// 进行本节点匹配
+	meRst := me.Me().BeginningOf(ivdRst.Next())
 	if meRst.Success() {
+		// 进行子节点下推匹配
 		nextRst := me.NextsBeginningTrimOfX(meRst.Next())
 		if nextRst.Success() {
-			return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), true)
+			return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), true)
 		}
-		return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), false)
+		return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), false)
 	}
-	return meRst
+	return NewRst(ivdRst.Match()+meRst.Match(), meRst.Next(), false)
 }
 
 // BeginningTrimOf s
