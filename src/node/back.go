@@ -18,11 +18,6 @@ func (me *Back) BeginningOf(text string) *Rst {
 	return me.PrevN(me.hops).BeginningOf(text)
 }
 
-// BeginningTrimOf s
-func (me *Back) BeginningTrimOf(text string) *Rst {
-	return me.PrevN(me.hops).BeginningTrimOf(text)
-}
-
 // NewBack 构造函数
 func NewBack(num int) *Back {
 	rst := &Back{

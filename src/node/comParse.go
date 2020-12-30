@@ -24,21 +24,17 @@ func (me *Com) BeginningOfX(text string) *Rst {
 
 // BeginningTrimOf s
 func (me *Com) BeginningTrimOf(text string) *Rst {
-	// 获取无效字符定义
 	ivd := me.GetDef("invalid")
-	// 进行头部无效字符匹配
 	ivdRst := ivd.BeginningOf(text)
-	nodeRst := me.BeginningOfX(ivdRst.Next())
+	nodeRst := me.Me().BeginningOf(ivdRst.Next())
 	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
 }
 
 // BeginningTrimOfX s
 func (me *Com) BeginningTrimOfX(text string) *Rst {
-	// 获取无效字符定义
 	ivd := me.GetDef("invalid")
-	// 进行头部无效字符匹配
 	ivdRst := ivd.BeginningOf(text)
-	nodeRst := me.BeginningOfX(ivdRst.Next())
+	nodeRst := me.Me().BeginningOfX(ivdRst.Next())
 	return NewRst(ivdRst.Match()+nodeRst.Match(), nodeRst.Next(), nodeRst.Success())
 }
 

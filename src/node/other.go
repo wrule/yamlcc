@@ -12,11 +12,6 @@ func (me *Other) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
-// BeginningTrimOf s
-func (me *Other) BeginningTrimOf(text string) *Rst {
-	return me.NextsBeginningTrimOfX(text)
-}
-
 // NewOther 构造函数
 func NewOther() *Other {
 	rst := &Other{}

@@ -18,11 +18,6 @@ func (me *Ref) BeginningOf(text string) *Rst {
 	return me.GetDef(me.defName).BeginningOf(text)
 }
 
-// BeginningTrimOf s
-func (me *Ref) BeginningTrimOf(text string) *Rst {
-	return me.GetDef(me.defName).BeginningTrimOf(text)
-}
-
 // NewRef 构造函数
 func NewRef(text string) *Ref {
 	rst := &Ref{
