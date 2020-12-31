@@ -9,7 +9,7 @@ type Root struct {
 
 // BeginningOf 匹配
 func (me *Root) BeginningOf(text string) *Rst {
-	return me.NextsBeginningOfX(text, false)
+	return NewRst("", text, true)
 }
 
 // NewRoot 构造函数

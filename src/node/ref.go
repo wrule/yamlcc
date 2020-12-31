@@ -5,7 +5,7 @@ import "fmt"
 // Ref 引用节点
 type Ref struct {
 	defName string
-	defNode INode
+	defNode *Def
 	Com
 }
 
@@ -15,7 +15,7 @@ func (me *Ref) DefName() string {
 }
 
 // DefNode 定义节点
-func (me *Ref) DefNode() INode {
+func (me *Ref) DefNode() *Def {
 	return me.defNode
 }
 
