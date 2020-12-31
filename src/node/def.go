@@ -18,6 +18,14 @@ func (me *Def) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+func (me *Def) BeginningOfX(text string, trimHead bool) *Rst {
+	ivdRst := NewRst("", text, true)
+	if trimHead {
+
+	}
+	return nil
+}
+
 // NewDef 构造函数
 func NewDef(text string) *Def {
 	rst := &Def{
