@@ -16,27 +16,11 @@ func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
 	if trimHead {
 		ivdRst = me.GetDef("invalid").BeginningOf(text)
 	}
-
-	if me.SrcValue() == ":number" {
-		ivdRst.Print()
-	}
-
 	// 进行本节点匹配
 	meRst := me.Me().BeginningOf(ivdRst.Next())
-
-	if me.SrcValue() == ":number" {
-		meRst.Print()
-	}
-
 	if meRst.Success() {
 		// 进行子节点下推匹配
 		nextRst := me.NextsBeginningOfX(meRst.Next(), true)
-
-		if me.SrcValue() == ":number" {
-			me.nextLogs[0].Print()
-			nextRst.Print()
-		}
-
 		if nextRst.Success() {
 			return NewRst(ivdRst.Match()+meRst.Match()+nextRst.Match(), nextRst.Next(), true)
 		}
