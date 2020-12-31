@@ -103,6 +103,13 @@ func Link(node INode) INode {
 	return node
 }
 
+// CompileX 编译并且链接语法
+func CompileX(value interface{}) *Root {
+	root := Compile(value)
+	Link(root)
+	return root
+}
+
 // Print 打印
 func Print(node INode) {
 	node.Print()
