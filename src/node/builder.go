@@ -90,17 +90,31 @@ func Print(node INode) {
 
 // Link 链接语法定义
 // 替换Back和Ref节点，设置Next的End节点
-func Link(node INode) {
-	// 如果节点不是结束命令节点，且没有子节点
-	if _, ok := node.(*End); !ok && len(node.Nexts()) < 1 {
+func Link(node INode) INode {
+	// 链接子节点
+	newNexts := []INode{}
+	for _, child := range node.Nexts() {
+		linkedNode := Link(child)
+		if linkedNode != nil {
+			newNexts = append(newNexts, linkedNode)
+		}
+	}
+	node.SetNexts(newNexts)
+	// 链接引用节点
+	if ref, ok := node.(*Ref); ok {
+		ref.RefLink()
+	}
+	// 链接回跳节点
+	// TODO: 如果子节点里有回跳节点，则回跳目标节点Nexts会覆盖本节点Nexts
+	for _, child := range node.Nexts() {
+		if back, ok := child.(*Back); ok {
+			node.SetNexts(back.BackNode().Nexts())
+			break
+		}
+	}
+	// 链接结束命令节点
+	if _, ok := node.(*End); !ok && node.IsNextsEmpty() {
 		node.AppendNexts(NewEnd())
 	}
-	// 回跳节点链接
-	// TODO: 如果数组里面有回跳转，则回跳目标节点Nexts会全部覆盖数组，数组内其他节点将无效
-	if back, ok := node.(*Back); ok {
-		back.Prev().SetNexts(back.BackNode().Nexts())
-	}
-	for _, child := range node.Nexts() {
-		Link(child)
-	}
+	return node
 }

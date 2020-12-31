@@ -5,6 +5,7 @@ import "fmt"
 // Ref 引用节点
 type Ref struct {
 	defName string
+	defNode INode
 	Com
 }
 
@@ -13,9 +14,19 @@ func (me *Ref) DefName() string {
 	return me.defName
 }
 
+// DefNode 定义节点
+func (me *Ref) DefNode() INode {
+	return me.defNode
+}
+
+// RefLink 链接定义
+func (me *Ref) RefLink() {
+	me.defNode = me.GetDef(me.DefName())
+}
+
 // BeginningOf 匹配
 func (me *Ref) BeginningOf(text string) *Rst {
-	return me.GetDef(me.defName).BeginningOf(text)
+	return me.DefNode().BeginningOf(text)
 }
 
 // NewRef 构造函数
