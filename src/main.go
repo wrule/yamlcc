@@ -25,7 +25,7 @@ func main() {
 	yaml.Unmarshal(bytes, &m)
 	root := node.Compile(m)
 	node.Link(root)
-	// node.Print(root)
+	node.Print(root)
 	// // rst := root.GetDef("invalid").BeginningOfX(`  123 `, false)
 	// rst := root.GetDef("number").BeginningOfX(`  123  ass`, true)
 	// fmt.Println("##################")

@@ -15,7 +15,11 @@ func (me *Back) Hops() int {
 
 // BackNode 回跳目标节点
 func (me *Back) BackNode() INode {
-	return me.PrevN(me.Hops())
+	num := me.Hops() + 2
+	if num >= 2 {
+		return me.PrevN(num)
+	}
+	return me.PrevN(2)
 }
 
 // BeginningOf s

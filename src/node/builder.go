@@ -1,6 +1,7 @@
 package node
 
 import (
+	"fmt"
 	"log"
 	"strings"
 )
@@ -81,6 +82,7 @@ func Compile(value interface{}) *Root {
 // Print 打印
 func Print(node INode) {
 	node.Print()
+	fmt.Scanln()
 	for _, child := range node.Nexts() {
 		Print(child)
 	}
