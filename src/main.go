@@ -24,7 +24,7 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := node.CompileX(m)
-	rst := root.GetDef("number").BeginningOf(`1234`)
+	rst := root.GetDef("invalid").BeginningOfX(`   1234`, false)
 	rst.Print()
 	// // rst := root.GetDef("invalid").BeginningOfX(`  123 `, false)
 	// rst := root.GetDef("number").BeginningOfX(`  123  ass`, true)
