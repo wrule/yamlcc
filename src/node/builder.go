@@ -17,7 +17,7 @@ func BuildCmd(value string) INode {
 		return NewEnd()
 	default:
 		log.Fatalf("%v %T 不是正确的命令\n", value, value)
-		panic("node.BuildNodes: 致命错误")
+		panic("node.BuildCmd: 致命错误")
 	}
 }
 

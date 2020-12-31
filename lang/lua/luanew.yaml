@@ -11,6 +11,10 @@
 # 表达式
 :exps:
   $number:
-    $opr: 1
+    $opr:
+      $exps: 1
+    .other: .end
+  $lp:
+    $exps: $rp
 
 $exps: .end
