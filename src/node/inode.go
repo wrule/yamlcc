@@ -12,19 +12,19 @@ type INode interface {
 	GetDef(string) *Def
 	// 设置上一个节点
 	SetPrev(INode)
-	// 获取下逻辑节点列表
+	// 获取下节点列表
 	Nexts() []INode
-	// 获取下节点定义映射
+	// 获取下定义节点映射
 	NextDefs() map[string]*Def
-	// 获取下节点逻辑列表
+	// 获取下逻辑节点列表
 	NextLogs() []INode
-	// 获取下节点非命令列表
+	// 获取下非命令节点列表
 	NextNots() []*Not
-	// 获取下节点其他命令
+	// 获取下其他命令节点
 	NextOther() *Other
 	// 设置下节点
 	SetNexts([]INode)
-	// 根据索引设置子节点
+	// 根据索引设置下节点
 	SetNextByIndex(int, INode)
 	// 追加下节点
 	AppendNexts(INode)
@@ -47,10 +47,11 @@ type INode interface {
 	IsDef() bool
 	// 是否是逻辑节点
 	IsLog() bool
-	// 子节点列表是否为空
+	// 下节点列表是否为空
 	IsNextsEmpty() bool
 	// 下逻辑节点列表是否为空（相当于下逻辑节点只有一个结束命令节点）
 	IsNextLogsEmpty() bool
+
 	// 本节点头部匹配
 	BeginningOf(string) *Rst
 	// 本节点头部下推匹配（支持修整）
