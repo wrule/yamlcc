@@ -89,13 +89,16 @@ func Print(node INode) {
 // Link 链接语法定义
 // 替换Back和Ref节点，设置Next的End节点
 func Link(node INode) {
-	for _, child := range node.Nexts() {
-		Link(child)
+	// 如果节点不是结束命令节点，且没有子节点
+	if _, ok := node.(*End); !ok && len(node.Nexts()) < 1 {
+		node.AppendNexts(NewEnd())
 	}
+	// 回跳节点链接
+	// TODO: 如果数组里面有回跳转，则回跳目标节点Nexts会全部覆盖数组，数组内其他节点将无效
 	if back, ok := node.(*Back); ok {
 		back.Prev().SetNexts(back.BackNode().Nexts())
 	}
-	if _, ok := node.(*End); !ok && len(node.Nexts()) < 1 {
-		node.AppendNexts(NewEnd())
+	for _, child := range node.Nexts() {
+		Link(child)
 	}
 }

@@ -13,7 +13,7 @@ func (me *Back) Hops() int {
 	return me.hops
 }
 
-// BackNode s
+// BackNode 回跳目标节点
 func (me *Back) BackNode() INode {
 	return me.PrevN(me.Hops())
 }
