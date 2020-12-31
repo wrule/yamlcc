@@ -9,12 +9,10 @@
 # 运算符
 :opr: \+
 # 表达式
-:exps:
+:$exps:
   $number:
     $opr:
       $exps: 1
     .other: .end
   $lp:
     $exps: $rp
-
-$exps: .end

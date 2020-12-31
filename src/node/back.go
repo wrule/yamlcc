@@ -22,11 +22,6 @@ func (me *Back) BackNode() INode {
 	return me.PrevN(2)
 }
 
-// BeginningOf s
-func (me *Back) BeginningOf(text string) *Rst {
-	return me.PrevN(me.hops).BeginningOf(text)
-}
-
 // NewBack 构造函数
 func NewBack(num int) *Back {
 	rst := &Back{
