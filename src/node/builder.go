@@ -79,15 +79,6 @@ func Compile(value interface{}) *Root {
 	return root
 }
 
-// Print 打印
-func Print(node INode) {
-	node.Print()
-	fmt.Scanln()
-	for _, child := range node.Nexts() {
-		Print(child)
-	}
-}
-
 // Link 链接语法定义
 func Link(node INode) INode {
 	// 链接子节点
@@ -110,4 +101,13 @@ func Link(node INode) INode {
 		node.AppendNexts(NewEnd())
 	}
 	return node
+}
+
+// Print 打印
+func Print(node INode) {
+	node.Print()
+	fmt.Scanln()
+	for _, child := range node.Nexts() {
+		Print(child)
+	}
 }
