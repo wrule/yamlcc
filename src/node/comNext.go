@@ -6,6 +6,11 @@ func (me *Com) SetNexts(nexts []INode) {
 	me.updateNexts()
 }
 
+// SetNextByIndex s
+func (me *Com) SetNextByIndex(index int, node INode) {
+	me.nexts[index] = node
+}
+
 // AppendNexts s
 func (me *Com) AppendNexts(next INode) {
 	me.nexts = append(me.nexts, next)

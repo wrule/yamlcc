@@ -24,6 +24,8 @@ type INode interface {
 	NextOther() *Other
 	// 设置下节点
 	SetNexts([]INode)
+	// 根据索引设置子节点
+	SetNextByIndex(int, INode)
 	// 追加下节点
 	AppendNexts(INode)
 	// 连接下节点（调用下节点追加）
