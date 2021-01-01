@@ -19,10 +19,6 @@ func (me *Def) BeginningOf(text string) *Rst {
 }
 
 func (me *Def) BeginningOfX(text string, trimHead bool) *Rst {
-	ivdRst := NewRst("", text, true)
-	if trimHead {
-
-	}
 	return nil
 }
 
