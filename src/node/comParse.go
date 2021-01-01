@@ -27,13 +27,39 @@ func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
 
 // NextsBeginningOfX s
 func (me *Com) NextsBeginningOfX(text string, trimHead bool) *Rst {
+	successList := []*Rst{}
+	failureList := []*Rst{}
+
+	// 非逻辑检查
+	if me.NotsCheck(text, trimHead) == false {
+		ivdRst := me.invalidMatch(text, trimHead)
+		return NewRst(ivdRst.Match(), ivdRst.Next(), false)
+	}
+
+	// 遍历下推匹配逻辑节点，并且采集成功失败结果
+	for _, log := range me.Me().NextLogs() {
+		rst := log.BeginningOfX(text, trimHead)
+		if rst.Success() {
+			successList = append(successList, rst)
+		} else {
+			failureList = append(failureList, rst)
+		}
+	}
 	return nil
 }
 
+func (me *Com) invalidMatch(text string, trimHead bool) *Rst {
+	ivdRst := NewRst("", text, true)
+	if trimHead {
+		ivdRst = me.Me().GetDef("invalid").BeginningOfX(text, false)
+	}
+	return ivdRst
+}
+
 // NotsCheck 非逻辑检查
-func (me *Com) NotsCheck(text string) bool {
-	for _, not := range me.nextNots {
-		if rst := not.BeginningOfX(text, true); rst.Success() {
+func (me *Com) NotsCheck(text string, trimHead bool) bool {
+	for _, not := range me.Me().NextNots() {
+		if rst := not.Me().BeginningOfX(text, trimHead); rst.Success() {
 			return false
 		}
 	}
