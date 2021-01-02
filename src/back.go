@@ -3,12 +3,17 @@ package main
 import "fmt"
 
 type Back struct {
-	hops int
+	hops     int
+	backNode INode
 	Com
 }
 
 func (me *Back) Hops() int {
 	return me.hops
+}
+
+func (me *Back) BackNode() INode {
+	return me.backNode
 }
 
 func (me *Back) BeginningOf(text string) *Rst {

@@ -11,10 +11,6 @@ func (me *Com) Me() INode {
 	return me.me
 }
 
-func (me *Com) Prev() INode {
-	return me.prev
-}
-
 func (me *Com) Nexts() []INode {
 	return me.nexts
 }

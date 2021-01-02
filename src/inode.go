@@ -1,6 +1,8 @@
 package main
 
 type INode interface {
+	Prev() INode
+	PrevN(int) INode
 	SetPrev(INode)
 	Link(INode)
 	Links([]INode)
