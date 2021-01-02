@@ -70,6 +70,7 @@ func CompileNodes(value interface{}) []INode {
 	return rst
 }
 
+// Link 链接节点
 func Link(node INode) {
 	for _, child := range node.Nexts() {
 		child.Link()
@@ -78,4 +79,13 @@ func Link(node INode) {
 	if !node.IsEnd() && node.NextsIsEmpty() {
 		node.AppendNexts(NewEnd())
 	}
+}
+
+// Compile 编译语法定义
+func Compile(value interface{}) *Root {
+	root := NewRoot()
+	nodes := CompileNodes(value)
+	root.Fastens(nodes)
+	Link(root)
+	return root
 }
