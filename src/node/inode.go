@@ -59,6 +59,9 @@ type INode interface {
 	// 子节点头部下推匹配（支持修整）
 	NextsBeginningOfX(string, bool) *Rst
 
+	Init()
+	InInvalid() bool
+
 	// 打印节点调试信息
 	Print()
 }
