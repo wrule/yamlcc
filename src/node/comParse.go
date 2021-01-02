@@ -9,11 +9,8 @@ func (me *Com) BeginningOf(text string) *Rst {
 
 // BeginningOfX s
 func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
-	ivdRst := NewRst("", text, true)
 	// 按需进行头部修整匹配
-	if trimHead {
-		ivdRst = me.Me().GetDef("invalid").BeginningOfX(text, false)
-	}
+	ivdRst := me.invalidTrimHead(text, trimHead)
 	// 进行节点的原生匹配
 	meRst := me.Me().BeginningOf(ivdRst.Next())
 	if meRst.Success() {
@@ -30,7 +27,7 @@ func (me *Com) BeginningOfX(text string, trimHead bool) *Rst {
 // NextsBeginningOfX s
 func (me *Com) NextsBeginningOfX(text string, trimHead bool) *Rst {
 	// 默认返回值（根据trimHead决定的修整匹配结果，且success为false）
-	rst := me.invalidMatch(text, trimHead)
+	rst := me.invalidTrimHead(text, trimHead)
 	rst.SetSuccess(false)
 	// 非逻辑检查
 	if me.NotsCheck(text, trimHead) {
@@ -73,10 +70,10 @@ func (me *Com) NextsBeginningOfX(text string, trimHead bool) *Rst {
 	return rst
 }
 
-func (me *Com) invalidMatch(text string, trimHead bool) *Rst {
+func (me *Com) invalidTrimHead(text string, trimHead bool) *Rst {
 	ivdRst := NewRst("", text, true)
 	if trimHead {
-		ivdRst = me.Me().GetDef("invalid").BeginningOfX(text, false)
+		ivdRst = me.GetInvalid().BeginningOf(text)
 	}
 	return ivdRst
 }

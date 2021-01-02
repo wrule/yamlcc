@@ -29,6 +29,17 @@ func (me *Com) GetDef(name string) *Def {
 	panic("node.Com.GetDef: 找不到定义节点 " + name)
 }
 
+// GetInvalid s
+func (me *Com) GetInvalid() *Reg {
+	invalidDef := me.GetDef("invalid")
+	if len(invalidDef.Nexts()) == 1 {
+		if reg, ok := invalidDef.Nexts()[0].(*Reg); ok {
+			return reg
+		}
+	}
+	panic("node.Com.GetInvalid: invalid必须由唯一的正则定义")
+}
+
 // SetPrev s
 func (me *Com) SetPrev(prev INode) {
 	me.prev = prev
