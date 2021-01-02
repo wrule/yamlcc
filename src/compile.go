@@ -30,7 +30,7 @@ func CompileNodes(value interface{}) []INode {
 			def := NewDef(":" + valTrimmed)
 			ref := NewRef("$" + valTrimmed)
 			end := NewEnd()
-			ref.Link(end)
+			ref.Fasten(end)
 			rst = append(rst, def, ref)
 		} else if strings.HasPrefix(val, ":") {
 			rst = append(rst, NewDef(val))
@@ -54,7 +54,7 @@ func CompileNodes(value interface{}) []INode {
 				// 排除定义引用节点展开后的引用节点（nexts不为空，为.end）
 				if keyNode.NextsIsEmpty() {
 					valueNodes := CompileNodes(value)
-					keyNode.Links(valueNodes)
+					keyNode.Fastens(valueNodes)
 				}
 				rst = append(rst, keyNode)
 			}

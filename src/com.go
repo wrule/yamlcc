@@ -15,14 +15,14 @@ func (me *Com) Nexts() []INode {
 	return me.nexts
 }
 
-func (me *Com) Link(next INode) {
+func (me *Com) Fasten(next INode) {
 	me.AppendNexts(next)
 	next.SetPrev(me.Me())
 }
 
-func (me *Com) Links(nexts []INode) {
+func (me *Com) Fastens(nexts []INode) {
 	for _, next := range nexts {
-		me.Link(next)
+		me.Fasten(next)
 	}
 }
 
