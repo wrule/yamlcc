@@ -69,3 +69,13 @@ func CompileNodes(value interface{}) []INode {
 	}
 	return rst
 }
+
+func Link(node INode) {
+	for _, child := range node.Nexts() {
+		child.Link()
+	}
+	node.Link()
+	if !node.IsEnd() && node.NextsIsEmpty() {
+		node.AppendNexts(NewEnd())
+	}
+}

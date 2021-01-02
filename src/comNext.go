@@ -1,5 +1,9 @@
 package main
 
+func (me *Com) Nexts() []INode {
+	return me.nexts
+}
+
 func (me *Com) AppendNexts(next INode) {
 	me.nexts = append(me.nexts, next)
 }

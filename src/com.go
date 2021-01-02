@@ -11,10 +11,6 @@ func (me *Com) Me() INode {
 	return me.me
 }
 
-func (me *Com) Nexts() []INode {
-	return me.nexts
-}
-
 func (me *Com) Fasten(next INode) {
 	me.AppendNexts(next)
 	next.SetPrev(me.Me())
@@ -28,6 +24,11 @@ func (me *Com) Fastens(nexts []INode) {
 
 func (me *Com) Link() {
 
+}
+
+func (me *Com) IsEnd() bool {
+	_, ok := me.Me().(*End)
+	return ok
 }
 
 // NewCom 构造函数
