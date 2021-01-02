@@ -18,6 +18,7 @@ func (me *Def) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+// BeginningOfX s
 func (me *Def) BeginningOfX(text string, trimHead bool) *Rst {
 	return me.NextsBeginningOfX(text, trimHead)
 }
