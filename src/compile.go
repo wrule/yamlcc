@@ -52,7 +52,7 @@ func CompileNodes(value interface{}) []INode {
 			keyNodes := CompileNodes(key)
 			for _, keyNode := range keyNodes {
 				// 排除定义引用节点展开后的引用节点（next为.end）
-				if keyNode.IsNextsEmpty() {
+				if keyNode.NextsIsEmpty() {
 					valueNodes := CompileNodes(value)
 					keyNode.Links(valueNodes)
 				}
