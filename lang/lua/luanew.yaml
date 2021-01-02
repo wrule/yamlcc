@@ -10,5 +10,6 @@
 :opr: \+
 # 表达式
 :exps:
-  $number: .end
-$number: .end
+  $number:
+    $opr: $number
+$exps: .end

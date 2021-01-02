@@ -24,9 +24,14 @@ func (me *Ref) RefLink() {
 	me.defNode = me.GetDef(me.DefName())
 }
 
-// BeginningOf 匹配
+// BeginningOf s
 func (me *Ref) BeginningOf(text string) *Rst {
 	return me.DefNode().BeginningOf(text)
+}
+
+// BeginningOfX s
+func (me *Ref) BeginningOfX(text string, trimHead bool) *Rst {
+	return me.DefNode().NextsBeginningOfX(text, trimHead)
 }
 
 // NewRef 构造函数
