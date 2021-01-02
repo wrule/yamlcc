@@ -19,7 +19,7 @@ func (me *Def) BeginningOf(text string) *Rst {
 }
 
 func (me *Def) BeginningOfX(text string, trimHead bool) *Rst {
-	return nil
+	return me.NextsBeginningOfX(text, trimHead)
 }
 
 // NewDef 构造函数
