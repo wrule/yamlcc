@@ -66,7 +66,7 @@ func (me *Com) IsDef() bool {
 
 // IsLog s
 func (me *Com) IsLog() bool {
-	return !me.IsCmd() && !me.IsDef()
+	return !me.IsNot() && !me.IsOther() && !me.IsDef()
 }
 
 // IsNextsEmpty s
