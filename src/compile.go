@@ -47,11 +47,11 @@ func CompileNodes(value interface{}) []INode {
 		for key, value := range val {
 			if _, ok := key.(string); !ok {
 				log.Fatalf("%v %T Key只能为字符串类型\n", key, key)
-				panic("node.BuildNodes: 致命错误")
+				panic("main.CompileNodes: 致命错误")
 			}
 			keyNodes := CompileNodes(key)
 			for _, keyNode := range keyNodes {
-				// 排除定义引用节点展开后的引用节点（next为.end）
+				// 排除定义引用节点展开后的引用节点（nexts不为空，为.end）
 				if keyNode.NextsIsEmpty() {
 					valueNodes := CompileNodes(value)
 					keyNode.Links(valueNodes)
@@ -65,7 +65,7 @@ func CompileNodes(value interface{}) []INode {
 		}
 	default:
 		log.Fatalf("%v %T 不能作为节点\n", value, value)
-		panic("main.BuildNodes: 致命错误")
+		panic("main.CompileNodes: 致命错误")
 	}
 	return rst
 }
