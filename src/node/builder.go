@@ -93,7 +93,7 @@ func Link(node INode) INode {
 	for _, child := range node.Nexts() {
 		if back, ok := child.(*Back); ok {
 			node.SetNexts(back.BackNode().Nexts())
-			break
+			return node
 		}
 	}
 	// 链接结束命令节点
