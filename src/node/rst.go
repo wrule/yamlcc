@@ -9,9 +9,14 @@ type Rst struct {
 	next    string
 }
 
-// Success 匹配是否成功
+// Success 获取匹配状态
 func (me *Rst) Success() bool {
 	return me.success
+}
+
+// SetSuccess 更改匹配状态
+func (me *Rst) SetSuccess(value bool) {
+	me.success = value
 }
 
 // Match 匹配获得文本
