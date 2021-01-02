@@ -10,21 +10,6 @@ type Com struct {
 	nextLogs  []INode
 	nextNots  []*Not
 	nextOther *Other
-	inInvalid bool
-}
-
-// Init 初始化
-func (me *Com) Init() {
-	if me.SrcValue() == ":invalid" {
-		me.inInvalid = true
-	} else if me.Prev().InInvalid() {
-		me.inInvalid = true
-	}
-}
-
-// InInvalid s
-func (me *Com) InInvalid() bool {
-	return me.inInvalid
 }
 
 // SrcValue s
