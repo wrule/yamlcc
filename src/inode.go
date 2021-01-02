@@ -11,5 +11,8 @@ type INode interface {
 	// 本节点头部匹配
 	BeginningOf(string) *Rst
 
+	// 节点自身链接
+	Link()
+
 	Print()
 }

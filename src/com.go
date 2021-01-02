@@ -26,6 +26,10 @@ func (me *Com) Fastens(nexts []INode) {
 	}
 }
 
+func (me *Com) Link() {
+
+}
+
 // NewCom 构造函数
 func NewCom(me INode, srcValue interface{}) Com {
 	return Com{

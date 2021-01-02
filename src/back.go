@@ -20,6 +20,15 @@ func (me *Back) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+func (me *Back) Link() {
+	num := me.Hops() + 2
+	if num >= 2 {
+		me.backNode = me.PrevN(num)
+	} else {
+		me.backNode = me.PrevN(2)
+	}
+}
+
 func NewBack(num int) *Back {
 	rst := &Back{
 		hops: num,
