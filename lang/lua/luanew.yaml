@@ -16,10 +16,11 @@
 :exps:
   $number:
     $opr:
-      $identifier:
-        $opr: $number
-      $number:
-        $opr: $identifier
+      $exps: 1
+    .other: .end
+  $lp:
+    $exps: $rp
+
 :test:
   $short: .end
   $long: .end

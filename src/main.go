@@ -19,6 +19,6 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := Compile(m)
-	rst := root.GetDef("test").BeginningOf(`aaaaa`)
+	rst := root.GetDef("exps").BeginningOf(`(1234+3)`)
 	rst.Print()
 }
