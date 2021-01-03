@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Other struct {
 	Com
 }
@@ -14,6 +16,7 @@ func NewOther() *Other {
 	return rst
 }
 
+// Print s
 func (me *Other) Print() {
-
+	fmt.Printf("其他命令节点\n")
 }
