@@ -1,6 +1,8 @@
 package main
 
-import "sort"
+import (
+	"sort"
+)
 
 func (me *Com) BeginningOfX(text string) *Rst {
 	meRst := me.Me().BeginningOf(text)
@@ -25,6 +27,16 @@ func (me *Com) NextsBeginningOfX(text string) *Rst {
 			failureList = append(failureList, rst)
 		}
 	}
+
+	// .other逻辑
+	if len(successList) < 1 && me.NextOther() != nil {
+		if rst := me.NextOther().BeginningOfX(text); rst.Success() {
+			successList = append(successList, rst)
+		} else {
+			failureList = append(failureList, rst)
+		}
+	}
+
 	sort.Slice(successList, func(a, b int) bool {
 		return len(successList[a].Match()) > len(successList[b].Match())
 	})
