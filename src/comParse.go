@@ -17,16 +17,14 @@ func (me *Com) BeginningOfX(text string) *Rst {
 }
 
 func (me *Com) NextsBeginningOfX(text string) *Rst {
-	if me.NotsCheck(text) == false {
-		return NewRst("", text, false)
-	}
 	successList := []*Rst{}
 	failureList := []*Rst{}
 	for _, log := range me.NextLogs() {
 		rst := log.BeginningOfX(text)
-		if rst.Success() {
+		if rst.Success() && me.NotsCheck(rst.Match()) {
 			successList = append(successList, rst)
 		} else {
+			rst.SetSuccess(false)
 			failureList = append(failureList, rst)
 		}
 	}
@@ -57,7 +55,7 @@ func (me *Com) NextsBeginningOfX(text string) *Rst {
 
 func (me *Com) NotsCheck(text string) bool {
 	for _, not := range me.NextNots() {
-		if rst := not.BeginningOfX(text); rst.Success() {
+		if rst := not.BeginningOfX(text); rst.SuccessFull() {
 			return false
 		}
 	}

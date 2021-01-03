@@ -19,6 +19,11 @@ func (me *Rst) SetSuccess(value bool) {
 	me.success = value
 }
 
+// SuccessFull s
+func (me *Rst) SuccessFull() bool {
+	return me.Success() && len(me.Next()) == 0
+}
+
 // Match 获取匹配文本
 func (me *Rst) Match() string {
 	return me.match
