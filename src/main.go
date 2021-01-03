@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 
 	"gopkg.in/yaml.v2"
@@ -16,11 +15,10 @@ func readBytes(filePath string) []byte {
 }
 
 func main() {
-	bytes := readBytes("/home/gu/桌面/yamlcc/lang/lua/luanew.yaml")
+	bytes := readBytes("/home/gu/桌面/yamlcc-new/lang/lua/luanew.yaml")
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := Compile(m)
-	rst := root.GetDef("number").BeginningOf(`123`)
-	fmt.Println(rst)
+	rst := root.GetDef("exps").BeginningOf(`1+dd+_a`)
 	rst.Print()
 }
