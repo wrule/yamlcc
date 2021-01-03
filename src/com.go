@@ -8,17 +8,7 @@ type Com struct {
 	nextDefs  map[string]*Def
 	nextLogs  []INode
 	nextOther INode
-	nextNots  []INode
-}
-
-func (me *Com) updateNextDefs() {
-	me.nextDefs = map[string]*Def{}
-	for _, node := range me.nexts {
-		if node.IsDef() {
-			def := node.(*Def)
-			me.nextDefs[def.DefName()] = def
-		}
-	}
+	nextNots  []*Not
 }
 
 func (me *Com) Me() INode {

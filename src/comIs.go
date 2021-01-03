@@ -47,3 +47,8 @@ func (me *Com) IsNot() bool {
 	_, ok := me.Me().(*Not)
 	return ok
 }
+
+// IsLog 是否是逻辑节点
+func (me *Com) IsLog() bool {
+	return !me.IsDef() && !me.IsOther() && !me.IsNot()
+}

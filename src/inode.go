@@ -21,6 +21,7 @@ type INode interface {
 	IsEnd() bool
 	IsOther() bool
 	IsNot() bool
+	IsLog() bool
 
 	// 节点自身链接
 	Link()
