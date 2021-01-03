@@ -7,7 +7,7 @@ type Com struct {
 	nexts     []INode
 	nextDefs  map[string]*Def
 	nextLogs  []INode
-	nextOther INode
+	nextOther *Other
 	nextNots  []*Not
 }
 
@@ -28,6 +28,17 @@ func (me *Com) Fastens(nexts []INode) {
 
 func (me *Com) Link() {
 
+}
+
+func (me *Com) GetDef(name string) *Def {
+	curNode := me.Me()
+	for curNode != nil {
+		if def, found := curNode.NextDefs()[name]; found {
+			return def
+		}
+		curNode = curNode.Prev()
+	}
+	panic("main.Com.GetDef: 找不到定义节点 " + name)
 }
 
 // NewCom 构造函数

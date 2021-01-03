@@ -4,6 +4,22 @@ func (me *Com) Nexts() []INode {
 	return me.nexts
 }
 
+func (me *Com) NextDefs() map[string]*Def {
+	return me.nextDefs
+}
+
+func (me *Com) NextLogs() []INode {
+	return me.nextLogs
+}
+
+func (me *Com) NextOther() *Other {
+	return me.nextOther
+}
+
+func (me *Com) NextNots() []*Not {
+	return me.nextNots
+}
+
 func (me *Com) AppendNexts(next INode) {
 	me.nexts = append(me.nexts, next)
 }

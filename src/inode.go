@@ -5,6 +5,10 @@ type INode interface {
 	PrevN(int) INode
 	SetPrev(INode)
 	Nexts() []INode
+	NextDefs() map[string]*Def
+	NextLogs() []INode
+	NextOther() *Other
+	NextNots() []*Not
 	Fasten(INode)
 	Fastens([]INode)
 	NextsIsEmpty() bool
