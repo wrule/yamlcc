@@ -4,6 +4,8 @@
 :number: \d+
 # 标识符
 :identifier: '[_a-zA-Z][_a-zA-Z\d]*'
+:short: aaa
+:long: aaaa
 # 左括号
 :lp: \(
 # 右括号
@@ -18,4 +20,7 @@
         $opr: $number
       $number:
         $opr: $identifier
+:test:
+  $short: .end
+  $long: .end
 $exps: .end
