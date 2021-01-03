@@ -17,7 +17,7 @@ func (me *Ref) DefNode() *Def {
 }
 
 func (me *Ref) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.DefNode().BeginningOf(text)
 }
 
 func (me *Ref) Link() {

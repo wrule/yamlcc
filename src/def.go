@@ -12,7 +12,7 @@ func (me *Def) DefName() string {
 }
 
 func (me *Def) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.NextsBeginningOfX(text)
 }
 
 func NewDef(text string) *Def {

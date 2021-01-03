@@ -18,6 +18,8 @@ type INode interface {
 
 	// 本节点头部匹配
 	BeginningOf(string) *Rst
+	BeginningOfX(string) *Rst
+	NextsBeginningOfX(string) *Rst
 
 	IsRoot() bool
 	IsReg() bool

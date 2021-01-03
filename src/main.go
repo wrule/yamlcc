@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 
 	"gopkg.in/yaml.v2"
@@ -19,6 +20,7 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := Compile(m)
-	rst := root.BeginningOf(` 	123 + 321 `)
+	rst := root.GetDef("number").BeginningOf(`123`)
+	fmt.Println(rst)
 	rst.Print()
 }
