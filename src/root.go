@@ -12,7 +12,7 @@ func (me *Root) BeginningOf(text string) *Rst {
 
 func NewRoot() *Root {
 	rst := &Root{}
-	rst.Com = NewCom(rst, nil)
+	rst.Com = NewCom(rst, ".root")
 	return rst
 }
 
