@@ -17,7 +17,7 @@ func (me *Back) BackNode() INode {
 }
 
 func (me *Back) BeginningOf(text string) *Rst {
-	return NewRst("", text, true)
+	return me.BackNode().NextsBeginningOfX(text)
 }
 
 func (me *Back) Link() {
