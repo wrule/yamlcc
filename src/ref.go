@@ -21,7 +21,6 @@ func (me *Ref) BeginningOf(text string) *Rst {
 }
 
 func (me *Ref) Link() {
-	fmt.Println("链接")
 	me.defNode = me.GetDef(me.DefName())
 }
 

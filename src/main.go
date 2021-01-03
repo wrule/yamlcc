@@ -19,5 +19,6 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := Compile(m)
-	root.Print()
+	rst := root.BeginningOf(` 	123 + 321 `)
+	rst.Print()
 }
