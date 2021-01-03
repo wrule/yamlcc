@@ -3,7 +3,9 @@
 # 数字
 :number: \d+
 # 标识符
-:identifier: '[_a-zA-Z][_a-zA-Z\d]*'
+:identifier:
+  '[_a-zA-Z][_a-zA-Z\d]*': .end
+  .not: $kwd
 # 左括号
 :lp: \(
 # 右括号
@@ -18,3 +20,22 @@
     .other: .end
   $lp:
     $exps: $rp
+
+# 关键字
+:kwd_if: if
+:kwd_then: then
+:kwd_elseif: elseif
+:kwd_else: else
+:kwd_end: end
+:kwd_function: function
+:kwd_return: return
+
+# 关键字枚举
+:kwd:
+  - $kwd_if
+  - $kwd_then
+  - $kwd_elseif
+  - $kwd_else
+  - $kwd_end
+  - $kwd_function
+  - $kwd_return

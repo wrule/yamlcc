@@ -17,6 +17,9 @@ func (me *Com) BeginningOfX(text string) *Rst {
 }
 
 func (me *Com) NextsBeginningOfX(text string) *Rst {
+	if me.NotsCheck(text) == false {
+		return NewRst("", text, false)
+	}
 	successList := []*Rst{}
 	failureList := []*Rst{}
 	for _, log := range me.NextLogs() {
@@ -50,4 +53,13 @@ func (me *Com) NextsBeginningOfX(text string) *Rst {
 		return rstList[0]
 	}
 	return NewRst("", text, true)
+}
+
+func (me *Com) NotsCheck(text string) bool {
+	for _, not := range me.NextNots() {
+		if rst := not.BeginningOfX(text); rst.Success() {
+			return false
+		}
+	}
+	return true
 }
