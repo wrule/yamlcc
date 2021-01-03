@@ -16,6 +16,7 @@ func (me *Com) BeginningOfX(text string) *Rst {
 	return NewRst(meRst.Match(), meRst.Next(), false)
 }
 
+// NextsBeginningOfX s
 func (me *Com) NextsBeginningOfX(text string) *Rst {
 	successList := []*Rst{}
 	failureList := []*Rst{}
