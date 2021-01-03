@@ -70,10 +70,18 @@ func CompileNodes(value interface{}) []INode {
 	return rst
 }
 
+// Init 初始化节点
+func Init(node INode) {
+	for _, next := range node.Nexts() {
+		Init(next)
+	}
+	node.Init()
+}
+
 // Link 链接节点
 func Link(node INode) {
-	for _, child := range node.Nexts() {
-		child.Link()
+	for _, next := range node.Nexts() {
+		Link(next)
 	}
 	node.Link()
 	if !node.IsEnd() && node.NextsIsEmpty() {
@@ -86,6 +94,7 @@ func Compile(value interface{}) *Root {
 	root := NewRoot()
 	nodes := CompileNodes(value)
 	root.Fastens(nodes)
+	Init(root)
 	Link(root)
 	return root
 }

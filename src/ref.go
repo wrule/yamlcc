@@ -20,6 +20,11 @@ func (me *Ref) BeginningOf(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+func (me *Ref) Link() {
+	fmt.Println("链接")
+	me.defNode = me.GetDef(me.DefName())
+}
+
 func NewRef(text string) *Ref {
 	rst := &Ref{
 		defName: text[1:],

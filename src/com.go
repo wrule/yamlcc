@@ -26,6 +26,10 @@ func (me *Com) Fastens(nexts []INode) {
 	}
 }
 
+func (me *Com) Init() {
+	me.updateNexts()
+}
+
 func (me *Com) Link() {
 
 }

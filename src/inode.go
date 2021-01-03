@@ -27,6 +27,8 @@ type INode interface {
 	IsNot() bool
 	IsLog() bool
 
+	// 节点初始化
+	Init()
 	// 节点自身链接
 	Link()
 
