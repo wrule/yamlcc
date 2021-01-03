@@ -4,14 +4,16 @@ type INode interface {
 	Prev() INode
 	PrevN(int) INode
 	SetPrev(INode)
+
 	Nexts() []INode
 	NextDefs() map[string]*Def
 	NextLogs() []INode
 	NextOther() *Other
 	NextNots() []*Not
+	NextsIsEmpty() bool
+
 	Fasten(INode)
 	Fastens([]INode)
-	NextsIsEmpty() bool
 	AppendNexts(INode)
 
 	// 本节点头部匹配
