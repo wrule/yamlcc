@@ -13,7 +13,14 @@ type INode interface {
 	// 本节点头部匹配
 	BeginningOf(string) *Rst
 
+	IsRoot() bool
+	IsReg() bool
+	IsDef() bool
+	IsRef() bool
+	IsBack() bool
 	IsEnd() bool
+	IsOther() bool
+	IsNot() bool
 
 	// 节点自身链接
 	Link()

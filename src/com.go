@@ -1,10 +1,24 @@
 package main
 
 type Com struct {
-	srcValue interface{}
-	me       INode
-	prev     INode
-	nexts    []INode
+	srcValue  interface{}
+	me        INode
+	prev      INode
+	nexts     []INode
+	nextDefs  map[string]*Def
+	nextLogs  []INode
+	nextOther INode
+	nextNots  []INode
+}
+
+func (me *Com) updateNextDefs() {
+	me.nextDefs = map[string]*Def{}
+	for _, node := range me.nexts {
+		if node.IsDef() {
+			def := node.(*Def)
+			me.nextDefs[def.DefName()] = def
+		}
+	}
 }
 
 func (me *Com) Me() INode {
@@ -24,11 +38,6 @@ func (me *Com) Fastens(nexts []INode) {
 
 func (me *Com) Link() {
 
-}
-
-func (me *Com) IsEnd() bool {
-	_, ok := me.Me().(*End)
-	return ok
 }
 
 // NewCom 构造函数

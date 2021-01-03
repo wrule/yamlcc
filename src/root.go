@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type Root struct {
 	Com
 }
@@ -15,5 +17,5 @@ func NewRoot() *Root {
 }
 
 func (me *Root) Print() {
-
+	fmt.Printf("根节点\n")
 }
