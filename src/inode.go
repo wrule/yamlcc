@@ -1,6 +1,8 @@
 package main
 
 type INode interface {
+	SrcValue() interface{}
+
 	Prev() INode
 	PrevN(int) INode
 	SetPrev(INode)

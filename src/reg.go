@@ -36,5 +36,5 @@ func NewReg(text string) *Reg {
 
 // Print s
 func (me *Reg) Print() {
-	fmt.Printf("正则节点: %v\n", me.Regexp())
+	fmt.Printf("正则节点: %v\n", me.SrcValue())
 }

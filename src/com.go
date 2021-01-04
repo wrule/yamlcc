@@ -11,6 +11,10 @@ type Com struct {
 	nextNots  []*Not
 }
 
+func (me *Com) SrcValue() interface{} {
+	return me.srcValue
+}
+
 func (me *Com) Me() INode {
 	return me.me
 }
