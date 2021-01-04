@@ -1,5 +1,6 @@
 package main
 
+// INode 节点接口
 type INode interface {
 	SrcValue() interface{}
 
@@ -33,10 +34,11 @@ type INode interface {
 	IsNot() bool
 	IsLog() bool
 
-	// 节点初始化
+	// Init 节点初始化
 	Init()
-	// 节点自身链接
+	// Link 节点自身链接
 	Link()
 
+	// Print 打印节点信息
 	Print()
 }
