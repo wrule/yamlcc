@@ -19,7 +19,11 @@
       $exps: 1
     .other: .end
   $lp:
-    $exps: $rp
+    $exps:
+      $rp:
+        $opr:
+          $exps: 1
+        .other: .end
 
 # 关键字
 :kwd_if: if
