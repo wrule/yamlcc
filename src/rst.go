@@ -19,7 +19,7 @@ func (me *Rst) SetSuccess(value bool) {
 	me.success = value
 }
 
-// SuccessFull s
+// SuccessFull 获取完全匹配状态（完全匹配即完整匹配了整个字符串没有剩余）
 func (me *Rst) SuccessFull() bool {
 	return me.Success() && len(me.Next()) == 0
 }
