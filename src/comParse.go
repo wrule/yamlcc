@@ -4,6 +4,7 @@ import (
 	"sort"
 )
 
+// BeginningOfX s
 func (me *Com) BeginningOfX(text string) *Rst {
 	meRst := me.Me().BeginningOf(text)
 	if meRst.Success() {
@@ -54,6 +55,7 @@ func (me *Com) NextsBeginningOfX(text string) *Rst {
 	return NewRst("", text, true)
 }
 
+// NotsCheck s
 func (me *Com) NotsCheck(text string) bool {
 	for _, not := range me.NextNots() {
 		if rst := not.BeginningOfX(text); rst.SuccessFull() {
