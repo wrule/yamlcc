@@ -4,17 +4,22 @@ import (
 	"sort"
 )
 
+// BeginningOf s
+func (me *Com) BeginningOf(text string) *Rst {
+	return me.Me().BeginningOf(text)
+}
+
 // BeginningOfX s
 func (me *Com) BeginningOfX(text string) *Rst {
-	meRst := me.Me().BeginningOf(text)
-	if meRst.Success() {
-		nextRst := me.Me().NextsBeginningOfX(meRst.Next())
+	rst := me.BeginningOf(text)
+	if rst.Success() {
+		nextRst := me.NextsBeginningOfX(rst.Next())
 		if nextRst.Success() {
-			return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), true)
+			return NewRst(rst.Match()+nextRst.Match(), nextRst.Next(), true)
 		}
-		return NewRst(meRst.Match()+nextRst.Match(), nextRst.Next(), false)
+		return NewRst(rst.Match()+nextRst.Match(), nextRst.Next(), false)
 	}
-	return NewRst(meRst.Match(), meRst.Next(), false)
+	return rst
 }
 
 // NextsBeginningOfX s

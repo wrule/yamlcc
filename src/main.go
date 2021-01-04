@@ -19,6 +19,6 @@ func main() {
 	m := make(map[interface{}]interface{})
 	yaml.Unmarshal(bytes, &m)
 	root := Compile(m)
-	rst := root.GetDef("identifier").BeginningOf(`if`)
+	rst := root.GetDef("identifier").BeginningOf(`ifNum`)
 	rst.Print()
 }
